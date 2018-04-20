@@ -125,3 +125,20 @@ function getDatosUsuario($uname){
 
     return $datos;
 }
+
+function getClasificacion(){
+    $contador = 0;
+    $sql = "SELECT username, puntuacion from usuarios ORDER BY puntuacion DESC";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+
+    echo "<table class='table table-bordered'>";
+
+    while(datos = $res->fetch_assoc()){
+        $contador++;
+        echo "<tr><td>".$contador."</td><td>".$datos['username']."</td><td>".$datos['puntuacion']."</td></tr>";
+    }
+
+    echo "</table>";
+
+}
