@@ -128,25 +128,67 @@ function getDatosUsuario($uname){
 
 function getClasificacion($uname){
     $contador = 0;
-    $sql = "SELECT username, puntuacion from usuarios ORDER BY puntuacion DESC";
+    $sql = "SELECT id_usuario,username, puntuacion from usuarios ORDER BY puntuacion DESC";
     $conexion = conectar();
     $res = $conexion->query($sql);
 
-    echo "<table class='table table-bordered'>";
 
-    while(datos = $res->fetch_assoc()){
+    echo "<table class='table table-bordered'>";
+    echo "<tr><td><b>Puesto</b></td><td><b>Usuario</b></td><td><b>Partidas Jugadas</b></td><td><b>Victorias</b></td><td><b>Empates</b></td><td><b>Derrotas</b></td><td><b>Puntos</b></td></tr>";
+    while($datos = $res->fetch_assoc()){
         $contador++;
-        
+        $da = getDatosUsuario($datos['username']);
         if($uname == $datos['username']){
 
-            echo "<tr><th>".$contador."</th><th>".$datos['username']."</th><th>".$datos['puntuacion']."</th></tr>";
+            echo "<tr class='alert-success'><td><b>".$contador."º</b></td><td><b>".$datos['username']."</b></td><td><b>".contPartidasjugadas($da['id_usuario'])."</b></td>
+                <td><b>".contPartidasganadas($da['id_usuario'])."</b></td><td><b>".contPartidasempatadas($da['id_usuario'])."</b></td><td><b>".contPartidasperdidas($da['id_usuario'])."</b></td><td><b>".$datos['puntuacion']."</b></td></tr>";
 
         }else{
 
-            echo "<tr><td>".$contador."</td><td>".$datos['username']."</td><td>".$datos['puntuacion']."</td></tr>";
+            echo "<tr><td>".$contador."º</td><td>".$datos['username']."</td><td>".contPartidasjugadas($da['id_usuario'])."</td>
+                <td>".contPartidasganadas($da['id_usuario'])."</td><td>".contPartidasempatadas($da['id_usuario'])."</td><td>".contPartidasperdidas($da['id_usuario'])."</td><td>".$datos['puntuacion']."</td></tr>";
         }
     }
 
     echo "</table>";
 
+}
+
+function contPartidasjugadas($id){
+    $sql = "SELECT COUNT(*) from partidas WHERE visitante=$id OR local=$id";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = $res->fetch_assoc();
+    return $datos['COUNT(*)'];
+}
+
+function contPartidasganadas($id){
+    $sql = "SELECT COUNT(*) from partidas WHERE (local=$id AND resultado=1) OR (visitante=$id AND resultado=2)";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $local = $res->fetch_assoc();
+
+    return $local['COUNT(*)'];
+}
+
+function contPartidasperdidas($id){
+    $sql = "SELECT COUNT(*) from partidas WHERE (local=$id AND resultado=2) OR (visitante=$id AND resultado=1)";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $local = $res->fetch_assoc();
+
+    return $local['COUNT(*)'];
+}
+
+function contPartidasempatadas($id){
+    $sql = "SELECT COUNT(*) from partidas WHERE (local=$id AND resultado='X') OR (visitante=$id AND resultado='X')";
+    //$sql2 = "SELECT COUNT(*) from partidas WHERE visitante=$id AND resultado=1";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $local = $res->fetch_assoc();
+
+    //$r = $conexion->query($sql2);
+   // $visit = $r->fetch_assoc();
+
+    return $local['COUNT(*)'];
 }

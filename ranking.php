@@ -126,7 +126,7 @@ if(isset($_SESSION['usuario'])) {
             <hr>
 
             <?php
-            getClasificacion();
+            getClasificacion($datos_usuario['username']);
             ?>
 
 

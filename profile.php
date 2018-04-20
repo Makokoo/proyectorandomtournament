@@ -7,12 +7,48 @@
  */
 include_once 'funciones.php';
 session_start();
-
+$cuenta = 0;
 $datos_usuario['username'] = "";
 
 if(isset($_SESSION['usuario'])) {
     $datos_usuario = getDatosUsuario($_SESSION['usuario']);
+
 }
+
+$partidas_jugadas = contPartidasjugadas($datos_usuario['id_usuario']);
+$partidas_ganadas = contPartidasganadas($datos_usuario['id_usuario']);
+$partidas_empatadas = contPartidasempatadas($datos_usuario['id_usuario']);
+$partidas_perdidas = contPartidasperdidas($datos_usuario['id_usuario']);
+
+$porcganadas = 0;
+$porcperdidas = 0;
+$porcempatadas = 0;
+
+
+
+
+if($partidas_jugadas > 0) {
+    if ($partidas_ganadas == 0) {
+        $porcganadas = 0;
+    } else {
+        $porcganadas = (100 * $partidas_ganadas) / $partidas_jugadas;
+    }
+
+    if($partidas_empatadas == 0){
+        $porcempatadas = 0;
+    }else {
+        $porcempatadas = (100 * $partidas_empatadas) / $partidas_jugadas;
+    }
+
+    if($partidas_perdidas == 0){
+        $porcperdidas = 0;
+    }else{
+        $porcperdidas = (100 * $partidas_perdidas) / $partidas_jugadas;
+    }
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -135,24 +171,25 @@ if(isset($_SESSION['usuario'])) {
 
             <h3 class="text-center">Estadísticas</h3>
             <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" style="width:70%">
-                    Victorias
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:<?=$porcganadas?>%">
+                    Victorias(<?=$porcganadas?>%)
                 </div>
-                <div class="progress-bar progress-bar-warning" role="progressbar" style="width:10%">
-                    Empates
+                <div class="progress-bar progress-bar-warning" role="progressbar" style="width:<?=$porcempatadas?>%">
+                    Empates(<?=$porcempatadas?>%)
                 </div>
-                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">
-                    Derrotas
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:<?=$porcperdidas?>%">
+                    Derrotas(<?=$porcperdidas?>%)
                 </div>
             </div>
             <table class="table text-center">
-                <td>Partidas Jugadas:</td> <td><input readonly value="<?=$datos_usuario['username']?>"></td></tr>
-                <tr><td>Victorias</td><td><input readonly value="<?=$datos_usuario['mail']?>"></td></tr>
-                <tr><td>Empates</td><td><input readonly value="<?=$datos_usuario['mail']?>"></td></tr>
-                <tr><td>Derrotas</td><td><input readonly value="<?=$datos_usuario['mail']?>"></td></tr>
-                <tr><td>Torneos Ganados:</td><td><input readonly value="<?=$datos_usuario['mail']?>"></td></tr>
-                <tr><td>Puntuación Total:</td><td><input readonly value="<?=$datos_usuario['mail']?>"></td></tr>
-                <tr><td>Puesto clasificación:</td><td><input readonly value="<?=$datos_usuario['mail']?>"></td></tr>
+                <td>Partidas Jugadas:</td> <td><?=contPartidasjugadas($datos_usuario['id_usuario'])?></td></tr>
+                <tr><td>Victorias</td><td><?=contPartidasganadas($datos_usuario['id_usuario'])?></td></tr>
+                <tr><td>Empates</td><td><?=contPartidasempatadas($datos_usuario['id_usuario'])?></td></tr>
+
+                <tr><td>Derrotas</td><td><?=contPartidasperdidas($datos_usuario['id_usuario'])?></td></tr>
+                <tr><td>Torneos Ganados:</td><td><?=$datos_usuario['mail']?></td></tr>
+                <tr><td>Puntuación Total:</td><td><?=$datos_usuario['puntuacion']?></td></tr>
+                <tr><td>Puesto clasificación:</td><td><?=$datos_usuario['mail']?></td></tr>
             </table>
 
         </div>
