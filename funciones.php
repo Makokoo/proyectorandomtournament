@@ -126,7 +126,7 @@ function getDatosUsuario($uname){
     return $datos;
 }
 
-function getClasificacion(){
+function getClasificacion($uname){
     $contador = 0;
     $sql = "SELECT username, puntuacion from usuarios ORDER BY puntuacion DESC";
     $conexion = conectar();
@@ -136,7 +136,15 @@ function getClasificacion(){
 
     while(datos = $res->fetch_assoc()){
         $contador++;
-        echo "<tr><td>".$contador."</td><td>".$datos['username']."</td><td>".$datos['puntuacion']."</td></tr>";
+        
+        if($uname == $datos['username']){
+
+            echo "<tr><th>".$contador."</th><th>".$datos['username']."</th><th>".$datos['puntuacion']."</th></tr>";
+
+        }else{
+
+            echo "<tr><td>".$contador."</td><td>".$datos['username']."</td><td>".$datos['puntuacion']."</td></tr>";
+        }
     }
 
     echo "</table>";
