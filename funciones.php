@@ -192,3 +192,47 @@ function contPartidasempatadas($id){
 
     return $local['COUNT(*)'];
 }
+
+function getDatosJuego($id){
+    $sql = "SELECT * from juegos WHERE id_juego=$id";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = $res->fetch_assoc();
+
+
+    return $datos;
+}
+
+function getTorneosActivos(){
+    $sql = "SELECT * FROM torneos WHERE estado LIKE 'nuevo' OR estado LIKE 'iniciado'";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    echo "<ul class=\"list-group\">";
+    while($data = $res->fetch_assoc()){
+        $id = $data['id_juego'];
+        $juego = getDatosJuego($data['id_juego']);
+        echo"<a href='tdetails.php?id=$id'>
+    <li class='list-group-item d-flex justify-content-between align-items-center'><b>".$juego['nombre']."</b> - ".$data['nombre_torneo']."
+        <span class='badge badge-pill badge-success'>".$data['total_participantes']."/".$data['max_participantes']."</span>
+    </li>
+    </a>";
+    }
+    echo "</ul>";
+}
+
+function getTorneosFinalizados(){
+    $sql = "SELECT * FROM torneos WHERE estado LIKE 'finalizado'";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    echo "<ul class=\"list-group\">";
+    while($data = $res->fetch_assoc()){
+        $id = $data['id_juego'];
+        $juego = getDatosJuego($data['id_juego']);
+        echo"<a href='tdetails.php?id=$id'>
+    <li class='list-group-item d-flex justify-content-between align-items-center'><b>".$juego['nombre']."</b> - ".$data['nombre_torneo']."
+        <span class='badge badge-pill badge-success'>".$data['total_participantes']."/".$data['max_participantes']."</span>
+    </li>
+    </a>";
+    }
+    echo "</ul>";
+}
