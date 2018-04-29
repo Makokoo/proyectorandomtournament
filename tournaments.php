@@ -121,7 +121,11 @@ if(isset($_SESSION['usuario'])) {
         <div class="col-sm-8 text-left">
 
             <?php
+            echo "<h1>Torneos Activos</h1>";
             getTorneosActivos();
+            echo "<hr>";
+            echo "<h1>Torneos Finalizados</h1>";
+            getTorneosFinalizados();
             ?>
 
         </div>

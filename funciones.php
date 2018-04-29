@@ -126,6 +126,16 @@ function getDatosUsuario($uname){
     return $datos;
 }
 
+function getNombreId($id){
+    $sql = "SELECT username from usuarios WHERE id_usuario = $id";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = $res->fetch_assoc();
+
+
+    return $datos['username'];
+}
+
 function getClasificacion($uname){
     $contador = 0;
     $sql = "SELECT id_usuario,username, puntuacion from usuarios ORDER BY puntuacion DESC";
@@ -209,13 +219,14 @@ function getTorneosActivos(){
     $res = $conexion->query($sql);
     echo "<ul class=\"list-group\">";
     while($data = $res->fetch_assoc()){
-        $id = $data['id_juego'];
+
+        $id = $data['id_torneo'];
         $juego = getDatosJuego($data['id_juego']);
         echo"<a href='tdetails.php?id=$id'>
-    <li class='list-group-item d-flex justify-content-between align-items-center'><b>".$juego['nombre']."</b> - ".$data['nombre_torneo']."
-        <span class='badge badge-pill badge-success'>".$data['total_participantes']."/".$data['max_participantes']."</span>
-    </li>
-    </a>";
+            <li class='list-group-item d-flex justify-content-between align-items-center'><b>".$juego['nombre']."</b> - ".$data['nombre_torneo']."
+                <span class='badge badge-pill badge-success'>".$data['total_participantes']."/".$data['max_participantes']."</span>
+            </li>
+        </a>";
     }
     echo "</ul>";
 }
@@ -226,7 +237,8 @@ function getTorneosFinalizados(){
     $res = $conexion->query($sql);
     echo "<ul class=\"list-group\">";
     while($data = $res->fetch_assoc()){
-        $id = $data['id_juego'];
+
+        $id = $data['id_torneo'];
         $juego = getDatosJuego($data['id_juego']);
         echo"<a href='tdetails.php?id=$id'>
     <li class='list-group-item d-flex justify-content-between align-items-center'><b>".$juego['nombre']."</b> - ".$data['nombre_torneo']."
@@ -236,3 +248,28 @@ function getTorneosFinalizados(){
     }
     echo "</ul>";
 }
+
+function getDatosTorneo($id){
+    $sql = "SELECT * FROM torneos WHERE id_torneo = $id";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = $res->fetch_assoc();
+
+    return $datos;
+}
+
+function getPartidasTorneo($id_torneo)
+{
+    $sql = "SELECT * FROM partidas WHERE id_torneo = $id_torneo";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = [];
+
+    while ($data = $res->fetch_assoc()) {
+        $datos[] = $data;
+    }
+    return $datos;
+}
+
+
+
