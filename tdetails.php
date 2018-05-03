@@ -15,37 +15,7 @@ if(isset($_SESSION['usuario'])) {
 
 }
 
-$partidas_jugadas = contPartidasjugadas($datos_usuario['id_usuario']);
-$partidas_ganadas = contPartidasganadas($datos_usuario['id_usuario']);
-$partidas_empatadas = contPartidasempatadas($datos_usuario['id_usuario']);
-$partidas_perdidas = contPartidasperdidas($datos_usuario['id_usuario']);
 
-$porcganadas = 0;
-$porcperdidas = 0;
-$porcempatadas = 0;
-
-
-
-
-if($partidas_jugadas > 0) {
-    if ($partidas_ganadas == 0) {
-        $porcganadas = 0;
-    } else {
-        $porcganadas = (100 * $partidas_ganadas) / $partidas_jugadas;
-    }
-
-    if($partidas_empatadas == 0){
-        $porcempatadas = 0;
-    }else {
-        $porcempatadas = (100 * $partidas_empatadas) / $partidas_jugadas;
-    }
-
-    if($partidas_perdidas == 0){
-        $porcperdidas = 0;
-    }else{
-        $porcperdidas = (100 * $partidas_perdidas) / $partidas_jugadas;
-    }
-}
 
 
 
@@ -96,84 +66,6 @@ if($partidas_jugadas > 0) {
             }
             .row.content {height:auto;}
         }
-
-
-
-
-
-
-
-
-        .tournament{width:720px;}
-
-        .round{
-            float:left;
-        }
-
-        .player{
-            font-family:arial;
-            width:120px;
-            height:40px;
-            padding:10px;
-            background:#73789F;
-            color:white;
-        }
-
-        .player.winner{background:green;}
-
-        .match{
-            padding:5px 50px 5px 0px;
-        }
-
-        /*QUARTER-FINALS*/
-        .quarter-finals .match{
-            height:100px;
-            background:right top no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABkAQMAAAD+JvEYAAAAA3NCSVQICAjb4U/gAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFnRFWHRDcmVhdGlvbiBUaW1lADEwLzEwLzEyGAKeIwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNAay06AAAAAnSURBVCiRY/gPBgcYhjoNBPZQ/v4hQjeAHD0I3IGXRgpXqsbXEKEB2yGL0P7iVKIAAAAASUVORK5CYII=);
-        }
-        .quarter-finals .player{
-
-        }
-        .quarter-finals .player:first-child{
-            margin-bottom:5px;
-        }
-
-        /*SEMI-FINALS*/
-        .semi-finals .match{
-            padding-top:30px;
-            height:185px;
-            background:right top no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAC5AQMAAABQhv7pAAAAA3NCSVQICAjb4U/gAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFnRFWHRDcmVhdGlvbiBUaW1lADEwLzEwLzEyGAKeIwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNAay06AAAAArSURBVDiNY/gPBgcYRumBpYHAHsrfP0oPKboBFHmDwB2jNAk0Un77PwxoAJbztvAUr3KAAAAAAElFTkSuQmCC);
-        }
-
-        .semi-finals .player:first-child{
-            margin-bottom:70px;
-        }
-
-        /*FINALS*/
-        .finals .match{
-            padding-top:85px;
-            height:350px;
-            background:top right no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAFeAQMAAAD9sN5nAAAAA3NCSVQICAjb4U/gAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFnRFWHRDcmVhdGlvbiBUaW1lADEwLzEwLzEyGAKeIwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNAay06AAAAA0SURBVEiJY/gPBgcYRulRepQmngYCeyh//yg9So/Sg45uAGXSQeCOUXqUHrI0Uj33fxjQAEJS8U50LMSKAAAAAElFTkSuQmCC);
-        }
-
-        .finals .player:first-child{
-            margin-bottom:180px;
-
-        }
-        /* CHAMP*/
-        .champion{padding-top:200px;}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         .col-1-8 {
@@ -312,51 +204,74 @@ if($partidas_jugadas > 0) {
                 $datos_partidas = getPartidasTorneo($id);
                 $contador = 0;
 
-                //echo '<pre>';
-                //var_dump(getPartidasTorneo($id));
-                //echo '</pre>';
+                $primera_ronda = getPrimeraRonda($id);
+                $segunda_ronda = getSegundaRonda($id);
+                $final_ronda = getFinal($id);
+                echo "<h1 class='text-center'> DATOS TORNEO ".strtoupper($datos_torneo['nombre_torneo'])."</h1>";
+                echo "<div class='col-100'>";
+                echo "<div class=\"col-1-8\">";
 
-
-        //PRIMERA RONDA
-                ?>
-                <div class="col-1-8">
-
-                    <?php
-                    for($i=0; $i<($datos_torneo['max_participantes']/2); $i++){
-                        if($i < count($datos_partidas)) {
-                            echo "<ul class='matchup'>
-                            <li><span class='seed'>" . $datos_partidas[$i]['local'] . "</span> " . getNombreId($datos_partidas[$i]['local']) . "<span class='score'></span></li>
-                            <li><span class='seed'>" . $datos_partidas[$i]['visitante'] . "</span> " . getNombreId($datos_partidas[$i]['visitante']) . "<span class='score'></span></li>
+                for ($i = 0 ; $i<count($primera_ronda) ; $i++){
+                    $id_partida = $datos_partidas[$i]['id_partida'];
+                    echo "<ul class='matchup'>
+                            <a href='viewmatch.php?id=$id_partida'><li><span class='seed'>" . $datos_partidas[$i]['local'] . "</span> " . getNombreId($datos_partidas[$i]['local']) . "<span class='score'></span></li></a>
+                            <a href='viewmatch.php?id=$id_partida'><li><span class='seed'>" . $datos_partidas[$i]['visitante'] . "</span> " . getNombreId($datos_partidas[$i]['visitante']) . "<span class='score'></span></li></a>
                             </ul>";
+                    $contador++;
+                }
 
-                            $contador++;
-
-                        }else{
-                            echo "<ul class='matchup'>
+                while($contador<4){
+                    echo "<ul class='matchup'>
                             <li><span class='seed'></span> <span class='score'></span></li>
                             <li><span class='seed'></span> <span class='score'></span></li>
                             </ul>";
-                        }
+                    $contador++;
+                }
+
+                echo "</div>";
+
+                echo "<div class=\"col-1-8\">";
+                $contador = 0;
+                for ($i = 0 ; $i<count($segunda_ronda) ; $i++){
+                    $id_partida = $segunda_ronda[$i]['id_partida'];
+                    if($contador == 0) {
+                        echo "<div class='round-two-top'><ul class='matchup'>
+                            <a href='viewmatch.php?id=$id_partida'><li><span class='seed'>" . $segunda_ronda[$i]['local'] . "</span> " . getNombreId($segunda_ronda[$i]['local']) . "<span class='score'></span></li></a>
+                            <a href='viewmatch.php?id=$id_partida'><li><span class='seed'>" . $segunda_ronda[$i]['visitante'] . "</span> " . getNombreId($segunda_ronda[$i]['visitante']) . "<span class='score'></span></li></a>
+                            </ul></div>";
+
+                    }else if( $contador == 1){
+                        echo "<div class='round-two-bottom'><ul class='matchup'>
+                            <a href='viewmatch.php?id=$id_partida'><li><span class='seed'>" . $segunda_ronda[$i]['local'] . "</span> " . getNombreId($segunda_ronda[$i]['local']) . "<span class='score'></span></li></a>
+                            <a href='viewmatch.php?id=$id_partida'><li><span class='seed'>" . $segunda_ronda[$i]['visitante'] . "</span> " . getNombreId($segunda_ronda[$i]['visitante']) . "<span class='score'></span></li></a>
+                            </ul></div>";
+                    }
+                    $contador++;
+                }
+
+                while($contador<2){
+                    if($contador == 0){
+                        echo "<div class='round-two-top'><ul class='matchup'>
+                            <li><span class='seed'></span> <span class='score'></span></li>
+                            <li><span class='seed'></span> <span class='score'></span></li>
+                            </ul></div>";
+                        $contador++;
+                    }else if($contador == 1){
+                        echo "<div class='round-two-bottom'><ul class='matchup'>
+                            <li><span class='seed'></span> <span class='score'></span></li>
+                            <li><span class='seed'></span> <span class='score'></span></li>
+                            </ul></div>";
+                        $contador++;
                     }
 
+                }
 
-                    if($contador < ($datos_torneo['max_participantes']/2)){
-                        echo "</div>
-                    <div class='col-1-8'>
-                        <div class='round-two-top'>
-                            <ul class='matchup'>
-                                <li><span class='seed'></span> <span class='score'></span></li>
-                                <li><span class='seed'></span> <span class='score'></span></li>
-                            </ul>
-                        </div>
-                        <div class='round-two-bottom'>
-                            <ul class='matchup round-two-bottom'>
-                                <li><span class='seed'></span> <span class='score'></span></li>
-                                <li><span class='seed'></span> <span class='score'></span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class='col-1-8 champ'>
+
+                echo "</div>";
+
+                if(count($final_ronda)== 0 ) {
+
+                    echo "<div class='col-1-8 champ'>
                         <div class='round-three'>
                             <ul class='matchup'>
                                 <li><span class='seed'></span> <span class='score'></span></li>
@@ -364,25 +279,53 @@ if($partidas_jugadas > 0) {
                             </ul>
                         </div>
                     </div>";
+                }else{
+                    $id_partida = $final_ronda[0]['id_partida'];
+                    echo "<div class='col-1-8 champ'>
+                        <div class='round-three'>
+                            <ul class='matchup'>
+                                <a href='viewmatch.php?id=$id_partida'><li><span class='seed'>".$final_ronda[0]['local']."</span> ".getNombreId($final_ronda[0]['local'])." <span class='score'></span></li></a>
+                                <a href='viewmatch.php?id=$id_partida'><li><span class='seed'>".$final_ronda[0]['visitante']."</span> ".getNombreId($final_ronda[0]['visitante'])." <span class='score'></span></li></a>
+                            </ul>
+                        </div>
+                    </div>";
+                }
+                echo "<h1 class='text-center' style='padding-top: 125px'>GANADOR: ".getNombreId($datos_torneo['ganador'])."</h1>";
+                echo "</div><p></p><br>";
 
+
+                echo "<h2 class='text-center'>RESULTADOS</h2><table class='table table-bordered text-center'>";
+                echo "<th class='text-center'>RONDA</th><th class='text-center'>LOCAL</th><th class='text-center'>VISITANTE</th>";
+                for ($i = 0 ; $i<count($datos_partidas) ; $i++) {
+                    echo "<tr>";
+
+                    if($datos_partidas[$i]['ronda'] == 1){
+                        echo "<td>CUARTOS</td>";
+                    }else if($datos_partidas[$i]['ronda'] == 2){
+                        echo "<td>SEMIFINAL</td>";
+                    }else if($datos_partidas[$i]['ronda'] == 3){
+                        echo "<td>FINAL</td>";
                     }
-                    ?>
+
+                    if($datos_partidas[$i]['resultado'] == $datos_partidas[$i]['local']){
+                        echo "<td class='success'>".getNombreId($datos_partidas[$i]['local'])."</td>";
+                    }else{
+                        echo "<td class='danger'>".getNombreId($datos_partidas[$i]['local'])."</td>";
+                    }
+
+                    if($datos_partidas[$i]['resultado'] == $datos_partidas[$i]['visitante']){
+                        echo "<td class='success'>".getNombreId($datos_partidas[$i]['visitante'])."</td>";
+                    }else{
+                        echo "<td class='danger'>".getNombreId($datos_partidas[$i]['visitante'])."</td>";
+                    }
+
+                    echo "</tr>";
+
+                }
 
 
+                echo"</table>";
 
-
-
-
-
-
-
-
-
-
-
-
-
-                <?php
 
 
 

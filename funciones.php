@@ -271,5 +271,41 @@ function getPartidasTorneo($id_torneo)
     return $datos;
 }
 
+function getPrimeraRonda($id_torneo){
+    $sql = "SELECT * FROM partidas WHERE id_torneo = $id_torneo AND ronda=1";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = [];
+
+    while ($data = $res->fetch_assoc()) {
+        $datos[] = $data;
+    }
+    return $datos;
+}
+
+function getSegundaRonda($id_torneo){
+    $sql = "SELECT * FROM partidas WHERE id_torneo = $id_torneo AND ronda=2";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = [];
+
+    while ($data = $res->fetch_assoc()) {
+        $datos[] = $data;
+    }
+    return $datos;
+}
+
+function getFinal($id_torneo){
+    $sql = "SELECT * FROM partidas WHERE id_torneo = $id_torneo AND ronda=3";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = [];
+
+    while ($data = $res->fetch_assoc()) {
+        $datos[] = $data;
+    }
+    return $datos;
+}
+
 
 
