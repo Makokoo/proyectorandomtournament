@@ -196,13 +196,43 @@ if(isset($_SESSION['usuario'])) {
 
             <?php
             //Si me pasan una id muestro el bracket y la información del torneo
-            if(isset($_GET['id'])){
-                $id = $_GET['id'];
+            if(isset($_GET['id']) || isset($_POST['idtournament'])){
+                if(isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                }else if(isset($_POST['idtournament'])){
+                    $id = $_POST['idtournament'];
+                }
                 $datos_torneo = getDatosTorneo($id);
                 $lista = $datos_torneo['participantes'];
                 $participantes = explode(",", $lista);
                 $datos_partidas = getPartidasTorneo($id);
                 $contador = 0;
+
+
+
+                if(isset($_POST['idtournament'])){
+                    if(!yainscrito($datos_torneo['id_torneo'],$_SESSION['usuario'])) {
+                        $conexion = conectar();
+                        $conexion->begin_transaction();
+                        if ($lista == "" || $lista == null) {
+                            $nuevo = getid($_SESSION['usuario']);
+                        } else {
+                            $nuevo = $lista . "," . getid($_SESSION['usuario']);
+                        }
+                        $sql = "UPDATE torneos SET participantes = '$nuevo' WHERE id_torneo =" . $datos_torneo['id_torneo'];
+
+                        $conexion->query($sql);
+                        if (!$conexion->affected_rows > 0) {
+                            $conexion->rollback();
+
+                        } else {
+                            $conexion->commit();
+
+                        }
+                    }
+                }
+
+
 
                 $primera_ronda = getPrimeraRonda($id);
                 $segunda_ronda = getSegundaRonda($id);
@@ -290,8 +320,32 @@ if(isset($_SESSION['usuario'])) {
                         </div>
                     </div>";
                 }
-                echo "<h1 class='text-center' style='padding-top: 125px'>GANADOR: ".getNombreId($datos_torneo['ganador'])."</h1>";
-                echo "</div><p></p><br>";
+
+                if(hayganador($datos_torneo['id_torneo'])) {
+                    echo "<h1 class='text-center' style='padding-top: 125px'>GANADOR: " . getNombreId($datos_torneo['ganador']) . "</h1>";
+                    echo "</div><p></p><br>";
+                }
+
+                if(!torneolleno($datos_torneo['id_torneo'])){
+                    if(yainscrito($datos_torneo['id_torneo'], getid($_SESSION['usuario']))){
+                        echo "<h1 class='text-center' style='color:red;padding-top: 125px'>Ya estás inscrito en este torneo!</h1>";
+                        echo "</div><p></p><br>";
+                    }else if(isset($_SESSION['usuario'])) {
+                        echo "<h1 class='text-center' style='padding-top: 125px'>INSCRíBETE</h1>";
+                        echo "<form method='post' action='tdetails.php'>";
+                        echo "<input type='hidden' name='idtournament' id='idtournament' value='$id'>";
+                        echo "<input type='submit' name='inscripcion' id='inscripcion' value='Inscribete Aquí'>";
+                        echo "</div><p></p><br>";
+                    }else{
+                        echo "<h1 class='text-center' style='padding-top: 125px'>INICIA SESIÓN PARA INSCRIBIRTE</h1>";
+                        echo "</div><p></p><br>";
+                    }
+                }else{
+                    echo "<h1 class='text-center' style='padding-top: 125px'>INSCRIPCIONES</h1> <h1 class='text-center' style='color:red'>CERRADAS</h1>";
+                    echo "</div><p></p><br>";
+                }
+
+
 
 
                 echo "<h2 class='text-center'>RESULTADOS</h2><table class='table table-bordered text-center'>";

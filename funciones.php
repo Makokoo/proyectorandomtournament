@@ -214,7 +214,7 @@ function getDatosJuego($id){
 }
 
 function getTorneosActivos(){
-    $sql = "SELECT * FROM torneos WHERE estado LIKE 'nuevo' OR estado LIKE 'iniciado'";
+    $sql = "SELECT * FROM torneos WHERE estado LIKE 'abierto' OR estado LIKE 'iniciado'";
     $conexion = conectar();
     $res = $conexion->query($sql);
     echo "<ul class=\"list-group\">";
@@ -256,6 +256,18 @@ function getDatosTorneo($id){
     $datos = $res->fetch_assoc();
 
     return $datos;
+}
+
+function hayganador($id){
+    $sql = "SELECT ganador FROM torneos WHERE id_torneo = $id";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $datos = $r->fetch_assoc();
+    if($datos['ganador'] == null){
+        return false;
+    }else{
+        return true;
+    }
 }
 
 function getPartidasTorneo($id_torneo)
@@ -307,5 +319,32 @@ function getFinal($id_torneo){
     return $datos;
 }
 
+function torneolleno($id_torneo){
+    $sql = "SELECT participantes FROM torneos WHERE id_torneo = $id_torneo";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $datos = $r->fetch_assoc();
+    $x = explode(",",$datos['participantes']);
 
+    if(count($x)<7){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function yainscrito($id_torneo,$id_usuario){
+    $si = false;
+    $sql = "SELECT participantes FROM torneos WHERE id_torneo = $id_torneo";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $datos = $r->fetch_assoc();
+    $x = explode(",",$datos['participantes']);
+    for ($i = 0 ; $i<count($x) ; $i++){
+        if($x[$i] == $id_usuario){
+            $si =  true;
+        }
+    }
+    return $si;
+}
 
