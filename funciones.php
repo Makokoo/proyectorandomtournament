@@ -326,7 +326,7 @@ function torneolleno($id_torneo){
     $datos = $r->fetch_assoc();
     $x = explode(",",$datos['participantes']);
 
-    if(count($x)<7){
+    if(count($x)<8){
         return false;
     }else{
         return true;
@@ -348,3 +348,19 @@ function yainscrito($id_torneo,$id_usuario){
     return $si;
 }
 
+function getPartida($id_partida){
+    $sql = "SELECT * FROM partidas WHERE id_partida = $id_partida";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+
+
+    return $res->fetch_assoc();
+}
+
+function getImagenPersonaje($id){
+    $sql = "SELECT imagen FROM personajes WHERE id_personaje = $id";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+
+    return $res->fetch_assoc();
+}

@@ -324,25 +324,35 @@ if(isset($_SESSION['usuario'])) {
                 if(hayganador($datos_torneo['id_torneo'])) {
                     echo "<h1 class='text-center' style='padding-top: 125px'>GANADOR: " . getNombreId($datos_torneo['ganador']) . "</h1>";
                     echo "</div><p></p><br>";
-                }
+                }else {
 
-                if(!torneolleno($datos_torneo['id_torneo'])){
-                    if(yainscrito($datos_torneo['id_torneo'], getid($_SESSION['usuario']))){
-                        echo "<h1 class='text-center' style='color:red;padding-top: 125px'>Ya estás inscrito en este torneo!</h1>";
-                        echo "</div><p></p><br>";
-                    }else if(isset($_SESSION['usuario'])) {
-                        echo "<h1 class='text-center' style='padding-top: 125px'>INSCRíBETE</h1>";
-                        echo "<form method='post' action='tdetails.php'>";
-                        echo "<input type='hidden' name='idtournament' id='idtournament' value='$id'>";
-                        echo "<input type='submit' name='inscripcion' id='inscripcion' value='Inscribete Aquí'>";
-                        echo "</div><p></p><br>";
-                    }else{
-                        echo "<h1 class='text-center' style='padding-top: 125px'>INICIA SESIÓN PARA INSCRIBIRTE</h1>";
+                    if (!torneolleno($datos_torneo['id_torneo']) && !hayganador($datos_torneo['id_torneo'])) {
+
+                        if (yainscrito($datos_torneo['id_torneo'], getid($_SESSION['usuario']))) {
+                            echo "<h1 class='text-center' style='color:red;padding-top: 125px'>Ya estás inscrito en este torneo!</h1>";
+                            echo "</div><p></p><br>";
+                        } else {
+                            if (isset($_SESSION['usuario'])) {
+
+                                echo "<h1 class='text-center' style='padding-top: 125px'>INSCRíBETE</h1>";
+                                echo "<form method='post' action='tdetails.php'>";
+                                echo "<input type='hidden' name='idtournament' id='idtournament' value='$id'>";
+                                echo "<input type='submit' name='inscripcion' id='inscripcion' value='Inscribete Aquí'>";
+
+
+                            } else {
+
+                                echo "<h1 class='text-center' style='padding-top: 125px'>INICIA SESIÓN PARA INSCRIBIRTE</h1>";
+
+                            }
+                            echo "</div><p></p><br>";
+                        }
+
+
+                    } else {
+                        echo "<h1 class='text-center' style='padding-top: 125px'>INSCRIPCIONES</h1> <h1 class='text-center' style='color:red'>CERRADAS</h1>";
                         echo "</div><p></p><br>";
                     }
-                }else{
-                    echo "<h1 class='text-center' style='padding-top: 125px'>INSCRIPCIONES</h1> <h1 class='text-center' style='color:red'>CERRADAS</h1>";
-                    echo "</div><p></p><br>";
                 }
 
 
@@ -402,9 +412,7 @@ if(isset($_SESSION['usuario'])) {
     </div>
 </div>
 
-<footer class="container-fluid text-center">
-    <p>Footer Text</p>
-</footer>
+
 
 </body>
 </html>
