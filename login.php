@@ -2,79 +2,33 @@
 include_once "funciones.php";
 session_start();
 ?>
-<!DOCTYPE html>
+
+<!doctype html>
 <html>
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+
+    <title>Homepage</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        form {border: 3px solid #f1f1f1;}
+        .container{
 
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        .cancelbtn {
-            width: auto;
-            padding: 10px 18px;
-            background-color: #f44336;
-        }
-
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-        }
-
-        img.avatar {
-            width: 20%;
-            border-radius: 50%;
-        }
-
-        .container {
-            padding: 16px;
-        }
-
-        span.psw {
-            float: right;
-            padding-top: 16px;
-        }
-
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
-            .cancelbtn {
-                width: 100%;
-            }
         }
     </style>
-
     <script>
         function goBack() {
             window.history.back();
@@ -82,31 +36,40 @@ session_start();
     </script>
 
 </head>
+
 <body>
-
-
-<form action="login.php" method="post">
-    <div class="imgcontainer">
-        <img src="media/trophy.png" alt="Avatar" class="avatar">
-    </div>
-
+<header class="header" id="header">
+    <!--header-start-->
     <div class="container">
-        <label for="uname"><b>Usuario</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+        <figure class="logo animated fadeInDown delay-07s">
+            <a href="#"><img src="img/logo.png" alt=""></a>
+        </figure>
+        <h1 class="animated fadeInDown delay-07s">Bienvenido a RandomTournaments</h1>
+        <form action="login.php" method="post">
+            <div class="container">
+                <label for="uname"><b>Usuario</b></label>
+                <input type="text" class="form-control input-text" placeholder="Enter Username" name="uname" id="uname" required>
+                <br>
+                <label for="psw"><b>Contraseña</b></label>
+                <input type="password" class="form-control input-text" placeholder="Enter Password" name="psw" id="psw" required>
 
-        <label for="psw"><b>Contraseña</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                <button class="link animated fadeInUp delay-1s servicelink" type="submit">Iniciar Sesión</button>
+            </div>
 
-        <button type="submit">Iniciar Sesión</button>
+
+                <button type="button" onclick="goBack()" class="cancelbtn">Volver</button>
+                <span class="psw">¿No tienes cuenta? <a href="register.php">Registrate aquí</a></span>
+
+        </form>
     </div>
+</header>
+<!--header-end-->
 
-    <div class="container" style="background-color:#f1f1f1">
-        <button type="button" onclick="goBack()" class="cancelbtn">Volver</button>
-        <span class="psw">¿No tienes cuenta? <a href="register.php">Registrate aquí</a></span>
-    </div>
-</form>
+
+
 
 </body>
+
 </html>
 
 <?php

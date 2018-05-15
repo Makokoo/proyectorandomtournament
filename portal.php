@@ -1,17 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: MoLy
- * Date: 16/04/2018
- * Time: 21:26
- */
-
-
-
-
-
-
-?>
 <!doctype html>
 <html>
 
@@ -50,18 +36,11 @@
         <figure class="logo animated fadeInDown delay-07s">
             <a href="#"><img src="img/logo.png" alt=""></a>
         </figure>
-        <?php
-        if(isset($_GET['user'])) {
-
-            echo "<h1 class='animated fadeInDown delay-07s'>Bienvenido " . $_GET['user'] . "</h1>";
-            echo "<ul class='we-create animated fadeInUp delay-07s'>";
-            echo "<li>Entrando en el sitio...</li>
-        </ul>";
-            header("Refresh:3; url='index.php'");
-        }
-
-?>
-
+        <h1 class="animated fadeInDown delay-07s">Bienvenido a RandomTournaments</h1>
+        <ul class="we-create animated fadeInUp delay-1s">
+            <li>Hacemos de la competición diversión</li>
+        </ul>
+        <a class="link animated fadeInUp delay-1s servicelink" href="index.php">EMPEZAR</a>
     </div>
 </header>
 <!--header-end-->

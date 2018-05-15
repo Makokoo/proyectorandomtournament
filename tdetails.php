@@ -21,15 +21,25 @@ if(isset($_SESSION['usuario'])) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-    <title>Random Tournament</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+
+    <title>Homepage</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -47,16 +57,7 @@ if(isset($_SESSION['usuario'])) {
             height: 100%;
         }
 
-        /* Set black background color, white text and some padding */
-        footer {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            padding: 1rem;
-            background-color: #555;
-            text-align: center;
-        }
+
 
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
@@ -138,61 +139,67 @@ if(isset($_SESSION['usuario'])) {
 
 
     </style>
+
+
+
+    <!-- =======================================================
+    Theme Name: Knight
+    Theme URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
+    Author: BootstrapMade
+    Author URL: https://bootstrapmade.com
+    ======================================================= -->
+
 </head>
+
 <body>
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-tower"></span></a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="index.php">Inicio</a></li>
-                <li><a href="#">Torneos</a></li>
-                <li><a href="#">Tienda</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
+
+<nav class="main-nav-outer" id="test">
+    <!--main-nav-start-->
+    <div class="container">
+        <ul class="main-nav">
+            <li><a href="tournaments.php">INICIO</a></li>
+            <li><a href="tournaments.php">TORNEOS</a></li>
+            <li><a href="quienessomos.php">TIENDA</a></li>
+            <li class="small-logo"><a href="index.php"><img src="img/small-logo.png" alt=""></a></li>
+            <li><a href="quienessomos.php">QUIENES SOMOS</a></li>
 
             <?php
             if(!isset($_SESSION['usuario'])) {
                 ?>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><button onclick="location.href = 'login.php'" class="btn" style="width:auto;"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión</button>/li>
-                </ul>
+
+                <li><a href='login.php'>Iniciar Sesión</a></li>
+
                 <?php
             }else{
                 ?>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
-                </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-                </ul>
+                <li><a href="logout.php">Cerrar Sesión</a></li>
+
+
+
+                <li><a href="profile.php">Mi Perfil</a></li>
+
                 <?php
             }
             ?>
-        </div>
+        </ul>
+
+        <a class="res-nav_click" href="#"><i class="fa fa-bars"></i></a>
     </div>
 </nav>
 
 
-<div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-2 sidenav">
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-        </div>
 
-        <div class="col-sm-8 text-left">
+
+
+
+<!--business-talking-end-->
+<div class="container">
+    <section class="main-section">
+
+        <div class="row">
 
             <?php
             //Si me pasan una id muestro el bracket y la información del torneo
@@ -237,7 +244,7 @@ if(isset($_SESSION['usuario'])) {
                 $primera_ronda = getPrimeraRonda($id);
                 $segunda_ronda = getSegundaRonda($id);
                 $final_ronda = getFinal($id);
-                echo "<h1 class='text-center'> DATOS TORNEO ".strtoupper($datos_torneo['nombre_torneo'])."</h1>";
+                //echo "<h1 class='text-center'> DATOS TORNEO ".strtoupper($datos_torneo['nombre_torneo'])."</h1>";
                 echo "<div class='col-100'>";
                 echo "<div class=\"col-1-8\">";
 
@@ -322,32 +329,37 @@ if(isset($_SESSION['usuario'])) {
                 }
 
                 if(hayganador($datos_torneo['id_torneo'])) {
-                    echo "<h1 class='text-center' style='padding-top: 125px'>GANADOR: " . getNombreId($datos_torneo['ganador']) . "</h1>";
+                    echo "<h2 class='text-center' style='padding-top: 125px'>GANADOR: " . getNombreId($datos_torneo['ganador']) . "</h2>";
                     echo "</div><p></p><br>";
                 }else {
 
                     if (!torneolleno($datos_torneo['id_torneo']) && !hayganador($datos_torneo['id_torneo'])) {
-
-                        if (yainscrito($datos_torneo['id_torneo'], getid($_SESSION['usuario']))) {
-                            echo "<h1 class='text-center' style='color:red;padding-top: 125px'>Ya estás inscrito en este torneo!</h1>";
-                            echo "</div><p></p><br>";
-                        } else {
-                            if (isset($_SESSION['usuario'])) {
-
-                                echo "<h1 class='text-center' style='padding-top: 125px'>INSCRíBETE</h1>";
-                                echo "<form method='post' action='tdetails.php'>";
-                                echo "<input type='hidden' name='idtournament' id='idtournament' value='$id'>";
-                                echo "<input type='submit' name='inscripcion' id='inscripcion' value='Inscribete Aquí'>";
-
-
+                        if(isset($_SESSION['usuario'])) {
+                            if (yainscrito($datos_torneo['id_torneo'], getid($_SESSION['usuario']))) {
+                                echo "<h1 class='text-center' style='color:red;padding-top: 125px'>Ya estás inscrito en este torneo!</h1>";
+                                echo "</div><p></p><br>";
                             } else {
+                                if (isset($_SESSION['usuario'])) {
 
-                                echo "<h1 class='text-center' style='padding-top: 125px'>INICIA SESIÓN PARA INSCRIBIRTE</h1>";
+                                    echo "<h1 class='text-center' style='padding-top: 125px'>INSCRíBETE</h1>";
+                                    echo "<form class='text-center' method='post' action='tdetails.php'>";
+                                    echo "<input type='hidden' name='idtournament' id='idtournament' value='$id'>";
+                                    echo "<input type='submit' name='inscripcion' id='inscripcion' value='Inscribete Aquí'></form>";
 
+
+
+                                } else {
+
+                                    echo "<h4 class='text-center' style='padding-top: 125px'>INICIA SESIÓN PARA INSCRIBIRTE</h4>";
+
+                                }
+                                echo "</div><p></p><br>";
                             }
+
+                        }else{
+                            echo "<h4 class='text-center' style='padding-top: 125px'>INICIA SESIÓN PARA INSCRIBIRTE</h4>";
                             echo "</div><p></p><br>";
                         }
-
 
                     } else {
                         echo "<h1 class='text-center' style='padding-top: 125px'>INSCRIPCIONES</h1> <h1 class='text-center' style='color:red'>CERRADAS</h1>";
@@ -358,7 +370,7 @@ if(isset($_SESSION['usuario'])) {
 
 
 
-                echo "<h2 class='text-center'>RESULTADOS</h2><table class='table table-bordered text-center'>";
+                echo "</br></br></br><h3 class='text-center'>RESULTADOS</h3><table class='table table-bordered text-center'>";
                 echo "<th class='text-center'>RONDA</th><th class='text-center'>LOCAL</th><th class='text-center'>VISITANTE</th>";
                 for ($i = 0 ; $i<count($datos_partidas) ; $i++) {
                     echo "<tr>";
@@ -400,19 +412,31 @@ if(isset($_SESSION['usuario'])) {
             ?>
 
         </div>
-
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
-        </div>
-    </div>
+    </section>
 </div>
 
 
 
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-logo"><a href="#"><img src="img/footer-logo.png" alt=""></a></div>
+                <span class="copyright">&copy; RandomTournament. All Rights Reserved</span>
+                <div class="credits">
+                    <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Knight
+            -->
+                    RandomTournament by Sergio Molina
+                </div>
+            </div>
+        </footer>
+
+
+
+
 </body>
+
 </html>

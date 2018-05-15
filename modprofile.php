@@ -62,17 +62,17 @@ if(isset($_POST['modified'])){
     if($bien){
         if($nuevapass == false) {
             if (modificarusuario(getid($_SESSION['usuario']), $_POST['uname'], $_POST['mail'], $_POST['psw']) == true) {
-                $msgfinal = "Se han modificado los datos correctamente";
+                $msgfinal = "<span class='success'>Se han modificado los datos correctamente</span>";
                 $_SESSION['usuario'] = $_POST['uname'];
-                header( "Refresh:1; url='profile.php'");
+                header( "Refresh:2; url='profile.php'");
             } else {
                 $msgfinal = "Ha ocurrido un error.";
             }
         }else{
             if(modificarsinpass($datos_usuario['id_usuario'], $_POST['uname'], $_POST['mail']) == true){
-                $msgfinal = "Se han modificado los datos correctamente";
+                $msgfinal = "<span class='success'>Se han modificado los datos correctamente</span>";
                 $_SESSION['usuario'] = $_POST['uname'];
-                header( "Refresh:1; url='profile.php'");
+                header( "Refresh:2; url='profile.php'");
             }else{
                 $msgfinal = "Ha ocurrido un error.";
             }
@@ -84,119 +84,84 @@ if(isset($_POST['modified'])){
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+
+
+<!doctype html>
+<html>
+
 <head>
-    <title>Random Tournament</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+
+    <title>Homepage</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
     <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 890px}
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100%;
-        }
-
-        /* Set black background color, white text and some padding */
-        footer {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            padding: 1rem;
-            background-color: #555;
-            text-align: center;
-        }
 
         .msgerror{
             color: #990000;
         }
 
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-            .row.content {height:auto;}
-        }
+
     </style>
+
 </head>
+
 <body>
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-tower"></span></a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="index.php">Inicio</a></li>
-                <li><a href="#">Torneos</a></li>
-                <li><a href="#">Tienda</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
+
+<nav class="main-nav-outer" id="test">
+    <!--main-nav-start-->
+    <div class="container">
+        <ul class="main-nav">
+            <li><a href="index.php">INICIO</a></li>
+            <li><a href="tournaments.php">TORNEOS</a></li>
+            <li><a href="quienessomos.php">TIENDA</a></li>
+            <li class="small-logo"><a href="index.php"><img src="img/small-logo.png" alt=""></a></li>
+            <li><a href="quienessomos.php">QUIENES SOMOS</a></li>
+
 
             <?php
             if(!isset($_SESSION['usuario'])) {
                 ?>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><button onclick="location.href = 'login.php'" class="btn" style="width:auto;"><span class="glyphicon glyphicon-log-in text-right"></span> Iniciar Sesión</button>/li>
-                </ul>
+
+                <li><a href='login.php'>Iniciar Sesión</a></li>
+
                 <?php
             }else{
                 ?>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
-                </ul>
+                <li><a href="profile.php">Mi Perfil</a></li>
+                <li><a href="logout.php">Cerrar Sesión</a></li>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-                </ul>
                 <?php
             }
             ?>
-        </div>
+        </ul>
+
+        <a class="res-nav_click" href="#"><i class="fa fa-bars"></i></a>
     </div>
 </nav>
 
 
-<div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-2 sidenav">
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-        </div>
 
-        <div class="col-sm-8 text-left">
-            <h1>Hola <?=$datos_usuario['username']?></h1>
-            <hr>
-            <h3 class="text-center">Datos usuario</h3>
+
+
+<!--business-talking-end-->
+<div class="container">
+    <section class="main-section contact" id="contact">
+        <div class="row">
+            <h3 class="text-center">Modificando datos usuario</h3>
 
             <form method="post" action="modprofile.php">
                 <table class="table text-center">
@@ -238,21 +203,28 @@ if(isset($_POST['modified'])){
             <hr>
 
         </div>
-
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
-        </div>
-    </div>
+    </section>
 </div>
 
-<footer class="container-fluid text-center">
-    <p>Footer Text</p>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-logo"><a href="#"><img src="img/footer-logo.png" alt=""></a></div>
+        <span class="copyright">&copy; RandomTournament. All Rights Reserved</span>
+        <div class="credits">
+            <!--
+All the links in the footer should remain intact.
+You can delete the links only if you purchased the pro version.
+Licensing information: https://bootstrapmade.com/license/
+      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Knight
+    -->
+            RandomTournament by Sergio Molina
+        </div>
+    </div>
 </footer>
 
+
+
 </body>
+
 </html>

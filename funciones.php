@@ -173,7 +173,7 @@ function contPartidasjugadas($id){
 }
 
 function contPartidasganadas($id){
-    $sql = "SELECT COUNT(*) from partidas WHERE (local=$id AND resultado=1) OR (visitante=$id AND resultado=2)";
+    $sql = "SELECT COUNT(*) from partidas WHERE resultado = $id";
     $conexion = conectar();
     $res = $conexion->query($sql);
     $local = $res->fetch_assoc();
@@ -182,7 +182,7 @@ function contPartidasganadas($id){
 }
 
 function contPartidasperdidas($id){
-    $sql = "SELECT COUNT(*) from partidas WHERE (local=$id AND resultado=2) OR (visitante=$id AND resultado=1)";
+    $sql = "SELECT COUNT(*) from partidas WHERE (local=$id AND resultado != $id) OR (visitante=$id AND resultado != $id)";
     $conexion = conectar();
     $res = $conexion->query($sql);
     $local = $res->fetch_assoc();

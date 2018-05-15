@@ -1,5 +1,4 @@
 <?php
-session_start();
 ?>
 <!doctype html>
 <html>
@@ -9,8 +8,8 @@ session_start();
 	<meta name="viewport" content="width=device-width, maximum-scale=1">
 
 	<title>Homepage</title>
-	<link rel="icon" href="favicon.png" type="image/png">
-	<link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+	<link rel="icon" href="../favicon.png" type="image/png">
+	<link rel="shortcut icon" href="../favicon.ico" type="img/x-icon">
 
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
@@ -23,40 +22,42 @@ session_start();
 	<link href="css/animate.css" rel="stylesheet" type="text/css">
 
 
+	<!-- =======================================================
+    Theme Name: Knight
+    Theme URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
+    Author: BootstrapMade
+    Author URL: https://bootstrapmade.com
+	======================================================= -->
+
 </head>
 
 <body>
-
+	<header class="header" id="header">
+		<!--header-start-->
+		<div class="container">
+			<figure class="logo animated fadeInDown delay-07s">
+				<a href="#"><img src="img/logo.png" alt=""></a>
+			</figure>
+			<h1 class="animated fadeInDown delay-07s">Welcome To Knight Studios</h1>
+			<ul class="we-create animated fadeInUp delay-1s">
+				<li>We are a digital agency that loves crafting beautiful websites.</li>
+			</ul>
+			<a class="link animated fadeInUp delay-1s servicelink" href="#service">Get Started</a>
+		</div>
+	</header>
+	<!--header-end-->
 
 	<nav class="main-nav-outer" id="test">
 		<!--main-nav-start-->
 		<div class="container">
 			<ul class="main-nav">
-                <li><a href="index.php">INICIO</a></li>
+				<li><a href="index.html">INICIO</a></li>
 				<li><a href="tournaments.php">TORNEOS</a></li>
-                <li><a href="quienessomos.php">TIENDA</a></li>
-				<li class="small-logo"><a href="index.php"><img src="img/small-logo.png" alt=""></a></li>
-                <li><a href="quienessomos.php">QUIENES SOMOS</a></li>
-
-
-                <?php
-                if(!isset($_SESSION['usuario'])) {
-                    ?>
-
-                        <li><a href='login.php'>Iniciar Sesión</a></li>
-
-                    <?php
-                }else{
-                    ?>
-
-                    <li><a href="profile.php">Mi Perfil</a></li>
-                    <li><a href="logout.php">Cerrar Sesión</a></li>
-
-                    <?php
-                }
-                ?>
+				<li><a href="#Portfolio">FORO</a></li>
+				<li class="small-logo"><a href="#header"><img src="img/small-logo.png" alt=""></a></li>
+				<li><a href="#client">QUIENES SOMOS</a></li>
+				<li><a href="../contact.php">Contact</a></li>
 			</ul>
-
 			<a class="res-nav_click" href="#"><i class="fa fa-bars"></i></a>
 		</div>
 	</nav>
@@ -76,33 +77,33 @@ session_start();
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-03s">
 						<div class="team-leader-shadow"><a href="#"></a></div>
-						<img src="img/dbz.png" alt="">
+						<img src="img/wp.png" alt="">
 					</div>
-					<h3 class="wow fadeInDown delay-03s">TORNEO INAUGURACIÓN</h3>
-					<span class="wow fadeInDown delay-03s">Dragon Ball FighterZ</span>
-					<p class="wow fadeInDown delay-03s">Abiertas las inscripciones para el torneo de inauguración de DBFZ</p>
+					<h3 class="wow fadeInDown delay-03s">Walter White</h3>
+					<span class="wow fadeInDown delay-03s">Chief Executive Officer</span>
+					<p class="wow fadeInDown delay-03s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin consequat.</p>
 				</div>
 
 
 				<div class="team-leader-box">
 					<div class="team-leader  wow fadeInDown delay-06s">
 						<div class="team-leader-shadow"><a href="tdetails.php"></a></div>
-						<img src="img/rank.png" alt="">
+						<img src="img/wp.png" alt="">
 					</div>
-					<h3 class="wow fadeInDown delay-06s">RANKING</h3>
-					<span class="wow fadeInDown delay-06s"></span>
-					<p class="wow fadeInDown delay-06s"></p>
+					<h3 class="wow fadeInDown delay-06s">Jesse Pinkman</h3>
+					<span class="wow fadeInDown delay-06s">Product Manager</span>
+					<p class="wow fadeInDown delay-06s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin consequat.</p>
 				</div>
 
 
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-09s">
 						<div class="team-leader-shadow"><a href="#"></a></div>
-						<img src="img/tienda.png" alt="">
+						<img src="img/wp.png" alt="">
 					</div>
-					<h3 class="wow fadeInDown delay-09s">INAUGURAMOS NUESTRA TIENDA ONLINE</h3>
-					<span class="wow fadeInDown delay-09s"></span>
-					<p class="wow fadeInDown delay-09s">Ya puedes comprar el merchandising de nuestros juegos más populares</p>
+					<h3 class="wow fadeInDown delay-09s">Skyler white</h3>
+					<span class="wow fadeInDown delay-09s">Accountant</span>
+					<p class="wow fadeInDown delay-09s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus. Dolor sit amet, consectetur adipiscing elit proin consequat.</p>
 				</div>
 
 
