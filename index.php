@@ -86,7 +86,7 @@ session_start();
 
 				<div class="team-leader-box">
 					<div class="team-leader  wow fadeInDown delay-06s">
-						<div class="team-leader-shadow"><a href="tdetails.php"></a></div>
+						<div class="team-leader-shadow"><a href="ranking.php"></a></div>
 						<img src="img/rank.png" alt="">
 					</div>
 					<h3 class="wow fadeInDown delay-06s">RANKING</h3>
@@ -97,7 +97,7 @@ session_start();
 
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-09s">
-						<div class="team-leader-shadow"><a href="#"></a></div>
+						<div class="team-leader-shadow"><a href="shop.php"></a></div>
 						<img src="img/tienda.png" alt="">
 					</div>
 					<h3 class="wow fadeInDown delay-09s">INAUGURAMOS NUESTRA TIENDA ONLINE</h3>
