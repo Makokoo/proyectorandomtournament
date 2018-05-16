@@ -56,7 +56,7 @@
             echo "<li>Esperamos volver a verte</li>";
        		session_start();
 			session_destroy();
-		    header("Refresh:3; url='portal.php'");
+		    header("Refresh:3; url='index.php'");
         
 
 ?>

@@ -78,11 +78,11 @@ if(isset($_SESSION['usuario'])) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-tower"></span></a>
+            <a class="navbar-brand" href="home.php"><span class="glyphicon glyphicon-tower"></span></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="index.php">Inicio</a></li>
+                <li><a href="home.php">Inicio</a></li>
                 <li><a href="#">Torneos</a></li>
                 <li><a href="#">Tienda</a></li>
                 <li><a href="#">Contacto</a></li>

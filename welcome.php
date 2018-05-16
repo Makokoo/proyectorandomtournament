@@ -57,7 +57,7 @@
             echo "<ul class='we-create animated fadeInUp delay-07s'>";
             echo "<li>Entrando en el sitio...</li>
         </ul>";
-            header("Refresh:3; url='index.php'");
+            header("Refresh:3; url='home.php'");
         }
 
 ?>

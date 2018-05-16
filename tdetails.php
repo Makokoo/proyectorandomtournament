@@ -161,7 +161,7 @@ if(isset($_SESSION['usuario'])) {
             <li><a href="tournaments.php">INICIO</a></li>
             <li><a href="tournaments.php">TORNEOS</a></li>
             <li><a href="quienessomos.php">TIENDA</a></li>
-            <li class="small-logo"><a href="index.php"><img src="img/small-logo.png" alt=""></a></li>
+            <li class="small-logo"><a href="home.php"><img src="img/small-logo.png" alt=""></a></li>
             <li><a href="quienessomos.php">QUIENES SOMOS</a></li>
 
             <?php
@@ -174,12 +174,8 @@ if(isset($_SESSION['usuario'])) {
             }else{
                 ?>
 
-
-                <li><a href="logout.php">Cerrar Sesión</a></li>
-
-
-
                 <li><a href="profile.php">Mi Perfil</a></li>
+                <li><a href="logout.php">Cerrar Sesión</a></li>
 
                 <?php
             }
