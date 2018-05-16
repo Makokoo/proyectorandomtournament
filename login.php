@@ -46,19 +46,22 @@ session_start();
         </figure>
         <h1 class="animated fadeInDown delay-07s">Bienvenido a RandomTournaments</h1>
         <form action="login.php" method="post">
-            <div class="container">
+            <div class="container animated fadeInLeft delay-06s">
                 <label for="uname"><b>Usuario</b></label>
                 <input type="text" class="form-control input-text" placeholder="Enter Username" name="uname" id="uname" required>
                 <br>
                 <label for="psw"><b>Contraseña</b></label>
                 <input type="password" class="form-control input-text" placeholder="Enter Password" name="psw" id="psw" required>
 
-                <button class="link animated fadeInUp delay-1s servicelink" type="submit">Iniciar Sesión</button>
+                <button class="link animated fadeInUp delay-1s" type="submit">Iniciar Sesión</button>
             </div>
 
 
-                <button type="button" onclick="goBack()" class="cancelbtn">Volver</button>
-                <span class="psw">¿No tienes cuenta? <a href="register.php">Registrate aquí</a></span>
+                <button type="button" onclick="goBack()" class="animated fadeInUp delay-1s">Volver</button>
+                <span class="psw" class="link animated fadeInUp delay-1s ">
+                    <label class="animated fadeInUp delay-1s">¿No tienes cuenta?</label> 
+                    <a href="register.php" class="animated fadeInUp delay-1s">Registrate aquí</a>
+                </span>
 
         </form>
     </div>
