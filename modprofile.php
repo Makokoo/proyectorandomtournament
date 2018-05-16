@@ -114,7 +114,17 @@ if(isset($_POST['modified'])){
 
 
     </style>
-
+    <script type="text/javascript">
+        window.onload = function() {
+            var refButton = document.getElementById( 'uname' );
+            var test = document.getElementById( 'passconfirm' );
+            refButton.oninput = function() {
+                test.style.visibility='visible';
+}
+}
+    </script>
+    
+    
 </head>
 
 <body>
@@ -162,25 +172,29 @@ if(isset($_POST['modified'])){
     <section class="main-section contact" id="contact">
         <div class="row">
             <h3 class="text-center">Modificando datos usuario</h3>
-
+            
             <form method="post" action="modprofile.php">
                 <table class="table text-center">
                     <td>Nombre de usuario:</td>
-                    <td><input value="<?= $datos_usuario['username'] ?>" name="uname" id="uname"><span class="msgerror"><?php echo $nameErr;?></span></td>
+                    <td><input value="<?= $datos_usuario['username'] ?>"  name="uname" id="uname"><span class="msgerror"><?php echo $nameErr;?></span></td>
                     </tr>
                     <tr>
                         <td>E-Mail:</td>
-                        <td><input value="<?= $datos_usuario['mail'] ?>" name="mail" id="mail"><span class="msgerror"><?php echo $emailErr;?></span></td>
+                        <td><input value="<?= $datos_usuario['mail'] ?>"  name="mail" id="mail"><span class="msgerror"><?php echo $emailErr;?></span></td>
                     </tr>
                     <tr>
                         <td>Nueva Contraseña:</td>
-                        <td><input type="password" name="psw" id="psw">*<span class="msgerror"><?php echo $passErr;?></span></td>
+                        <td><input type="password" name="psw" id="psw"><span class="msgerror"><?php echo $passErr;?></span></td>
                     </tr>
                     <tr>
                         <td>Repetir Contraseña:</td>
-                        <td><input type="password" name="psw2" id="psw2">*<span class="msgerror"><?php echo $passErr;?></span></td>
+                        <td><input type="password" name="psw2" id="psw2"><span class="msgerror"><?php echo $passErr;?></span></td>
                     </tr>
-                    <tr>
+                    <tr style="visibility: hidden;" class='animated fadeInDown delay-07s' id="passconfirm">
+                        <td>Introduce tu contraseña para confirmar los cambios:</td>
+                        <td><input type="password" name="passtoconfirm" id="passtoconfirm">*<span class="msgerror"><?php echo $passErr;?></span></td>
+                    </tr>
+                    <tr>                        
                         <td>
                             <a href="profile.php">
                                 <button type="button" class="btn btn-danger">
