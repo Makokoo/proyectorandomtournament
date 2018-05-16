@@ -50,17 +50,28 @@ if(isset($_POST['modified'])){
         }
     }
 
-    if($_POST['psw'] != "" && $_POST['ps2'] != "") {
+    if($_POST['passtoconfirm'] != ""){
+          if($_POST['passtoconfirm'] != $datos_usuario['password']){
+                $bien = false;
+          }
+     }
+
+    if($_POST['psw'] != "" && $_POST['psw2'] != "") {
         if ($_POST['psw'] != $_POST['psw2']) {
             $passErr = "Las contraseñas no coinciden";
             $bien = false;
         } else if ($_POST['psw'] == "" || $_POST['psw2'] == "") {
             $passErr = "Campo requerido";
+        } else if ($_POST['psw'] == $_POST['psw2']){
+          $nuevapass = true;
+          $bien = true;
         }
-    }
+     }
+
+    
 
     if($bien){
-        if($nuevapass == false) {
+        if($nuevapass == true) {
             if (modificarusuario(getid($_SESSION['usuario']), $_POST['uname'], $_POST['mail'], $_POST['psw']) == true) {
                 $msgfinal = "<span class='success'>Se han modificado los datos correctamente</span>";
                 $_SESSION['usuario'] = $_POST['uname'];
@@ -120,8 +131,8 @@ if(isset($_POST['modified'])){
             var test = document.getElementById( 'passconfirm' );
             refButton.oninput = function() {
                 test.style.visibility='visible';
-}
-}
+            }
+          }
     </script>
     
     
