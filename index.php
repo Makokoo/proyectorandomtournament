@@ -40,7 +40,7 @@
         <ul class="we-create animated fadeInUp delay-1s">
             <li>Hacemos de la competición diversión</li>
         </ul>
-        <a class="link animated fadeInUp delay-1s servicelink" href="home.php">EMPEZAR</a>
+        <a class="link animated fadeInUp delay-1s servicelink" href="login.php">EMPEZAR</a>
     </div>
 </header>
 <!--header-end-->

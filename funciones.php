@@ -143,7 +143,7 @@ function getClasificacion($uname){
     $res = $conexion->query($sql);
 
 
-    echo "<table class='table table-bordered'>";
+    echo "<table class='table table-bordered text-center'>";
     echo "<tr><td><b>Puesto</b></td><td><b>Usuario</b></td><td><b>Partidas Jugadas</b></td><td><b>Victorias</b></td><td><b>Empates</b></td><td><b>Derrotas</b></td><td><b>Puntos</b></td></tr>";
     while($datos = $res->fetch_assoc()){
         $contador++;

@@ -34,7 +34,7 @@ session_start();
 			<ul class="main-nav">
                 <li><a href="home.php">INICIO</a></li>
 				<li><a href="tournaments.php">TORNEOS</a></li>
-                <li><a href="quienessomos.php">TIENDA</a></li>
+                <li><a href="tienda/shop.php">TIENDA</a></li>
 				<li class="small-logo"><a href="home.php"><img src="img/small-logo.png" alt=""></a></li>
                 <li><a href="quienessomos.php">QUIENES SOMOS</a></li>
 
@@ -75,7 +75,7 @@ session_start();
 
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-03s">
-						<div class="team-leader-shadow"><a href="#"></a></div>
+						<div class="team-leader-shadow"><a href="tdetails.php?id=8"></a></div>
 						<img src="img/dbz.png" alt="">
 					</div>
 					<h3 class="wow fadeInDown delay-03s">TORNEO INAUGURACIÓN</h3>
@@ -97,7 +97,7 @@ session_start();
 
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-09s">
-						<div class="team-leader-shadow"><a href="shop.php"></a></div>
+						<div class="team-leader-shadow"><a href="tienda/shop.php"></a></div>
 						<img src="img/tienda.png" alt="">
 					</div>
 					<h3 class="wow fadeInDown delay-09s">INAUGURAMOS NUESTRA TIENDA ONLINE</h3>

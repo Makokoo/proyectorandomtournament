@@ -92,7 +92,7 @@ if(isset($_SESSION['usuario'])) {
 
 
 <div class="container">
-    <section class="main-section contact" id="contact">
+    <section class="main-section">
         <div class="row">
 
                 
@@ -101,18 +101,18 @@ if(isset($_SESSION['usuario'])) {
             if(isset($_GET['id']) || isset($_POST['idtournament'])) {
                 $datos_partida = getPartida($_GET['id']);
                 //var_dump($datos_partida['local']);
-                echo "<h1 class='text-center'>".strtoupper(getNombreId($datos_partida['local']))." VS ".strtoupper(getNombreId($datos_partida['visitante']))."</h1>";
+                //echo "<h1 class='text-center'>".strtoupper(getNombreId($datos_partida['local']))." VS ".strtoupper(getNombreId($datos_partida['visitante']))."</h1>";
 
                 $plocal = getImagenPersonaje($datos_partida['p_local']);
-                $plocal = $plocal['imagen'];
+                $plocal = "characters/".$plocal['imagen']."_local.png";
                 $pvisitante = getImagenPersonaje($datos_partida['p_visitante']);
-                $pvisitante = $pvisitante['imagen'];
-                echo "<table class='table table-bordered'>";
-                echo "<td>LOCAL</td><td>INFORMACION</td><td>VISITANTE</td>";
-                echo "<tr></tr><td><img style='width: 50%; float:right' src='$plocal'></td>";
-                echo "<td></td>";
-                echo "<td><img style='width: 65%' src='$pvisitante'></td>";
-                echo "</table>";
+                $pvisitante = "characters/".$pvisitante['imagen']."_visitante.png";
+                echo "<table class='table'>";
+                //echo "<td>LOCAL</td><td>INFORMACION</td><td>VISITANTE</td>";
+                echo "<tr><td class='text-center'><img src='$plocal'></td>";
+                echo "<td><h2 class='text-center' style='margin-top:250px'>".strtoupper(getNombreId($datos_partida['local']))." VS ".strtoupper(getNombreId($datos_partida['visitante']))."</h2></td>";
+                echo "<td class='text-center'><img src='$pvisitante'></td>";
+                echo "</tr></table>";
 
             } else {
                 //Si no me pasan una id por GET muestro un mensaje.

@@ -17,137 +17,106 @@ if(isset($_SESSION['usuario'])) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-    <title>Random Tournament</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
 
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 890px}
+    <title>Homepage</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
 
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100%;
-        }
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
 
-        /* Set black background color, white text and some padding */
-        footer {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            padding: 1rem;
-            background-color: #555;
-            text-align: center;
-        }
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
 
-        .msgerror{
-            color: #990000;
-        }
-
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-            .row.content {height:auto;}
-        }
-    </style>
 </head>
+
 <body>
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="home.php"><span class="glyphicon glyphicon-tower"></span></a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="home.php">Inicio</a></li>
-                <li><a href="#">Torneos</a></li>
-                <li><a href="#">Tienda</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
+
+<nav class="main-nav-outer" id="test">
+    <!--main-nav-start-->
+    <div class="container">
+        <ul class="main-nav">
+            <li><a href="home.php">INICIO</a></li>
+            <li><a href="tournaments.php">TORNEOS</a></li>
+            <li><a href="quienessomos.php">TIENDA</a></li>
+            <li class="small-logo"><a href="home.php"><img src="img/small-logo.png" alt=""></a></li>
+            <li><a href="quienessomos.php">QUIENES SOMOS</a></li>
 
             <?php
             if(!isset($_SESSION['usuario'])) {
                 ?>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><button onclick="location.href = 'login.php'" class="btn" style="width:auto;"><span class="glyphicon glyphicon-log-in text-right"></span> Iniciar Sesión</button>/li>
-                </ul>
+
+                <li><a href='login.php'>Iniciar Sesión</a></li>
+
                 <?php
             }else{
                 ?>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
-                </ul>
+                <li><a href="profile.php">Mi Perfil</a></li>
+                <li><a href="logout.php">Cerrar Sesión</a></li>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-                </ul>
                 <?php
             }
             ?>
-        </div>
+        </ul>
+
+        <a class="res-nav_click" href="#"><i class="fa fa-bars"></i></a>
     </div>
 </nav>
+<!--main-nav-end-->
 
 
-<div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-2 sidenav">
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-        </div>
 
-        <div class="col-sm-8 text-center">
-            <h1>CLASIFICACIÓN</h1>
-            <hr>
+
+<section class="main-section team" id="team">
+    <!--main-section team-start-->
+    <div class="container">
 
             <?php
+            echo "<h2 class='text-center'>CLASIFICACIÓN</h2>";
             getClasificacion($datos_usuario['username']);
             ?>
 
 
-            <hr>
+
 
         </div>
 
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
+    </section>
+
+
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-logo"><a href="#"><img src="img/footer-logo.png" alt=""></a></div>
+        <span class="copyright">&copy; RandomTournament. All Rights Reserved</span>
+        <div class="credits">
+            <!--
+      All the links in the footer should remain intact.
+      You can delete the links only if you purchased the pro version.
+      Licensing information: https://bootstrapmade.com/license/
+      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Knight
+    -->
+            RandomTournament by Sergio Molina
         </div>
     </div>
-</div>
-
-<footer class="container-fluid text-center">
-    <p>Footer Text</p>
 </footer>
 
+
+
+
 </body>
+
 </html>
+

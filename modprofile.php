@@ -182,6 +182,7 @@ if(isset($_POST['modified'])){
 <div class="container">
     <section class="main-section contact" id="contact">
         <div class="row">
+            <div class="col-lg-6 col-sm-7 text-center" style="margin-left:20%">
             <h3 class="text-center">Modificando datos usuario</h3>
             
             <form method="post" action="modprofile.php">
@@ -202,21 +203,21 @@ if(isset($_POST['modified'])){
                         <td><input type="password" name="psw2" id="psw2"><span class="msgerror"><?php echo $passErr;?></span></td>
                     </tr>
                     <tr style="visibility: hidden;" class='animated fadeInDown delay-07s' id="passconfirm">
-                        <td>Introduce tu contraseña para confirmar los cambios:</td>
+                        <td>Introduce tu contraseña actual para confirmar los cambios:</td>
                         <td><input type="password" name="passtoconfirm" id="passtoconfirm">*<span class="msgerror"><?php echo $passErr;?></span></td>
                     </tr>
                     <tr>                        
                         <td>
                             <a href="profile.php">
                                 <button type="button" class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-remove"></span> Cancelar
+                                    Cancelar
                                 </button>
                             </a>
                         </td>
                         <td>
                             <a href="modprofile.php">
                                 <button type="submit" class="btn btn-success" id="modified" name="modified">
-                                    <span class="glyphicon glyphicon-floppy-saved"></span> Guardar
+                                    Guardar
                                 </button>
                             </a>
                         </td>
@@ -226,7 +227,7 @@ if(isset($_POST['modified'])){
             <span><?=$msgfinal?></span>
 
             <hr>
-
+            </div>
         </div>
     </section>
 </div>
@@ -237,12 +238,6 @@ if(isset($_POST['modified'])){
         <div class="footer-logo"><a href="#"><img src="img/footer-logo.png" alt=""></a></div>
         <span class="copyright">&copy; RandomTournament. All Rights Reserved</span>
         <div class="credits">
-            <!--
-All the links in the footer should remain intact.
-You can delete the links only if you purchased the pro version.
-Licensing information: https://bootstrapmade.com/license/
-      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Knight
-    -->
             RandomTournament by Sergio Molina
         </div>
     </div>

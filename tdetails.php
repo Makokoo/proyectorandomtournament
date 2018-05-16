@@ -158,11 +158,11 @@ if(isset($_SESSION['usuario'])) {
     <!--main-nav-start-->
     <div class="container">
         <ul class="main-nav">
-            <li><a href="tournaments.php">INICIO</a></li>
+            <li><a href="home.php">INICIO</a></li>
             <li><a href="tournaments.php">TORNEOS</a></li>
             <li><a href="quienessomos.php">TIENDA</a></li>
             <li class="small-logo"><a href="home.php"><img src="img/small-logo.png" alt=""></a></li>
-            <li><a href="quienessomos.php">QUIENES SOMOS</a></li>
+            <li><a href="tienda/shop.php">QUIENES SOMOS</a></li>
 
             <?php
             if(!isset($_SESSION['usuario'])) {
@@ -337,12 +337,12 @@ if(isset($_SESSION['usuario'])) {
                             } else {
                                 if (isset($_SESSION['usuario'])) {
 
-                                    echo "<h1 class='text-center' style='padding-top: 125px'>INSCRíBETE</h1>";
+                                    //echo "<h1 class='text-center' style='padding-top: 125px'>INSCRíBETE</h1>";
                                     echo "<form class='text-center' method='post' action='tdetails.php'>";
                                     echo "<input type='hidden' name='idtournament' id='idtournament' value='$id'>";
-                                    echo "<input type='submit' name='inscripcion' id='inscripcion' value='Inscribete Aquí'></form>";
-
-
+                                    //echo "<input type='submit' name='inscripcion' id='inscripcion' value='Inscribete Aquí'></form>";
+                                    echo"<button class='link animated fadeInUp delay-1s' style='margin-top: 10%;' type='submit'>INSCRIPCIÓN</button></form>";
+                                    //echo "<button<a class=\"link animated fadeInUp delay-1s servicelink\" href=\"login.php\">EMPEZAR</a></form>";
 
                                 } else {
 
