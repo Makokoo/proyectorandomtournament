@@ -409,3 +409,10 @@ function getHilo($id_hilo){
     $r = $conexion->query($sql);
     return $d= $r->fetch_assoc();
 }
+
+function getmensajeporid($id){
+    $sql=  "SELECT * FROM mensajes WHERE id_mensaje = $id";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    return $d= $r->fetch_assoc();
+}

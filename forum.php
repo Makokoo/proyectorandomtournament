@@ -27,13 +27,13 @@ if(count($categorias) > 0) {
               
             </section>
             <section class=\"col-md-3\">
-              <ul id=\"post-topic\">
-                <li class=\"list-unstyled\"> Hilos: ".count($hilos)."</li>
-                <li class=\"list-unstyled\"> Mensajes: ".(count($mensajes)+1)." </li>
-              </ul>
-            </section>";
+              
+                <div> Mensajes: ".(count($mensajes)+1)."</div><div style='float:left;'>Autor: ".getNombreId($hilos[$j]['autor'])."</div>
+              
+            </section></section>";
+
         }
-        echo "</section></section></div>";
+        echo "</section></div>";
     }
 }
 

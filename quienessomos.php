@@ -81,7 +81,7 @@ if(!isset($_POST['name'])){
 			<div class="row">
 				<div class="col-lg-6 col-sm-7 wow fadeInLeft">
 					<div class="contact-info-box address clearfix">
-						<h3><i class=" icon-map-marker"></i>Dirección:</h3>
+						<h3><i class=" fa fa-home text-center"></i>Dir:</h3>
 						<span>Carrer Illueca, 28<br>03206 Elx, Alacant</span>
 					</div>
 					<div class="contact-info-box phone clearfix">
