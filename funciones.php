@@ -364,3 +364,48 @@ function getImagenPersonaje($id){
 
     return $res->fetch_assoc();
 }
+
+function getCategoriasForo(){
+    $conexion = conectar();
+    $sqlcategorias = "SELECT * FROM categoria_foro";
+    $r = $conexion->query($sqlcategorias);
+    $datos = [];
+    while( $d = $r->fetch_assoc()){
+        $datos[] = $d;
+    }
+
+    return $datos;
+
+}
+
+function getHilosCategoria($id){
+    $conexion = conectar();
+    $sqlcategorias = "SELECT * FROM hilo WHERE id_categoria = $id";
+    $r = $conexion->query($sqlcategorias);
+    $datos = [];
+    while( $d = $r->fetch_assoc()){
+        $datos[] = $d;
+    }
+    return $datos;
+
+}
+
+function getMensajesHilo($id_hilo){
+    $conexion = conectar();
+    $sqlcategorias = "SELECT * FROM mensajes WHERE id_hilo = $id_hilo";
+    $r = $conexion->query($sqlcategorias);
+    $datos = [];
+    while( $d = $r->fetch_assoc() ){
+        $datos[] = $d;
+    }
+    return $datos;
+
+}
+
+
+function getHilo($id_hilo){
+    $sql=  "SELECT * FROM hilo WHERE id_hilo = $id_hilo";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    return $d= $r->fetch_assoc();
+}

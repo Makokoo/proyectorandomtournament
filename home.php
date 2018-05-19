@@ -68,8 +68,8 @@ session_start();
 	<section class="main-section team" id="team">
 		<!--main-section team-start-->
 		<div class="container">
-			<h2>team</h2>
-			<h6>Take a closer look into our amazing team. We won’t bite.</h6>
+			<h2>ÚLTIMAS NOTICIAS</h2>
+			<h6>Echa un vistazo a las últimas novedades de RT.</h6>
 			<div class="team-leader-block clearfix">
 
 
@@ -117,13 +117,17 @@ session_start();
 	<div class="c-logo-part">
 		<!--c-logo-part-start-->
 		<div class="container">
-			<ul>
+            <?php
+		/*
+				<ul>
 				<li><a href="#"><img src="img/c-liogo1.png" alt=""></a></li>
 				<li><a href="#"><img src="img/c-liogo2.png" alt=""></a></li>
 				<li><a href="#"><img src="img/c-liogo3.png" alt=""></a></li>
 				<li><a href="#"><img src="img/c-liogo4.png" alt=""></a></li>
 				<li><a href="#"><img src="img/c-liogo5.png" alt=""></a></li>
 			</ul>
+		*/
+?>
 		</div>
 	</div>
 
@@ -135,12 +139,6 @@ session_start();
 			<div class="footer-logo"><a href="#"><img src="img/footer-logo.png" alt=""></a></div>
 			<span class="copyright">&copy; RandomTournament. All Rights Reserved</span>
 			<div class="credits">
-				<!--
-All the links in the footer should remain intact.
-You can delete the links only if you purchased the pro version.
-Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Knight
-        -->
 				RandomTournament by Sergio Molina
 </div>
 		</div>
