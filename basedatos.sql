@@ -13,6 +13,7 @@
 
 
 -- Volcando estructura de base de datos para random_tournament
+DROP DATABASE IF EXISTS `random_tournament`;
 CREATE DATABASE IF NOT EXISTS `random_tournament` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci */;
 USE `random_tournament`;
 
