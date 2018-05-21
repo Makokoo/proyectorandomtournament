@@ -164,15 +164,12 @@ if(isset($_SESSION['usuario'])) {
 
 
                 if(isset($_POST['idtournament'])){
-                    if(!yainscrito($datos_torneo['id_torneo'],$_SESSION['usuario'])) {
+                    if(!yainscrito($datos_torneo['id_torneo'],getid($_SESSION['usuario']))) {
                         $conexion = conectar();
                         $conexion->begin_transaction();
-                        if ($lista == "" || $lista == null) {
-                            $nuevo = getid($_SESSION['usuario']);
-                        } else {
-                            $nuevo = $lista . "," . getid($_SESSION['usuario']);
-                        }
-                        $sql = "UPDATE torneos SET participantes = '$nuevo' WHERE id_torneo =" . $datos_torneo['id_torneo'];
+                        $iduser = $datos_usuario['id_usuario'];
+                        $idtour = $_POST['idtournament'];
+                        $sql = "INSERT INTO participantes (id_usuario, id_torneo) VALUES ($iduser,$idtour)";
 
                         $conexion->query($sql);
                         if (!$conexion->affected_rows > 0) {
@@ -279,7 +276,7 @@ if(isset($_SESSION['usuario'])) {
                     echo "</div><p></p><br>";
                 }else {
 
-                    if (!torneolleno($datos_torneo['id_torneo']) && !hayganador($datos_torneo['id_torneo'])) {
+                    if (getparticipantes($datos_torneo['id_torneo']) < 8 && !hayganador($datos_torneo['id_torneo'])) {
                         if(isset($_SESSION['usuario'])) {
                             if (yainscrito($datos_torneo['id_torneo'], getid($_SESSION['usuario']))) {
                                 echo "<h1 class='text-center' style='color:red;padding-top: 125px'>Ya estás inscrito en este torneo!</h1>";

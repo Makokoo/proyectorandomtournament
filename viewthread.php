@@ -71,11 +71,13 @@ if(isset($_POST['message'])){
       <div class=\"panel panel-default\">
         <div class=\"panel-heading\">
           MENSAJE #1";
-          if($primer['autor'] == getid($_SESSION['usuario'])){
+          if(isset($_SESSION['usuario'])){
+            if($primer['autor'] == getid($_SESSION['usuario'])){
                 echo "<a class='editar' href='editmessage.php?idhilo=$idhilo'  style='color:black; float: right;'><span class='fa fa-pencil'></span></a>";
                 echo "&nbsp;";
                 echo "<a class='eliminar' id='eliminar' onclick='deletepost($idhilo)'  style='margin-left:5px;color:black; float: right;'><span class='fa fa-trash'></span></a>";
             }
+          }
         echo "</div>
         <section class=\"row panel-body\">
                   <section class=\"col-md-3\">

@@ -173,7 +173,7 @@ function contPartidasjugadas($id){
 }
 
 function contPartidasganadas($id){
-    $sql = "SELECT COUNT(*) from partidas WHERE resultado = $id";
+    $sql = "SELECT COUNT(*) from partidas WHERE (local = $id AND resultado = 1) OR (visitante = $id AND resultado = 2)";
     $conexion = conectar();
     $res = $conexion->query($sql);
     $local = $res->fetch_assoc();
@@ -182,7 +182,7 @@ function contPartidasganadas($id){
 }
 
 function contPartidasperdidas($id){
-    $sql = "SELECT COUNT(*) from partidas WHERE (local=$id AND resultado != $id) OR (visitante=$id AND resultado != $id)";
+    $sql = "SELECT COUNT(*) from partidas WHERE (local = $id AND resultado = 2) OR (visitante = $id AND resultado = 1)";
     $conexion = conectar();
     $res = $conexion->query($sql);
     $local = $res->fetch_assoc();
@@ -224,7 +224,7 @@ function getTorneosActivos(){
         $juego = getDatosJuego($data['id_juego']);
         echo"<a href='tdetails.php?id=$id'>
             <li class='list-group-item d-flex justify-content-between align-items-center'><b>".$juego['nombre']."</b> - ".$data['nombre_torneo']."
-                <span class='badge badge-pill badge-success'>".$data['total_participantes']."/".$data['max_participantes']."</span>
+                <span class='badge badge-pill badge-success'>".getparticipantes($id)."/".$data['max_participantes']."</span>
             </li>
         </a>";
     }
@@ -335,17 +335,15 @@ function torneolleno($id_torneo){
 
 function yainscrito($id_torneo,$id_usuario){
     $si = false;
-    $sql = "SELECT participantes FROM torneos WHERE id_torneo = $id_torneo";
+    $sql = "SELECT COUNT(*) FROM participantes WHERE id_torneo = $id_torneo AND id_usuario = $id_usuario";
     $conexion = conectar();
     $r = $conexion->query($sql);
     $datos = $r->fetch_assoc();
-    $x = explode(",",$datos['participantes']);
-    for ($i = 0 ; $i<count($x) ; $i++){
-        if($x[$i] == $id_usuario){
-            $si =  true;
-        }
+    if($datos['COUNT(*)'] == 1){
+        return true;
+    }else{
+        return false;
     }
-    return $si;
 }
 
 function getPartida($id_partida){
@@ -415,4 +413,26 @@ function getmensajeporid($id){
     $conexion = conectar();
     $r = $conexion->query($sql);
     return $d= $r->fetch_assoc();
+}
+
+function getidhilo($titulo,$autor){
+    $sql=  "SELECT * FROM hilo WHERE titulo = '$titulo' AND autor = $autor";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    return $d= $r->fetch_assoc();
+}
+
+function getTorneosganados($id){
+    $sql=  "SELECT COUNT(*) FROM torneos WHERE ganador = $id";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    return $d= $r->fetch_assoc();
+}
+
+function getparticipantes($id){
+    $sql=  "SELECT COUNT(*) FROM participantes WHERE id_torneo = $id";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $d= $r->fetch_assoc();
+    return $d['COUNT(*)'];
 }

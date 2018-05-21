@@ -80,7 +80,7 @@ if($partidas_jugadas > 0) {
                     <tr><td>Empates</td><td><?=contPartidasempatadas($datos_usuario['id_usuario'])?></td></tr>
 
                     <tr><td>Derrotas</td><td><?=contPartidasperdidas($datos_usuario['id_usuario'])?></td></tr>
-                    <tr><td>Torneos Ganados:</td><td><?=$datos_usuario['mail']?></td></tr>
+                    <tr><td>Torneos Ganados:</td><td><?=getTorneosganados($datos_usuario['id_usuario'])['COUNT(*)']?></td></tr>
                     <tr><td>Puntuación Total:</td><td><?=$datos_usuario['puntuacion']?></td></tr>
                     <tr><td>Puesto clasificación:</td><td><?=$datos_usuario['mail']?></td></tr>
                 </table>

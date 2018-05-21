@@ -6,8 +6,12 @@ $categorias = getCategoriasForo();
 echo "<div class=\"container\">";
 echo "<h2 class='text-center' style='margin-top: 10px'>FORO OFICIAL</h2>";
 if(count($categorias) > 0) {
-
-
+if(isset($_SESSION['usuario'])){
+echo "<hr><div class='row clearfix'>
+    <div class='col-md-12 column'>                 
+<a href='newthread.php'><button type='submit' class='input-btn' style='float:right; margin-bottom:15px'>Nuevo Tema</button></a>  </div>
+</div>";
+}
 
     for ($i = 0; $i < count($categorias); $i++) {
         $hilos = getHilosCategoria($categorias[$i]['id_categoria']);
@@ -42,8 +46,25 @@ if(count($categorias) > 0) {
 
 
 
+<br><br><br>
 
 </div>
+<div class="c-logo-part">
+        <!--c-logo-part-start-->
+        <div class="container">
+            <?php
+        /*
+                <ul>
+                <li><a href="#"><img src="img/c-liogo1.png" alt=""></a></li>
+                <li><a href="#"><img src="img/c-liogo2.png" alt=""></a></li>
+                <li><a href="#"><img src="img/c-liogo3.png" alt=""></a></li>
+                <li><a href="#"><img src="img/c-liogo4.png" alt=""></a></li>
+                <li><a href="#"><img src="img/c-liogo5.png" alt=""></a></li>
+            </ul>
+        */
+?>
+        </div>
+    </div>
 
 
 

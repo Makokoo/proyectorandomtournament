@@ -20,7 +20,7 @@ include_once 'header.php';
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-03s">
 						<div class="team-leader-shadow"><a href="tdetails.php?id=8"></a></div>
-						<img src="img/dbz.png" alt="">
+						<img src="img/dbz2.png" alt="">
 					</div>
 					<h3 class="wow fadeInDown delay-03s">TORNEO INAUGURACIÓN</h3>
 					<span class="wow fadeInDown delay-03s">Dragon Ball FighterZ</span>
