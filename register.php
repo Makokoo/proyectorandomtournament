@@ -13,34 +13,34 @@ if(isset($_POST['register'])){
     
     //compruebo si existe el nombre en la base de datos
     if(existenick($_POST['uname']) == true){
-        $nameErr = "  -  Ya existe una cuenta con ese nombre de usuario";
+        $nameErr = "  &nbsp;-  Ya existe una cuenta con ese nombre de usuario";
         $name = $_POST['uname'];
         $bien = false;
         $registrado == true;
     }else if($_POST['uname'] == ""){
-        $nameErr = "  -  Campo requerido";
+        $nameErr = " &nbsp; -  Campo requerido";
         $bien = false;
         $registrado == true;
     }
 
     //compruebo si existe el mail
     if(existemail($_POST['email']) == true){
-        $emailErr = "  -  Ya hay una cuenta asociada a ese e-mail";
+        $emailErr = " &nbsp; -  Ya hay una cuenta asociada a ese e-mail";
         $email = $_POST['email'];
         $bien = false;
         $registrado == true;
     }else if($_POST['email'] == ""){
-        $emailErr = "  -  Campo requerido";
+        $emailErr = " &nbsp; -  Campo requerido";
         $bien = false;
         $registrado == true;
     }
 
     if($_POST['psw'] != $_POST['psw2']){
-        $passErr = "  -  Las contraseñas no coinciden";
+        $passErr = " &nbsp; -  Las contraseñas no coinciden";
         $bien = false;
         $registrado == true;
     }else if($_POST['psw'] == "" ||  $_POST['psw2'] == ""){
-        $passErr = "  -  Campo requerido";
+        $passErr = "  &nbsp;-  Campo requerido";
         $registrado == true;
     }
 

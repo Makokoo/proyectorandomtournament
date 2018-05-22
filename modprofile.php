@@ -207,23 +207,23 @@ if(isset($_POST['modified'])){
             <form method="post" action="modprofile.php">
                 <table class="table text-center">
                     <td>Nombre de usuario:</td>
-                    <td><input value="<?= $datos_usuario['username'] ?>"  name="uname" id="uname"><span class="msgerror"><?php echo $nameErr;?></span></td>
+                    <td><input value="<?= $datos_usuario['username'] ?>"  name="uname" id="uname"></td><td><span class="msgerror"><?php echo $nameErr;?></span></td>
                     </tr>
                     <tr>
                         <td>E-Mail:</td>
-                        <td><input value="<?= $datos_usuario['mail'] ?>"  name="mail" id="mail"><span class="msgerror"><?php echo $emailErr;?></span></td>
+                        <td><input value="<?= $datos_usuario['mail'] ?>"  name="mail" id="mail"></td><td><span class="msgerror"><?php echo $emailErr;?></span></td>
                     </tr>
                     <tr>
                         <td>Nueva Contraseña:</td>
-                        <td><input type="password" name="psw" id="psw"><span class="msgerror"><?php echo $passErr;?></span></td>
+                        <td><input type="password" name="psw" id="psw"></td><td><span class="msgerror"><?php echo $passErr;?></span></td>
                     </tr>
                     <tr>
                         <td>Repetir Contraseña:</td>
-                        <td><input type="password" name="psw2" id="psw2"><span class="msgerror"><?php echo $passErr;?></span></td>
+                        <td><input type="password" name="psw2" id="psw2"></td><td><span class="msgerror"><?php echo $passErr;?></span></td>
                     </tr>
                     <tr style="visibility: hidden;" class='animated fadeInDown delay-07s' id="passconfirm">
                         <td>Introduce tu contraseña actual para confirmar los cambios:</td>
-                        <td><input type="password" name="passtoconfirm" id="passtoconfirm">*<span class="msgerror"><?php echo $passErr;?></span></td>
+                        <td><input type="password" name="passtoconfirm" id="passtoconfirm"></td><td><span class="msgerror">*<?php echo $passErr;?></span></td>
                     </tr>
                     <tr>                        
                         <td>

@@ -25,8 +25,9 @@ if(isset($_POST['message'])){
     $autor = getid($_SESSION['usuario']);
     $hilo = $_POST['idhilo'];
     if($mensaje != "") {
-        $sql = "INSERT INTO mensajes (id_hilo,autor,mensaje) VALUES ($hilo,$autor,'$mensaje')";
         $conexion = conectar();
+        $mensaje = mysqli_real_escape_string($conexion, $mensaje);
+         $sql = "INSERT INTO mensajes (id_hilo,autor,mensaje) VALUES ($hilo,$autor,'$mensaje')";
         $conexion->query($sql);
         if ($conexion->affected_rows > 0) {
             echo "<div class=\"container\" style='margin: 250px'>";
@@ -57,7 +58,7 @@ if(isset($_POST['message'])){
         } else {
             $idhilo = $_POST['idhilo'];
         }
-        $primer = getHilo($_GET['id']);
+        $primer = getHilo($idhilo);
         $nombre_usuario = getNombreId($primer['autor']);
         $datos_usuario = getDatosUsuario($nombre_usuario);
         $avatar = "img/default-avatar.png";
@@ -72,7 +73,7 @@ if(isset($_POST['message'])){
         <div class=\"panel-heading\">
           MENSAJE #1";
           if(isset($_SESSION['usuario'])){
-            if($primer['autor'] == getid($_SESSION['usuario'])){
+            if($primer['autor'] == getid($_SESSION['usuario']) || getPermiso($_SESSION['usuario']) > 0){
                 echo "<a class='editar' href='editmessage.php?idhilo=$idhilo'  style='color:black; float: right;'><span class='fa fa-pencil'></span></a>";
                 echo "&nbsp;";
                 echo "<a class='eliminar' id='eliminar' onclick='deletepost($idhilo)'  style='margin-left:5px;color:black; float: right;'><span class='fa fa-trash'></span></a>";
@@ -118,11 +119,13 @@ if(isset($_POST['message'])){
       <div class=\"panel panel-default\">
         <div class=\"panel-heading\">
           MENSAJE #$contador";
-            if($mensajes[$i]['autor'] == getid($_SESSION['usuario'])){
+          if(isset($_SESSION['usuario'])){
+            if($mensajes[$i]['autor'] == getid($_SESSION['usuario']) || getPermiso($_SESSION['usuario']) > 0){
                 echo "<a class='editar' href='editmessage.php?id=$idmensaje'  style='color:black; float: right;'><span class='fa fa-pencil'></span></a>";
                 echo "&nbsp;";
                 echo "<a class='eliminar' id='eliminar' onclick='ask($idmensaje)'  style='margin-left:5px;color:black; float: right;'><span class='fa fa-trash'></span></a>";
             }
+          }
 
         echo"</div>
         <section class=\"row panel-body\">
@@ -159,8 +162,7 @@ if(isset($_SESSION['usuario'])) {
                  
 <form action=\"viewthread.php\" method=\"post\" role=\"form\" class=\"contactForm\">
 							<div class=\"form-group\">
-								<textarea class=\"form-control input-text text-area\" name=\"message\" id=\"message\" >
-								</textarea>
+								<textarea class=\"form-control input-text text-area\" name=\"message\" id=\"message\" ></textarea>
 							
 							</div>
                             <input type='hidden' name='idhilo' id='idhilo' value='$idhilo' >

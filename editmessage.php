@@ -23,9 +23,7 @@ if(!isset($_POST['idhilo']) && !isset($_POST['id'])) {
                  
                         <form action=\"editmessage.php\" method=\"post\" role=\"form\" class=\"contactForm\">
 							<div class=\"form-group\">
-								<textarea class=\"form-control input-text text-area\" name=\"postedit\" id=\"postedit\"  >
-								$mensaje
-								</textarea>
+								<textarea class=\"form-control input-text text-area\" name=\"postedit\" id=\"postedit\"  >$mensaje</textarea>
 							
 							</div>
                             <input type='hidden' name='idhilo' id='idhilo' value='$id' >
@@ -60,9 +58,7 @@ if(!isset($_POST['idhilo']) && !isset($_POST['id'])) {
                  
                         <form action=\"editmessage.php\" method=\"post\" role=\"form\" class=\"contactForm\">
 							<div class=\"form-group\">
-								<textarea class=\"form-control input-text text-area\" name=\"message\" id=\"message\"  >
-								".$mensaje['mensaje']."
-								</textarea>
+								<textarea class=\"form-control input-text text-area\" name=\"message\" id=\"message\">".$mensaje['mensaje']."</textarea>
 							
 							</div>
                             <input type='hidden' name='id' id='id' value='$id' >
@@ -101,16 +97,20 @@ if(!isset($_POST['idhilo']) && !isset($_POST['id'])) {
     $sql = "UPDATE mensajes SET mensaje='$nuevomensaje' WHERE id_mensaje=$id";
     $conexion = conectar();
     $conexion -> query($sql);
+    $sql2 = "SELECT * from mensajes WHERE id_mensaje = $id";
+    $r = $conexion -> query($sql2);
+    $d = $r->fetch_assoc();
+    $hilo = $d['id_hilo'];
     if($conexion->affected_rows > 0){
         echo "<div class=\"container\" style='margin: 250px'>";
         echo "<h2 class='text-center'>Mensaje modificado correctamente</h2>";
         echo "</div>";
-        header("Refresh:3; url='forum.php");
+        header("Refresh:3; url='viewthread.php?id=$hilo");
     }else{
         echo "<div class=\"container\" style='margin: 250px'>";
         echo "<h2 class='text-center'>Error, no se ha podido modificar el mensaje</h2>";
         echo "</div>";
-        header("Refresh:3; url='forum.php");
+        header("Refresh:3; url='viewthread.php?id=$hilo");
     }
 }
 

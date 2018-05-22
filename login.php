@@ -1,6 +1,19 @@
 <?php
 include_once "funciones.php";
 session_start();
+$nameErr = "";
+$passErr = "";
+
+if(isset($_POST['uname']) && isset($_POST['psw'])){
+    $conexion = conectar();
+
+    if(logincorrecto($_POST['uname'],$_POST['psw']) == true){
+        header('location:welcome.php?user='.$_POST['uname']);
+        $_SESSION['usuario'] = $_POST['uname'];
+    }else{
+        $nameErr = "&nbsp;-  Error de credenciales";
+    }
+}
 ?>
 
 <!doctype html>
@@ -47,10 +60,10 @@ session_start();
         <h1 class="animated fadeInDown delay-07s">Bienvenido a RandomTournaments</h1>
         <form action="login.php" method="post">
             <div class="container animated fadeInLeft delay-06s">
-                <label for="uname"><b>Usuario</b></label>
+                <label for="uname"><b>Usuario</b></label><label for="uname" style="color:red"><b><?=$nameErr?></b></label>
                 <input type="text" class="form-control input-text" placeholder="Enter Username" name="uname" id="uname" required>
                 <br>
-                <label for="psw"><b>Contraseña</b></label>
+                <label for="psw"><b>Contraseña</b></label><label for="uname" style="color:red"><b><?=$passErr?></b></label>
                 <input type="password" class="form-control input-text" placeholder="Enter Password" name="psw" id="psw" required>
 
                 <button class="link animated fadeInUp delay-1s" type="submit">Iniciar Sesión</button>
@@ -75,13 +88,3 @@ session_start();
 
 </html>
 
-<?php
-
-if(isset($_POST['uname']) && isset($_POST['psw'])){
-    $conexion = conectar();
-
-    if(logincorrecto($_POST['uname'],$_POST['psw']) == true){
-        header('location:welcome.php?user='.$_POST['uname']);
-        $_SESSION['usuario'] = $_POST['uname'];
-    }
-}

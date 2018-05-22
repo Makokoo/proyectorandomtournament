@@ -452,3 +452,11 @@ function getparticipantes($id){
     $d= $r->fetch_assoc();
     return $d['COUNT(*)'];
 }
+
+function getPermiso($id){
+    $sql = "SELECT permiso FROM usuarios WHERE username LIKE '$id'";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $d= $r->fetch_assoc();
+    return $d['permiso'];
+}
