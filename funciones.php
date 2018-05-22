@@ -64,6 +64,7 @@ function registrarusuario($uname, $psw , $mail){
 
 function modificarusuario($id,$newuname, $newmail, $password){
     $conexion = conectar();
+    $password = md5($password);
     $sql = "UPDATE usuarios SET username = '$newuname', mail='$newmail', password='$password' WHERE id_usuario=$id";
     $conexion->query($sql);
     if($conexion->affected_rows>0){
@@ -148,24 +149,33 @@ function getClasificacion($uname){
     $res = $conexion->query($sql);
 
 
-    echo "<table class='table table-bordered text-center'>";
-    echo "<tr><td><b>Puesto</b></td><td><b>Usuario</b></td><td><b>Partidas Jugadas</b></td><td><b>Victorias</b></td><td><b>Empates</b></td><td><b>Derrotas</b></td><td><b>Puntos</b></td></tr>";
+
+echo "<table id='table_id' class='display'>";
+echo "<thead>";
+echo "<tr><th>Puesto</th><th>Usuario</th><th>Partidas Jugadas</th><th>Victorias</th><th>Empates</th><th>Derrotas</th><th>Puntos</th></tr>";
+echo "</thead>";
+echo "<tbody>";
+
+
+
+    //echo "<table class='table table-bordered text-center'>";
+    //echo "<tr><td><b>Puesto</b></td><td><b>Usuario</b></td><td><b>Partidas Jugadas</b></td><td><b>Victorias</b></td><td><b>Empates</b></td><td><b>Derrotas</b></td><td><b>Puntos</b></td></tr>";
     while($datos = $res->fetch_assoc()){
         $contador++;
         $da = getDatosUsuario($datos['username']);
         if($uname == $datos['username']){
 
-            echo "<tr class='alert-success'><td><b>".$contador."º</b></td><td><b>".$datos['username']."</b></td><td><b>".contPartidasjugadas($da['id_usuario'])."</b></td>
+            echo "<tr><td><b>".$contador."</b></td><td><b>".$datos['username']."</b></td><td><b>".contPartidasjugadas($da['id_usuario'])."</b></td>
                 <td><b>".contPartidasganadas($da['id_usuario'])."</b></td><td><b>".contPartidasempatadas($da['id_usuario'])."</b></td><td><b>".contPartidasperdidas($da['id_usuario'])."</b></td><td><b>".$datos['puntuacion']."</b></td></tr>";
 
         }else{
 
-            echo "<tr><td>".$contador."º</td><td>".$datos['username']."</td><td>".contPartidasjugadas($da['id_usuario'])."</td>
+            echo "<tr><td>".$contador."</td><td>".$datos['username']."</td><td>".contPartidasjugadas($da['id_usuario'])."</td>
                 <td>".contPartidasganadas($da['id_usuario'])."</td><td>".contPartidasempatadas($da['id_usuario'])."</td><td>".contPartidasperdidas($da['id_usuario'])."</td><td>".$datos['puntuacion']."</td></tr>";
         }
     }
 
-    echo "</table>";
+    echo "</tbody></table>";
 
 }
 

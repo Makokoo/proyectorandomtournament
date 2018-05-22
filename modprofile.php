@@ -50,24 +50,31 @@ if(isset($_POST['modified'])){
         }
     }
 
-    if($_POST['passtoconfirm'] != ""){
-          if($_POST['passtoconfirm'] != $datos_usuario['password']){
-                $bien = false;
-          }
-     }
+    
 
     if($_POST['psw'] != "" && $_POST['psw2'] != "") {
         if ($_POST['psw'] != $_POST['psw2']) {
             $passErr = "Las contraseñas no coinciden";
             $bien = false;
-        } else if ($_POST['psw'] == "" || $_POST['psw2'] == "") {
+        } 
+
+        if ($_POST['psw'] == "" || $_POST['psw2'] == "") {
+            if($_POST['passtoconfirm'] != ""){
+                $bien = true;
+            }else{
             $passErr = "Campo requerido";
+            }
         } else if ($_POST['psw'] == $_POST['psw2']){
           $nuevapass = true;
           $bien = true;
         }
      }
 
+    if($_POST['passtoconfirm'] != ""){
+          if(md5($_POST['passtoconfirm']) != $datos_usuario['password']){
+                $bien = false;
+          }
+     }
     
 
     if($bien){
@@ -88,6 +95,8 @@ if(isset($_POST['modified'])){
                 $msgfinal = "Ha ocurrido un error.";
             }
         }
+    }else{
+        echo "No no no no no no";
     }
 }
 
@@ -132,6 +141,16 @@ if(isset($_POST['modified'])){
             refButton.oninput = function() {
                 test.style.visibility='visible';
             }
+            var pass = document.getElementById('psw');
+            pass.oninput = function(){
+                test.style.visibility='visible';
+            }
+
+            var mail = document.getElementById('mail');
+            mail.oninput = function(){
+                test.style.visibility='visible';
+            }
+
           }
     </script>
     
