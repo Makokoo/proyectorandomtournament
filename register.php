@@ -7,182 +7,250 @@ $emailErr = "";
 $passErr = "";
 $name = "";
 $email = "";
-
+$bien = true;
+$registrado = false;
 if(isset($_POST['register'])){
-
-    $bien = true;
+    
     //compruebo si existe el nombre en la base de datos
     if(existenick($_POST['uname']) == true){
-        $nameErr = "Ya existe una cuenta con ese nombre de usuario";
+        $nameErr = "  -  Ya existe una cuenta con ese nombre de usuario";
         $name = $_POST['uname'];
         $bien = false;
+        $registrado == true;
     }else if($_POST['uname'] == ""){
-        $nameErr = "Campo requerido";
+        $nameErr = "  -  Campo requerido";
         $bien = false;
+        $registrado == true;
     }
 
     //compruebo si existe el mail
     if(existemail($_POST['email']) == true){
-        $emailErr = "Ya hay una cuenta asociada a ese e-mail";
+        $emailErr = "  -  Ya hay una cuenta asociada a ese e-mail";
         $email = $_POST['email'];
         $bien = false;
+        $registrado == true;
     }else if($_POST['email'] == ""){
-        $emailErr = "Campo requerido";
+        $emailErr = "  -  Campo requerido";
         $bien = false;
+        $registrado == true;
     }
 
     if($_POST['psw'] != $_POST['psw2']){
-        $passErr = "Las contraseñas no coinciden";
+        $passErr = "  -  Las contraseñas no coinciden";
         $bien = false;
+        $registrado == true;
     }else if($_POST['psw'] == "" ||  $_POST['psw2'] == ""){
-        $passErr = "Campo requerido";
+        $passErr = "  -  Campo requerido";
+        $registrado == true;
     }
 
     if($bien){
+        
         registrarusuario($_POST['uname'], $_POST['psw'], $_POST['email']);
+        $nameErr = "<label style='color:green'>Cuenta creada correctamente</label>";
+        //echo "<script>document.getElementById('formulario').style.display = 'none';</script>";
+        //echo "<h3 class='text-center' style='color:darkgreen'>Cuenta creada correctamente</h2><br>";
+        //header( "Refresh:3; url='login.php'");
+
+
+
+        ?>
+
+
+
+        <!doctype html>
+        <html>
+
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, maximum-scale=1">
+
+            <title>RandomTournaments</title>
+            <link rel="icon" href="favicon.png" type="image/png">
+            <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+
+            <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+
+            <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+            <link href="css/style.css" rel="stylesheet" type="text/css">
+            <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+            <link href="css/responsive.css" rel="stylesheet" type="text/css">
+            <link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
+            <link href="css/animate.css" rel="stylesheet" type="text/css">
+
+
+        </head>
+
+        <body>
+            <header class="header" id="header">
+                <!--header-start-->
+                <div class="container">
+                    <figure class="logo animated fadeInDown delay-07s">
+                        <img src="img/logo.png" alt="">
+                    </figure>
+                    <h1 class="animated fadeInDown delay-07s">Cuenta creada correctamente</h1>
+                    <ul class='we-create animated fadeInUp delay-07s'>
+                        <li>Bienvenido a la competición</li>
+                    </ul>
+                </div>
+            </header>
+            <!--header-end-->
+
+        </body>
+
+        </html>
+
+
+
+        <?php
+        header( "Refresh:3; url='login.php'");
+    }else{
+        ?>
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+
+    <title>Homepage</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+    
+
+</head>
+
+<body>
+<header class="header" id="header">
+    <!--header-start-->
+    <div class="container">
+        <figure class="logo animated fadeInDown delay-07s">
+            <img src="img/logo.png" alt="">
+        </figure>
+        <h1 class="animated fadeInDown delay-07s">Bienvenido a RandomTournaments</h1>
+        <form action="register.php" method="post">
+            <div class="container animated fadeInLeft delay-06s" id='formulario'>
+                <label for="uname"><b>Usuario</b></label><label style="color:red"><?=$nameErr?></label>
+                <input type="text" class="form-control input-text" placeholder="Nombre de Usuario" name="uname" id="uname" required>
+                <br>
+                <label for="email"><b>E-Mail</b></label><label style="color:red"><?=$emailErr?></label>
+                <input type="text" class="form-control input-text" placeholder="E-Mail" name="email" id="email" required>
+                <br>
+                <label for="psw"><b>Contraseña</b></label><label style="color:red"><?=$passErr?></label>
+                <input type="password" class="form-control input-text" placeholder="Contraseña" name="psw" id="psw" required>
+                <br>
+                <label for="psw"><b>Repite Contraseña</b></label>
+                <input type="password" class="form-control input-text" placeholder="Repita su Contraseña" name="psw2" id="psw2" required>
+
+                <input class="link animated fadeInUp delay-1s" name="register" id="register" type="submit" value="Registrar">
+            </div>
+
+
+                
+                <span class="psw" class="link animated fadeInUp delay-1s ">
+                    <label class="animated fadeInUp delay-1s">Ya tienes cuenta?</label> 
+                    <a href="login.php" class="animated fadeInUp delay-1s">Inicia sesión aquí</a>
+                </span>
+
+        </form>
+    </div>
+</header>
+<!--header-end-->
+
+
+
+
+</body>
+
+</html>
+
+
+        <?php
     }
 }
 
+else {
+
 ?>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style>
-            body {
-                font-family: Arial, Helvetica, sans-serif;
-            }
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+
+    <title>RandomTournaments</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+    
+
+</head>
+
+<body>
+<header class="header" id="header">
+    <!--header-start-->
+    <div class="container">
+        <figure class="logo animated fadeInDown delay-07s">
+            <img src="img/logo.png" alt="">
+        </figure>
+        <h1 class="animated fadeInDown delay-07s">Bienvenido a RandomTournaments</h1>
+        <form action="register.php" method="post">
+            <div class="container animated fadeInLeft delay-06s" id='formulario'>
+                <label for="uname"><b>Usuario</b></label><label style="color:red"><?=$nameErr?></label>
+                <input type="text" class="form-control input-text" placeholder="Nombre de Usuario" name="uname" id="uname" required>
+                <br>
+                <label for="email"><b>E-Mail</b></label><label style="color:red"><?=$emailErr?></label>
+                <input type="text" class="form-control input-text" placeholder="E-Mail" name="email" id="email" required>
+                <br>
+                <label for="psw"><b>Contraseña</b></label><label style="color:red"><?=$passErr?></label>
+                <input type="password" class="form-control input-text" placeholder="Contraseña" name="psw" id="psw" required>
+                <br>
+                <label for="psw"><b>Repite Contraseña</b></label>
+                <input type="password" class="form-control input-text" placeholder="Repita su Contraseña" name="psw2" id="psw2" required>
+
+                <input class="link animated fadeInUp delay-1s" name="register" id="register" type="submit" value="Registrar">
+            </div>
 
 
-            input[type=text], input[type=password], input[type=email] {
-                width: 100%;
-                padding: 12px 20px;
-                margin: 8px 0;
-                display: inline-block;
-                border: 1px solid #ccc;
-                box-sizing: border-box;
-            }
+                
+                <span class="psw" class="link animated fadeInUp delay-1s ">
+                    <label class="animated fadeInUp delay-1s">Ya tienes cuenta?</label> 
+                    <a href="login.php" class="animated fadeInUp delay-1s">Inicia sesión aquí</a>
+                </span>
 
-            button, input[type=submit] {
-                background-color: #4CAF50;
-                color: white;
-                padding: 14px 20px;
-                margin: 8px 0;
-                border: none;
-                cursor: pointer;
-                width: 100%;
-            }
-
-            button:hover {
-                opacity: 0.8;
-            }
-
-            .cancelbtn {
-                width: auto;
-                padding: 10px 18px;
-                background-color: #f44336;
-            }
-
-            .msgerror{
-                color: #990000;
-            }
-
-            .imgcontainer {
-                text-align: center;
-                margin: 24px 0 12px 0;
-            }
-
-            img.avatar {
-                width: 20%;
-                border-radius: 50%;
-            }
-
-            .container {
-
-            }
-
-            span.psw {
-                float: right;
-                padding-top: 16px;
-            }
-
-            /* Change styles for span and cancel button on extra small screens */
-            @media screen and (max-width: 300px) {
-                span.psw {
-                    display: block;
-                    float: none;
-                }
-                .cancelbtn {
-                    width: 100%;
-                }
-            }
-        </style>
-
-        <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script>
-
-    </head>
-    <body>
-
-
-
-        <div class="imgcontainer">
-            <img src="media/trophy.png" alt="Avatar" class="avatar">
-        </div>
-
-        <div class="container">
-
-            <form method="post" action="register.php">
-                <label for="uname"><b>Usuario</b></label>
-                <input type="text" name="uname" value="<?php echo $name;?>">
-                * <span class="msgerror"><?php echo $nameErr;?></span>
-                <br><br>
-                <label for="psw"><b>E-Mail</b></label>
-                <input type="text" name="email" value="<?php echo $email;?>">
-                * <span class="msgerror"><?php echo $emailErr;?></span>
-                <br><br>
-                <label for="psw"><b>Contraseña</b></label>
-                <input type="password" name="psw" id="psw">
-                * <span class="msgerror"><?php echo $passErr;?></span>
-                <br><br>
-                <label for="psw"><b>Vuelva a repetir la Contraseña</b></label>
-                <input type="password" name="psw2" id="psw2">
-                * <span class="msgerror"><?php echo $passErr;?></span>
-                <input type="submit" class='btn btn-info' name="register" id="register" value="REGISTRAR">
-
-            </form>
+        </form>
+    </div>
+</header>
+<!--header-end-->
 
 
 
 
-        </div>
+</body>
 
+</html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="container" style="background-color:#f1f1f1">
-            <button type="button" onclick="goBack()" class="cancelbtn">Volver</button>
-            <span class="psw">¿Ya tienes cuenta? <a href="login.php">Inicia sesión aquí</a></span>
-        </div>
-    </form>
-
-    </body>
-    </html>
-
+<?php
+}

@@ -9,7 +9,7 @@ session_start();
 	<meta charset='utf-8'>
 	<meta name='viewport' content='width=device-width, maximum-scale=1'>
 
-	<title>Homepage</title>
+	<title>RandomTournaments</title>
 	<link rel='icon' href='favicon.png' type='image/png'>
 	<link rel='shortcut icon' href='favicon.ico' type='img/x-icon'>
 
@@ -35,7 +35,7 @@ session_start();
 			<ul class='main-nav'>
                 <li><a href='home.php'>INICIO</a></li>
 				<li><a href='tournaments.php'>TORNEOS</a></li>
-                <li><a href='shop.php'>TIENDA</a></li>
+                <li><a href='forum.php'>FORO</a></li>
 				<li class='small-logo'><a href='home.php'><img src='img/small-logo.png' alt=''></a></li>
                 <li><a href='quienessomos.php'>QUIENES SOMOS</a></li>
 

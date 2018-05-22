@@ -11,9 +11,10 @@ function logincorrecto($nick,$pass){
     //Funcion que comprueba si existe el usuario con la contraseña correspondiente
 
     $conexion = conectar();
+    $pass = md5($pass);
+
     $sql = "SELECT username,password FROM usuarios WHERE username LIKE '$nick' AND password LIKE '$pass'";
     $resultado= $conexion->query($sql);
-    echo $sql;
     $datos = array();
 
     while ($data=$resultado->fetch_row()) {
@@ -48,7 +49,11 @@ function conectar(){
 
 function registrarusuario($uname, $psw , $mail){
     $conexion = conectar();
-    $sql = "INSERT INTO usuarios(username, mail, password) VALUES ('$uname', '$mail', '$psw')";
+    $uname2 = mysqli_real_escape_string($conexion,$uname);
+    $psw2 = mysqli_real_escape_string($conexion,$psw);
+    $mail2 = mysqli_real_escape_string($conexion,$mail);
+    $psw2 = md5($psw2);
+    $sql = "INSERT INTO usuarios(username, mail, password) VALUES ('$uname2', '$mail2', '$psw2')";
     $conexion->query($sql);
     if($conexion->affected_rows>0){
         return true;
@@ -260,6 +265,7 @@ function getDatosTorneo($id){
 
 function hayganador($id){
     $sql = "SELECT ganador FROM torneos WHERE id_torneo = $id";
+
     $conexion = conectar();
     $r = $conexion->query($sql);
     $datos = $r->fetch_assoc();
