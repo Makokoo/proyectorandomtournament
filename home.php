@@ -19,8 +19,8 @@ include_once 'header.php';
 
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-03s">
-						<div class="team-leader-shadow"><a href="tdetails.php?id=8"></a></div>
-						<img src="img/dbz2.png" alt="">
+						<div class="team-leader-shadow"><a href="tdetails.php?id=7"></a></div>
+						<img src="img/dbz.png" alt="">
 					</div>
 					<h3 class="wow fadeInDown delay-03s">TORNEO INAUGURACIÓN</h3>
 					<span class="wow fadeInDown delay-03s">Dragon Ball FighterZ</span>
@@ -41,7 +41,7 @@ include_once 'header.php';
 
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-09s">
-						<div class="team-leader-shadow"><a href="tienda/shop.php"></a></div>
+						<div class="team-leader-shadow"><a href="tienda/index.php"></a></div>
 						<img src="img/tienda.png" alt="">
 					</div>
 					<h3 class="wow fadeInDown delay-09s">INAUGURAMOS NUESTRA TIENDA ONLINE</h3>
@@ -55,25 +55,6 @@ include_once 'header.php';
 	</section>
 	<!--main-section team-end-->
 
-
-
-
-	<div class="c-logo-part">
-		<!--c-logo-part-start-->
-		<div class="container">
-            <?php
-		/*
-				<ul>
-				<li><a href="#"><img src="img/c-liogo1.png" alt=""></a></li>
-				<li><a href="#"><img src="img/c-liogo2.png" alt=""></a></li>
-				<li><a href="#"><img src="img/c-liogo3.png" alt=""></a></li>
-				<li><a href="#"><img src="img/c-liogo4.png" alt=""></a></li>
-				<li><a href="#"><img src="img/c-liogo5.png" alt=""></a></li>
-			</ul>
-		*/
-?>
-		</div>
-	</div>
 
 
 

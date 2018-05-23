@@ -8,8 +8,13 @@ if(isset($_POST['uname']) && isset($_POST['psw'])){
     $conexion = conectar();
 
     if(logincorrecto($_POST['uname'],$_POST['psw']) == true){
-        header('location:welcome.php?user='.$_POST['uname']);
-        $_SESSION['usuario'] = $_POST['uname'];
+        $datos = getDatosUsuario($_POST['uname']);
+        if($datos['estado'] == 'alta'){
+            header('location:welcome.php?user='.$_POST['uname']);
+            $_SESSION['usuario'] = $_POST['uname'];
+        }else{
+            $nameErr = "&nbsp;- Error, tu cuenta está desactivada.";
+        }
     }else{
         $nameErr = "&nbsp;-  Error de credenciales";
     }

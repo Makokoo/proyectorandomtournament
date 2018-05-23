@@ -13,7 +13,7 @@ function logincorrecto($nick,$pass){
     $conexion = conectar();
     $pass = md5($pass);
 
-    $sql = "SELECT username,password FROM usuarios WHERE username LIKE '$nick' AND password LIKE '$pass'";
+    $sql = "SELECT username,password,estado FROM usuarios WHERE username LIKE '$nick' AND password LIKE '$pass'";
     $resultado= $conexion->query($sql);
     $datos = array();
 
@@ -21,7 +21,7 @@ function logincorrecto($nick,$pass){
         $datos = $data;
     }
 
-    if(count($datos)==2) {
+    if(count($datos)==3) {
         if ($datos[0] == $nick && $datos[1] == $pass) {
             return true;
         } else {
@@ -453,10 +453,49 @@ function getparticipantes($id){
     return $d['COUNT(*)'];
 }
 
-function getPermiso($id){
-    $sql = "SELECT permiso FROM usuarios WHERE username LIKE '$id'";
+function getPermiso($uname){
+    $sql = "SELECT permiso FROM usuarios WHERE username LIKE '$uname'";
     $conexion = conectar();
     $r = $conexion->query($sql);
     $d= $r->fetch_assoc();
     return $d['permiso'];
+}
+
+function getCantidadUsuarios(){
+    $sql = "SELECT COUNT(*) FROM usuarios";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $d= $r->fetch_assoc();
+    return $d['COUNT(*)'];
+}
+
+function getDatosParticipantes($id_torneo){
+     $conexion = conectar();
+    $sqlcategorias = "SELECT id_usuario FROM participantes WHERE id_torneo = $id_torneo";
+    $r = $conexion->query($sqlcategorias);
+    $datos = [];
+    while( $d = $r->fetch_assoc() ){
+        $datos[] = $d['id_usuario'];
+    }
+    return $datos;
+
+}
+
+function getPersonajesJuego($id_juego){
+    $conexion = conectar();
+    $sqlcategorias = "SELECT id_personaje FROM personajes WHERE id_juego = $id_juego";
+    $r = $conexion->query($sqlcategorias);
+    $datos = [];
+    while( $d = $r->fetch_assoc() ){
+        $datos[] = $d;
+    }
+    return $datos;
+}
+
+function comprobarSiPartidasCreadas($id_torneo){
+    $sql = "SELECT COUNT(*) FROM partidas WHERE id_torneo = $id_torneo";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $d= $r->fetch_assoc();
+    return $d['COUNT(*)'];
 }

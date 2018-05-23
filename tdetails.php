@@ -156,8 +156,6 @@ if(isset($_SESSION['usuario'])) {
                     $id = $_POST['idtournament'];
                 }
                 $datos_torneo = getDatosTorneo($id);
-                $lista = $datos_torneo['participantes'];
-                $participantes = explode(",", $lista);
                 $datos_partidas = getPartidasTorneo($id);
                 $contador = 0;
 
@@ -275,8 +273,8 @@ if(isset($_SESSION['usuario'])) {
                     echo "<h2 class='text-center' style='padding-top: 125px'>GANADOR: " . getNombreId($datos_torneo['ganador']) . "</h2>";
                     echo "</div><p></p><br>";
                 }else {
-
-                    if (getparticipantes($datos_torneo['id_torneo']) < 8 && !hayganador($datos_torneo['id_torneo'])) {
+                    
+                    if (getparticipantes($datos_torneo['id_torneo']) < 8 ) {
                         if(isset($_SESSION['usuario'])) {
                             if (yainscrito($datos_torneo['id_torneo'], getid($_SESSION['usuario']))) {
                                 echo "<h1 class='text-center' style='color:red;padding-top: 125px'>Ya estás inscrito en este torneo!</h1>";
@@ -326,14 +324,18 @@ if(isset($_SESSION['usuario'])) {
                         echo "<td>FINAL</td>";
                     }
 
-                    if($datos_partidas[$i]['resultado'] == $datos_partidas[$i]['local']){
+                    if($datos_partidas[$i]['resultado'] == 1){
                         echo "<td class='success'>".getNombreId($datos_partidas[$i]['local'])."</td>";
+                    }else if($datos_partidas[$i]['resultado']=='espera'){
+                        echo "<td>".getNombreId($datos_partidas[$i]['local'])."</td>";
                     }else{
                         echo "<td class='danger'>".getNombreId($datos_partidas[$i]['local'])."</td>";
                     }
 
-                    if($datos_partidas[$i]['resultado'] == $datos_partidas[$i]['visitante']){
+                    if($datos_partidas[$i]['resultado'] == 2){
                         echo "<td class='success'>".getNombreId($datos_partidas[$i]['visitante'])."</td>";
+                    }else if($datos_partidas[$i]['resultado']=='espera'){
+                        echo "<td>".getNombreId($datos_partidas[$i]['local'])."</td>";
                     }else{
                         echo "<td class='danger'>".getNombreId($datos_partidas[$i]['visitante'])."</td>";
                     }
