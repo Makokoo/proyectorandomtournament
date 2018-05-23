@@ -335,7 +335,7 @@ if(isset($_SESSION['usuario'])) {
                     if($datos_partidas[$i]['resultado'] == 2){
                         echo "<td class='success'>".getNombreId($datos_partidas[$i]['visitante'])."</td>";
                     }else if($datos_partidas[$i]['resultado']=='espera'){
-                        echo "<td>".getNombreId($datos_partidas[$i]['local'])."</td>";
+                        echo "<td>".getNombreId($datos_partidas[$i]['visitante'])."</td>";
                     }else{
                         echo "<td class='danger'>".getNombreId($datos_partidas[$i]['visitante'])."</td>";
                     }
