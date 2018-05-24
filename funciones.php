@@ -180,7 +180,7 @@ echo "<tbody>";
 }
 
 function contPartidasjugadas($id){
-    $sql = "SELECT COUNT(*) from partidas WHERE visitante=$id OR local=$id";
+    $sql = "SELECT COUNT(*) from partidas WHERE visitante=$id OR local=$id AND estado != 'espera'";
     $conexion = conectar();
     $res = $conexion->query($sql);
     $datos = $res->fetch_assoc();
