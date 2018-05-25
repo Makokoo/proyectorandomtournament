@@ -48,9 +48,7 @@ function ask(id){
         			$nombre_juego = $datos_juego['nombre'];
         			echo "<tr><td>$id</td><td>$nombre_juego</td><td>$nombre</td><td>$participantes</td><td>$estado</td>";
         			if($participantes == 8 && comprobarSiPartidasCreadas($id) == 0){
-        				echo "<td><button class='btn btn-success' onclick='ask($id)'>Iniciar Torneo</button><form method='post' action='start_tournament.php'>
-
-            </form>";
+        				echo "<td><button class='btn btn-success' onclick='ask($id)'>Iniciar Torneo</button></td>";
         			}else{
         				echo "<td></td>";
         			}

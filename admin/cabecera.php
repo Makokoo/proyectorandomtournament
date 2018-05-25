@@ -103,6 +103,9 @@ session_start();
               <span>INICIO</span>
             </a>
           </li>
+          <?php
+          if(isset($_SESSION['usuario']) && getPermiso($_SESSION['usuario']) == 2){
+            ?>
           <li>
             <a href="gestion_clientes.php">
               <i class="icon_profile"></i>
@@ -110,6 +113,9 @@ session_start();
 
             </a>
           </li>
+        <?php
+        }
+        ?>
           <li>
             <a href="tournaments_admin.php">
               <i class="icon_desktop"></i>
