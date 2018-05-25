@@ -14,7 +14,7 @@ $datos_usuario['username'] = "";
 if(isset($_SESSION['usuario'])) {
     $datos_usuario = getDatosUsuario($_SESSION['usuario']);
 
-}
+
 
 $partidas_jugadas = contPartidasjugadas($datos_usuario['id_usuario']);
 $partidas_ganadas = contPartidasganadas($datos_usuario['id_usuario']);
@@ -111,6 +111,11 @@ if($partidas_jugadas > 0) {
 
 
 <?php
+}else{
+    echo "<div class=\"container\" style='margin: 250px'>";
+        echo "<h2 class='text-center'>Debes iniciar sesión para acceder aquí</h2>";
+        echo "</div>";
+}
 include_once 'footer.php';
 
 ?>

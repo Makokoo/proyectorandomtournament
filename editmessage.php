@@ -2,6 +2,8 @@
 include_once ('funciones.php');
 include_once ('header.php');
 
+if(isset($_SESSION['usuario'])){
+
 if(!isset($_POST['idhilo']) && !isset($_POST['id'])) {
 
     if (isset($_GET['idhilo'])) {
@@ -114,7 +116,11 @@ if(!isset($_POST['idhilo']) && !isset($_POST['id'])) {
     }
 }
 
-
+}else{
+    echo "<div class=\"container\" style='margin: 250px'>";
+        echo "<h2 class='text-center'>Debes iniciar sesión para acceder aquí</h2>";
+        echo "</div>";
+}
 
 
 include_once ('footer.php');

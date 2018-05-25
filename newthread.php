@@ -2,6 +2,7 @@
 include_once 'header.php';
 include_once 'funciones.php';
 
+if(isset($_SESSION['usuario'])){
 $nombrehilo = "";
 $mensaje = "";
 if(isset($_POST['name'])){
@@ -82,6 +83,11 @@ if(isset($_POST['name'])){
 			header("Refresh:2; url='viewthread.php?id=$hilo'");
 		}
 	}
+}
+}else{
+	echo "<div class=\"container\" style='margin: 250px'>";
+        echo "<h2 class='text-center'>Debes iniciar sesión para acceder aquí</h2>";
+        echo "</div>";
 }
 
 include_once 'footer.php';

@@ -2,6 +2,7 @@
 include_once 'funciones.php';
 include_once 'header.php';
 
+if(isset($_SESSION['usuario'])){
 if(isset($_GET['id'])){
     $id = $_GET['id'];
     $sql2 = "SELECT id_hilo FROM mensajes WHERE id_mensaje = $id";
@@ -40,6 +41,11 @@ if(isset($_GET['id'])){
         echo "</div>";
         header("Refresh:3; url='forum.php?'");
     }
+}
+}else{
+    echo "<div class=\"container\" style='margin: 250px'>";
+        echo "<h2 class='text-center'>Debes iniciar sesión para acceder aquí</h2>";
+        echo "</div>";
 }
 
 include_once 'footer.php';
