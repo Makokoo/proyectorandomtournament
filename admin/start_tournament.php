@@ -60,7 +60,7 @@ include_once 'cabecera.php';
                                                 }
                                             }
                                         } else {
-
+                                            echo "El estado del torneo es 'iniciado'";
                                             $conexion->rollback();
                                         }
 
