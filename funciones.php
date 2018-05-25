@@ -499,3 +499,41 @@ function comprobarSiPartidasCreadas($id_torneo){
     $d= $r->fetch_assoc();
     return $d['COUNT(*)'];
 }
+
+function comprobarPrimeraRondaJugada($id_torneo){
+    $sql = "SELECT COUNT(*) FROM partidas WHERE id_torneo = $id_torneo AND ronda = 1 AND resultado != 'espera'";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $d= $r->fetch_assoc();
+    return $d['COUNT(*)'];
+}
+
+function comprobarSegundaRondaJugada($id_torneo){
+    $sql = "SELECT COUNT(*) FROM partidas WHERE id_torneo = $id_torneo AND ronda = 2 AND resultado != 'espera'";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $d= $r->fetch_assoc();
+    return $d['COUNT(*)'];
+}
+
+function getGanadores($id_torneo,$ronda){
+    $sql = "SELECT local,visitante,resultado FROM partidas WHERE id_torneo = $id_torneo AND ronda = $ronda";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $datos = [];
+    while( $d = $r->fetch_assoc() ){
+        $datos[] = $d;
+    }
+    $ganadores = [];
+    for ($i = 0; $i < count($datos); $i++){
+        $local = $datos[$i]['local'];
+        $visitante = $datos[$i]['visitante'];
+        $resultado = $datos[$i]['resultado'];
+        if($resultado == 1){
+            $ganadores[] = $local;
+        }else{
+            $ganadores[] = $visitante;
+        }
+    }
+    return $ganadores;
+}

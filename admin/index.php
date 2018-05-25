@@ -51,7 +51,7 @@ include_once 'cabecera.php';
               <div class="info-box green-bg">
                 <i class="fa fa-cubes"></i>
                 <div class="count"><?=getStockTotal();?></div>
-                <div class="title">Stock</div>
+                <div class="title">Stock total</div>
               </div>
             </a>
             <!--/.info-box-->

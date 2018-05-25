@@ -10,6 +10,24 @@ function ask(id){
     
 }
 
+function asksegundaronda(id){
+ 
+    var r = confirm('¿Seguro que quieres iniciar la segunda ronda de este torneo?');
+    if(r){
+        location.href ='start_tournament.php?idsnd='+id;
+    }
+    
+}
+
+function askrondafinal(id){
+ 
+    var r = confirm('¿Seguro que quieres iniciar la ronda final de este torneo?');
+    if(r){
+        location.href ='start_tournament.php?idfinal='+id;
+    }
+    
+}
+
 
 </script>";
 ?>
@@ -37,7 +55,7 @@ function ask(id){
         	*/
         	if(count($datos_torneo) > 0){
         		echo "<table class='table table-bordered text-center'>";
-        		echo "<th class='text-center'>ID</th><th class='text-center'>Juego</th><th class='text-center'>Nombre Torneo</th><th class='text-center'>Usuarios Inscritos</th><th class='text-center'>Estado</th><th class='text-center'>Iniciar</th>";
+        		echo "<th class='text-center'>ID</th><th class='text-center'>Juego</th><th class='text-center'>Nombre Torneo</th><th class='text-center'>Usuarios Inscritos</th><th class='text-center'>Estado</th><th class='text-center'>Acción</th>";
         		for ($i=0; $i < count($datos_torneo); $i++) {
         			$id = $datos_torneo[$i]['id_torneo'];
         			$nombre = $datos_torneo[$i]['nombre_torneo'];
@@ -49,8 +67,12 @@ function ask(id){
         			echo "<tr><td>$id</td><td>$nombre_juego</td><td>$nombre</td><td>$participantes</td><td>$estado</td>";
         			if($participantes == 8 && comprobarSiPartidasCreadas($id) == 0){
         				echo "<td><button class='btn btn-success' onclick='ask($id)'>Iniciar Torneo</button></td>";
-        			}else{
-        				echo "<td></td>";
+        			}else if(comprobarPrimeraRondaJugada($id) == 4 && comprobarSiPartidasCreadas($id) < 5){
+                        echo "<td><button class='btn btn-warning' onclick='asksegundaronda($id)'>Iniciar Segunda Ronda</button></td>";
+                    }else if(comprobarSegundaRondaJugada($id) == 2 && comprobarSiPartidasCreadas($id) == 6){
+                        echo "<td><button class='btn btn-danger' onclick='askrondafinal($id)'>Iniciar Ronda Final</button></td>";
+                    }else{
+        				echo "<td>Jugando...</td>";
         			}
 
         			echo "</tr>";

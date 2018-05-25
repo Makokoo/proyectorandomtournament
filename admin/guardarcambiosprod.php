@@ -24,6 +24,7 @@ include_once 'cabecera.php';
         $conexion->query($sql);
             //echo $sql;
         $good = false;
+        $avatarcambiado = false;
         if($conexion->affected_rows > 0){
             $good = true;
         }
@@ -40,15 +41,21 @@ include_once 'cabecera.php';
                 }else{
                     move_uploaded_file($nombretemporal,"$ruta/$cod.png");
                 }
-                
+                $avatarcambiado = true;
             }
-            echo "Cambios realizados correctamente.";
+
             
         }
 
         if($good == true){
-            echo "redireccionando";
-            header('refresh:2; url=gestion_articulos.php');
+            //echo "<script>window.location.href('gestion_articulos.php')</script>";
+            //header('location:gestion_articulos.php');
+            echo "Cambios realizados correctamente. <a href='gestion_articulos.php'>Volver</a>";
+
+        }
+
+        if($good == false && $avatarcambiado == true){
+            echo "Imagen actualizada correctamente. <a href='gestion_articulos.php'>Volver</a>";
         }
 
         

@@ -77,26 +77,114 @@ if(isset($_POST['modified'])){
      }
     
 
-    if($bien){
+     if($bien){
         if($nuevapass == true) {
             if (modificarusuario(getid($_SESSION['usuario']), $_POST['uname'], $_POST['mail'], $_POST['psw']) == true) {
                 $msgfinal = "<span class='success'>Se han modificado los datos correctamente</span>";
                 $_SESSION['usuario'] = $_POST['uname'];
+
+                if(isset($_FILES['imagen']) && $_FILES['imagen']['size']>0){
+                    $target_dir = "./avatar";
+                    $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
+                    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                    $ruta = "./avatar";
+                    $cod = getid($_SESSION['usuario']);
+                    $uploadOk = 1;
+                    if($imageFileType != "png") {
+                        echo "Solo se admiten imagenes en formato .png";
+                        $uploadOk = 0;
+                    }
+
+
+                    // Check if $uploadOk is set to 0 by an error
+                    if ($uploadOk == 0) {
+                        echo "Sorry, your file was not uploaded.";
+                    // if everything is ok, try to upload file
+                    } else {
+                        if (move_uploaded_file($_FILES["imagen"]["tmp_name"], "$target_dir/$cod.png")) {
+                            $msgfinal = "Datos modificados correctamente";
+                        } else {
+                            echo "Ha habido un error al subir el nuevo avatar.";
+                        }
+                    }
+
+                }
                 header( "Refresh:2; url='profile.php'");
             } else {
-                $msgfinal = "Ha ocurrido un error.";
+                $msgfinal = "Ha ocurrido un error1.";
             }
         }else{
             if(modificarsinpass($datos_usuario['id_usuario'], $_POST['uname'], $_POST['mail']) == true){
                 $msgfinal = "<span class='success'>Se han modificado los datos correctamente</span>";
                 $_SESSION['usuario'] = $_POST['uname'];
+
+                if(isset($_FILES['imagen']) && $_FILES['imagen']['size']>0){
+                    $target_dir = "./avatar";
+                    $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
+                    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                    $ruta = "./avatar";
+                    $cod = getid($_SESSION['usuario']);
+                    $uploadOk = 1;
+                    if($imageFileType != "png") {
+                        echo "Solo se admiten imagenes en formato .png";
+                        $uploadOk = 0;
+                    }
+
+
+                    // Check if $uploadOk is set to 0 by an error
+                    if ($uploadOk == 0) {
+                        echo "Sorry, your file was not uploaded.";
+                    // if everything is ok, try to upload file
+                    } else {
+                        if (move_uploaded_file($_FILES["imagen"]["tmp_name"], "$target_dir/$cod.png")) {
+                            $msgfinal = "Datos modificados correctamente";
+                        } else {
+                            echo "Ha habido un error al subir el nuevo avatar.";
+                        }
+                    }
+
+                }
+
                 header( "Refresh:2; url='profile.php'");
+
             }else{
-                $msgfinal = "Ha ocurrido un error.";
+
+                if(isset($_FILES['imagen']) && $_FILES['imagen']['size']>0){
+                    $target_dir = "./avatar";
+                    $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
+                    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                    $ruta = "./avatar";
+                    $cod = getid($_SESSION['usuario']);
+                    $uploadOk = 1;
+                    if($imageFileType != "png") {
+                        echo "Solo se admiten imagenes en formato .png";
+                        $uploadOk = 0;
+                    }
+
+
+                    // Check if $uploadOk is set to 0 by an error
+                    if ($uploadOk == 0) {
+                        echo "Sorry, your file was not uploaded.";
+                        // if everything is ok, try to upload file
+                    } else {
+                        if (move_uploaded_file($_FILES["imagen"]["tmp_name"], "$target_dir/$cod.png")) {
+                            $msgfinal = "Avatar modificado correctamente";
+                            header( "Refresh:2; url='profile.php'");
+                        } else {
+                            echo "Ha habido un error al subir el nuevo avatar.";
+                        }
+                    }
+
+                }else {
+                    $msgfinal = "Ha ocurrido un error.";
+                }
             }
         }
+
+        
+
     }else{
-        echo "No no no no no no";
+        $msgfinal =  "Error, no se han podido modificar los datos.";
     }
 }
 
@@ -204,7 +292,7 @@ if(isset($_POST['modified'])){
             <div class="col-lg-6 col-sm-7 text-center" style="margin-left:20%">
             <h3 class="text-center">Modificando datos usuario</h3>
             
-            <form method="post" action="modprofile.php">
+            <form method="post" action="modprofile.php" enctype="multipart/form-data">
                 <table class="table text-center">
                     <td>Nombre de usuario:</td>
                     <td><input value="<?= $datos_usuario['username'] ?>"  name="uname" id="uname"></td><td><span class="msgerror"><?php echo $nameErr;?></span></td>
@@ -220,6 +308,10 @@ if(isset($_POST['modified'])){
                     <tr>
                         <td>Repetir Contraseña:</td>
                         <td><input type="password" name="psw2" id="psw2"></td><td><span class="msgerror"><?php echo $passErr;?></span></td>
+                    </tr>
+                    <tr>
+                        <td>Cambiar Avatar:</td>
+                        <td><input type="file" name="imagen" id="imagen"></td>
                     </tr>
                     <tr style="visibility: hidden;" class='animated fadeInDown delay-07s' id="passconfirm">
                         <td>Introduce tu contraseña actual para confirmar los cambios:</td>

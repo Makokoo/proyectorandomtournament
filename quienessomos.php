@@ -8,9 +8,12 @@ if(!isset($_POST['name'])){
 	$nombre = $_POST['name'];
 	$mail = $_POST['email'];
 	$asunto = $_POST['subject'];
-	$mensaje = htmlspecialchars($_POST['message']);
-
-	$msg = "HOLA";
+	$msg = $_POST['message'];
+	$conexion = conectar();
+	$sql = "INSERT INTO contacto (nombre_usuario,mail,asunto,mensaje) VALUES ('$nombre','$mail','$asunto','$msg')";
+	$conexion->query($sql);
+	echo "<script>alert('Mensaje enviado correctamente, RT tiene en cuenta su opinión y trabaja para mejorarla.'); window.location.href = 'quienessomos.php';</script>";
+	
 
 
 }
@@ -96,13 +99,7 @@ if(!isset($_POST['name'])){
 						<h3><i class="fa fa-clock-o"></i>HORARIO:</h3>
 						<span>Soporte 24/7</span>
 					</div>
-					<ul class="social-link">
-						<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-						<li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-						<li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-						<li class="gplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-						<li class="dribbble"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-					</ul>
+					
 				</div>
 				<h3 class='text-center'>Formulario de contacto</h3>
 				<div class="col-lg-6 col-sm-5 wow fadeInUp delay-05s">
@@ -124,8 +121,7 @@ if(!isset($_POST['name'])){
 								<div class="validation"></div>
 							</div>
 							<div class="form-group">
-								<textarea class="form-control input-text text-area" name="message" id="message" rows="5" data-rule="required" placeholder="Por favor escribenos aquí tu mensaje">
-								</textarea>
+								<textarea class="form-control input-text text-area" name="message" id="message" rows="5" data-rule="required" placeholder="Por favor escribenos aquí tu mensaje"></textarea>
 								<div class="validation"></div>
 							</div>
 
