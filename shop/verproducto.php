@@ -2,15 +2,13 @@
 include_once 'funciones.php';
 include_once 'Carrito.php';
 include_once '../funciones.php';
-include_once '../header.php';
+include_once 'header_tienda.php';
 
 header("Content-Type: text/html;charset=utf-8");
 if(!isset($_POST['message'])) {
     ?>
 
 
-    <div class="container">
-    <div class="col col-lg-8 style='float: none;margin-left: auto;margin-right: auto;'">
     <?php
 
     if (isset($_GET['codarticulo'])) {
@@ -40,46 +38,68 @@ if(!isset($_POST['message'])) {
                 <div class="col-md-12">
 
                     <div class="thumbnail">
-                        <img class="img-responsive" style="max-height: 300px" src="<?=$imagen?>" alt="">
-                        <div class="caption-full">
-                            <h2 class="text-left"><?= $datos_articulo['nombre_articulo'] ." - ". $datos_articulo['precio']."€"?></h2>
+
+
+                    <br>
+                        <div class="row">
+                        <div class="col-md-6 wow fadeInUp delay-05s">
+
+                            <img class="img-responsive" style="max-height: 300px" src="<?=$imagen?>" alt="">
+
+
+                        </div>
+
+                        <div class="col-md-6 wow fadeInUp delay-05s">
+                            <h2 class="text-left"><?= $datos_articulo['nombre_articulo']?></h2>
                             <h3><p><?= $datos_articulo['descripcion_articulo'] ?></p></h3>
-                        </div>
-                        <br>
-                        <p>
-                        <?php
-                        if($datos_articulo['stock'] > 0){
-                            echo "<label style='color:green'>En stock</label><label> - Entrega en 2/3 días laborales</label>";
-                        }else{
-                            echo "<label style='color:darkred'>No disponible</label>";
-                        }
-                        ?>
-                        </p>
-                        <div class="ratings" style="margin-top: 15px">
-                            <p class="pull-right"><?= count($valoraciones) . " reviews" ?></p>
-                            <p>
-                                <?php
-                                $valoracionmedia = getValoracionMedia($_GET['codarticulo']);
-                                $contador = 0;
-                                echo "Valoración media: ";
-                                for ($i = 0; $i < $valoracionmedia; $i++) {
-                                    echo "<span class=\"fa fa-star\"></span>";
-                                    $contador++;
+                            <?php
+                            $valoracionmedia = getValoracionMedia($_GET['codarticulo']);
+                            $contador = 0;
+
+                            echo "<p>Valoración media: ";
+                            for ($i = 0; $i < $valoracionmedia; $i++) {
+                                echo "<span class=\"fa fa-star\"></span>";
+                                $contador++;
+                            }
+
+                            if ($contador < 5) {
+                                for ($i = $contador; $i < 5; $i++) {
+                                    echo "<span class=\"fa fa-star-o\"></span>";
                                 }
+                            }
+                            echo " - ".count($valoraciones) . " opiniones</p>"
 
-                                if ($contador < 5) {
-                                    for ($i = $contador; $i < 5; $i++) {
-                                        echo "<span class=\"fa fa-star-o\"></span>";
-                                    }
-                                }
-                                //echo $valoracionmedia;
-                                //echo "      " . round($valoracionmedia, 0) . " estrellas";
-                                ?>
+                            ?>
 
+                            <p>Envio desde 3,95€</p>
+                            <p>Financiación 6, 12, 20, y 30 meses</p>
+                            <a style="color:darkgreen" href="ver_productos.php"><p class="label-success" style="color:darkgreen "><b>Promoción: Ofertas especiales de la semana</b></p></a>
+                            <br>
 
-                            </p>
+                            <?php
+                            $iva = (21*$datos_articulo['precio'])/100;
+                            $siniva = $datos_articulo['precio']-$iva;
+                            $siniva = round($siniva,2);
+
+                            if($datos_articulo['stock'] > 0){
+                                echo "<form action='alcarrito.php' method='post'>
+                                      Cantidad: <input type='number' min='1' name='cantidad' value='cantidad'>
+                                      <input type='hidden' name='id_articulo' id='id_articulo' value='$id_articulo'>
+                                      <input type='submit' value='Añadir al carrito' id='alcarro' name='alcarro'>
+                                </form>";
+                                echo "<br>";
+                                echo "<p><h2 class='text-left'>".$datos_articulo['precio']."€<h3>".$siniva."€ sin IVA</h3></h2><br><h3 style='color:green'>En stock</h3><h3> Entrega en 2/3 días laborales</h3></p>";
+
+                            }else{
+                                echo "<h2 class='text-left'>".$datos_articulo['precio']."€<h3>".$siniva."€ sin IVA</h3></h2><br><h3 style='color:darkred'>Sin Stock</h3></h2>";
+                            }
+                            ?>
+                            <br>
                         </div>
-                    </div>
+                        </div>
+
+                </div>
+
 
                     <div class="well">
 
@@ -101,7 +121,7 @@ if(!isset($_POST['message'])) {
                         }
 
                         echo "<div class=\"row\">
-                                        <div class=\"col-md-12\"><img style='max-height: 20px; margin-right: 15px;' src='$avatar'>$nombre_usuario&nbsp;-&nbsp;";
+                                        <div class=\"col-md-12\"><img style='max-height: 20px; margin-right: 15px;' src='$avatar'><b>$nombre_usuario</b>&nbsp;-&nbsp;";
 
                         for ($j = 0; $j < $dato['valoracion']; $j++) {
                             echo "<span class=\"fa fa-star\"></span>";
@@ -212,4 +232,4 @@ if(!isset($_POST['message'])) {
 </div>
 
 <?php
-include_once '../footer.php';
+include_once 'footer_tienda.php';

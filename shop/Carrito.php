@@ -20,9 +20,16 @@ class Carrito{
     }
 
     public function addProducto($cod_articulo,$nom_articulo,$cantidad){
-        $this->productos[]= $cod_articulo;
-        $this->nombres[] = $nom_articulo;
-        $this->cantidades[] = $cantidad;
+        $arrayproductos = $this->getproductos();
+        if(in_array($cod_articulo,$arrayproductos) == false){
+            $this->productos[]= $cod_articulo;
+            $this->nombres[] = $nom_articulo;
+            $this->cantidades[$cod_articulo] = $cantidad;
+        }else{
+            $vieja = $this->cantidades[$cod_articulo];
+            $this->cantidades[$cod_articulo] = $vieja + $cantidad;
+        }
+
     }
 
     public function vaciarCarrito(){

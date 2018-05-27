@@ -41,7 +41,7 @@ include_once 'header.php';
 
 				<div class="team-leader-box">
 					<div class="team-leader wow fadeInDown delay-09s">
-						<div class="team-leader-shadow"><a href="tienda/index.php"></a></div>
+						<div class="team-leader-shadow"><a href="shop/index.php"></a></div>
 						<img src="img/tienda.png" alt="">
 					</div>
 					<h3 class="wow fadeInDown delay-09s">INAUGURAMOS NUESTRA TIENDA ONLINE</h3>

@@ -2,7 +2,7 @@
 include_once 'funciones.php';
 include_once 'Carrito.php';
 include_once '../funciones.php';
-include_once '../header.php';
+include_once 'header_tienda.php';
 
 
 ?>
@@ -42,4 +42,4 @@ include_once '../header.php';
 </div>
 
         <?php
-        include_once '../footer.php';
+        include_once 'footer_tienda.php';
