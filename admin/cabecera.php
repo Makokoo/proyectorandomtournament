@@ -1,6 +1,6 @@
 <?php
 include_once '../funciones.php';
-include_once '../tienda/funciones.php';
+include_once '../shop/funciones.php';
 session_start();
 ?>
 <!DOCTYPE html>
