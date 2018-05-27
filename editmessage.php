@@ -86,12 +86,12 @@ if(!isset($_POST['idhilo']) && !isset($_POST['id'])) {
         echo "<div class=\"container\" style='margin: 250px'>";
         echo "<h2 class='text-center'>Mensaje modificado correctamente</h2>";
         echo "</div>";
-        header("Refresh:3; url='forum.php?id='$idhilo");
+        header("Refresh:3; url='viewthread.php?id=$idhilo'");
     }else{
         echo "<div class=\"container\" style='margin: 250px'>";
         echo "<h2 class='text-center'>Error, no se ha podido modificar el mensaje</h2>";
         echo "</div>";
-        header("Refresh:3; url='forum.php?id='$idhilo");
+        header("Refresh:3; url='viewthread.php?id=$idhilo'");
     }
 }else if(isset($_POST['id'])){
     $nuevomensaje = $_POST['message'];
