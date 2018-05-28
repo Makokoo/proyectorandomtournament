@@ -15,7 +15,7 @@ if($action == 'ajax') {
     include 'pagination.php'; //incluir el archivo de paginación
 //las variables de paginación
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
-    $per_page = 8; //la cantidad de registros que desea mostrar
+    $per_page = 9; //la cantidad de registros que desea mostrar
     $adjacents = 4; //brecha entre páginas después de varios adyacentes
     $offset = ($page - 1) * $per_page;
 //Cuenta el número total de filas de la tabla*/
@@ -37,24 +37,31 @@ if($action == 'ajax') {
             <?php
             $mostrar = "";
             while ($row = mysqli_fetch_array($query)) {
-                $mostrar .= "<link href=\"bootstrap.css\" rel=\"stylesheet\">
-            <div class='border center-block hoover' style='float:left;padding:19px;'>";
-
-                $nombre_fichero = "imagenes/" . $row['cod_articulo'] . ".png";
+                $mostrar .= "<div class='border center-block hoover' style='float:left;padding:45px;'>";
+                $nombre_fichero = "../admin/imagenes/".$row['cod_articulo'].".png";
+                $nombre_fichero_jpg = "../admin/imagenes/".$row['cod_articulo'].".jpg";
                 if (file_exists($nombre_fichero)) {
-                    $mostrar .= "<img src=" . $nombre_fichero . " width='265px' height='150px'>";
-                } else {
-                    $mostrar .= "<img src=" . $row['imagen'] . " width='265px' height='150px'>";
+                    $mostrar.="<img src=" . $nombre_fichero . " width='265px' height='150px'>";
+                }else if(file_exists($nombre_fichero_jpg = "../admin/imagenes/".$row['cod_articulo'].".jpg")){
+                    $mostrar.="<img src=" . $nombre_fichero_jpg . " width='265px' height='150px'>";
+                } else  {
+                    $mostrar.="<img src=" . $row['imagen'] . " width='265px' height='150px'>";
                 }
-
-                $mostrar .= "<div class='info'>
-                    <h4 style='padding-left: 10px'>" . $row['nombre_articulo'] . "</h4>
-                    <span class=\"description\" style='padding-left: 10px'>
-                        " . $row['descripcion_articulo'] . "
-                    </span>
+                $mostrar.="<div class='info'>
+                    <h3 style='padding-left: 10px'>" . $row['nombre_articulo'] . "</h3>
+                    <span class=\"description\" style='padding-left: 10px'>";
+                if(strlen($row['descripcion_articulo']) > 50){
+                    for($i = 0 ; $i<35 ; $i++){
+                        $mostrar.= $row['descripcion_articulo'][$i];
+                    }
+                    $mostrar.="...";
+                }else{
+                    $mostrar.= $row['descripcion_articulo'];
+                }
+                $mostrar.="</span>
                     </br>
                     <span class='h2' style='padding-left: 10px'>" . $row['precio'] . "€</span>
-                    <a class='btn btn-info' style='float: right;margin: 20px' href='verproducto.php?codarticulo=" . $row['cod_articulo'] . "'><i></i>Ver Producto</a>
+                    <a class='btn btn-success' style='float: right;margin: 20px' href=\"verproducto.php?codarticulo=" . $row['cod_articulo'] . "\"><i></i>Ver Producto</a>
                 </div>
             </div>
         
@@ -65,7 +72,7 @@ if($action == 'ajax') {
             ?>
             </tbody>
         </table>
-        <div class="table-pagination pull-right">
+        <div class="table-pagination text-center">
             <?php echo paginate($reload, $page, $total_pages, $adjacents); ?>
         </div>
 

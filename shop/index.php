@@ -1,14 +1,21 @@
 <?php
 include_once 'funciones.php';
 include_once 'Carrito.php';
-include_once '../funciones.php';
 include_once 'header_tienda.php';
-
-
 ?>
 
+
+    <script src="js/jquery.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
     <div class="container">
-        
+
 
         <div class="col col-lg-12">
             <br><br>
@@ -19,27 +26,46 @@ include_once 'header_tienda.php';
                         <input type="text" name="campobusqueda" class="form-control input-text" id="campobusqueda" required placeholder="Realizar búsqueda" />
                         <div class="validation"></div>
                     </div>
-                                        <div class="text-center"><button type="submit" class="input-btn">Buscar</button></div>
+                    <div class="text-center"><button type="submit" class="input-btn">Buscar</button></div>
                 </form>
             </div>
-        <?php
 
-        if(isset($_GET['categoria'])){
-            if($_GET['categoria'] == 'all'){
-                header('location:ver_productos.php');
-            }else {
-                echo verproductosporcategoria($_GET['categoria']);
-            }
-        }else {
-            echo "<br><br>";
-            echo "<h2>OFERTAS ESTRELLA</h2>";
-            echo "<div class='col-md-12' style='margin-left: 15px'>";
-            echo verproductosoferta();
-            echo "</div>";
-        }
-        ?>
+
+            <div id="loader" class="text-center"> <img src="loader.gif"></div>
+            <div class="outer_div"></div>
+
+            <!-- Datos ajax Final -->
+
+
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <!-- Latest compiled and minified JavaScript -->
+
+
+            <script>
+                $(document).ready(function(){
+                    load(1);
+                });
+
+                function load(page){
+                    var parametros = {"action":"ajax","page":page};
+                    $("#loader").fadeIn('slow');
+                    $.ajax({
+                        url:'tabla_articulos.php',
+                        data: parametros,
+                        beforeSend: function(objeto){
+                            $("#loader").html("<img src='loader.gif'>");
+                        },
+                        success:function(data){
+                            $(".outer_div").html(data).fadeIn('slow');
+                            $("#loader").html("");
+                        }
+                    })
+                }
+            </script>
+
+        </div>
     </div>
-</div>
+<?php
+include_once 'footer_tienda.php';
 
-        <?php
-        include_once 'footer_tienda.php';

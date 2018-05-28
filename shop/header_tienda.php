@@ -33,9 +33,9 @@ session_start();
 		<!--main-nav-start-->
 		<div class='container'>
 			<ul class='main-nav'>
-                <li><a href='../home.php'>INICIO</a></li>
-				<li><a href='../tournaments.php'>TORNEOS</a></li>
+                <li><a href='../tournaments.php'>TORNEOS</a></li>
                 <li><a href='../forum.php'>FORO</a></li>
+                <li><a href='index.php'>TIENDA</a></li>
 				<li class='small-logo'><a href='../home.php'><img src='img/small-logo.png' alt=''></a></li>
                 <li><a href='../quienessomos.php'>QUIENES SOMOS</a></li>
 

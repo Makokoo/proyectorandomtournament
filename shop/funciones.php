@@ -62,7 +62,7 @@ function verproductosoferta(){
                     $mostrar.="</span>
                     </br>
                     <span class='h2' style='padding-left: 10px;'>" . $detalles['precio'] . "€</span>
-                    <a class='btn btn-info' style='float: right;margin: 20px' href='verproducto.php?codarticulo=".$detalles['cod_articulo']."'><i></i>Ver Producto</a>
+                    <a class='btn btn-success' style='float: right;margin: 20px' href='verproducto.php?codarticulo=".$detalles['cod_articulo']."'><i></i>Ver Producto</a>
                 </div>
             </div>
         
@@ -164,7 +164,7 @@ function verproductosporbusqueda($busqueda){
                     $mostrar.="</span>
                     </br>
                     <span class='h2' style='padding-left: 10px'>" . $detalles['precio'] . "€</span>
-                    <a class='btn btn-info' style='float: right;margin: 20px' href=\"verproducto.php?codarticulo=" . $detalles['cod_articulo'] . "\"><i></i>Ver Producto</a>
+                    <a class='btn btn-success' style='float: right;margin: 20px' href=\"verproducto.php?codarticulo=" . $detalles['cod_articulo'] . "\"><i></i>Ver Producto</a>
                 </div>
             </div>
         
