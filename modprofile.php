@@ -344,18 +344,5 @@ if(isset($_POST['modified'])){
 </div>
 
 
-<footer class="footer">
-    <div class="container">
-        <div class="footer-logo"><a href="#"><img src="img/footer-logo.png" alt=""></a></div>
-        <span class="copyright">&copy; RandomTournament. All Rights Reserved</span>
-        <div class="credits">
-            RandomTournament by Sergio Molina
-        </div>
-    </div>
-</footer>
-
-
-
-</body>
-
-</html>
+<?php
+include_once 'footer.php';
