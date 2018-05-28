@@ -315,7 +315,7 @@ if(isset($_POST['modified'])){
                     </tr>
                     <tr style="visibility: hidden;" class='animated fadeInDown delay-07s' id="passconfirm">
                         <td>Introduce tu contraseña actual para confirmar los cambios:</td>
-                        <td><input type="password" name="passtoconfirm" id="passtoconfirm"></td><td><span class="msgerror">*<?php echo $passErr;?></span></td>
+                        <td><input type="password" name="passtoconfirm" id="passtoconfirm" required></td><td><span class="msgerror">*<?php echo $passErr;?></span></td>
                     </tr>
                     <tr>                        
                         <td>
