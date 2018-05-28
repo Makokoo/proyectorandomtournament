@@ -7,8 +7,6 @@
  * Time: 8:03
  */
 
-include_once 'funciones.php';
-include_once '../funciones.php';
 
 class Carrito{
 

@@ -1,7 +1,7 @@
 <?php
 # conectare la base de datos
 
-include_once 'funciones.php';
+include '../funciones.php';
 $con = conectar();
 
 if(!$con){

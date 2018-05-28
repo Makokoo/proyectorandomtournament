@@ -1,4 +1,7 @@
 <?php
+include_once './shop/Carrito.php';
+include_once 'funciones.php';
+include_once './shop/funciones.php';
 session_start();
 ?>
 
@@ -44,7 +47,7 @@ session_start();
                 if(!isset($_SESSION['usuario'])) {
                     ?>
 
-                        <li><a href='login.php'>Iniciar Sesión</a></li>
+                    <li><a href='login.php'>Iniciar Sesión</a></li>
 
                     <?php
                 }else{
@@ -55,9 +58,35 @@ session_start();
 
                     <?php
                 }
-                ?>
-			</ul>
 
-			<a class='res-nav_click' href='#'><i class='fa fa-bars'></i></a>
-		</div>
-	</nav>
+                $items = 0;
+                if(isset($_SESSION['carrito'])) {
+                    $lista = $_SESSION['carrito']->getlista();
+                    $items = count($lista);
+
+                    $total = 0;
+                    if (count($lista) > 0) {
+
+                        $conexion = conectar();
+
+
+                        foreach ($lista as $clave => $valor) {
+                            $datos = sacardatoarticulo($clave, $conexion);
+                            $total = $total + ($datos['precio'] * $valor);
+                        }
+
+                    }
+                }
+
+                ?>
+            </ul>
+
+            <a class='res-nav_click' href='#'><i class='fa fa-bars'></i></a>
+        </div>
+        <div style="background-color: #7cc576;height: 25px;" class="text-right">
+            <a href="./shop/ver_carrito.php" style="margin: 5px;">
+                <span style="color:black; margin: 5px;" class="fa fa-shopping-cart"></span>
+                <span style="color: black; margin: 5px;">CARRITO(<?=$items?>) - TOTAL: <?=$total?>€</span>
+            </a>
+        </div>
+    </nav>

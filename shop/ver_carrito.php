@@ -42,7 +42,7 @@ include_once 'header_tienda.php';
                         $datos = sacardatoarticulo($clave, $conexion);
                         $imagen = $datos['imagen'];
                         echo "<tr><td><img src='$imagen' style='max-height: 30px'></td><td><a style='color:black;' href='verproducto.php?codarticulo=$clave'>" . $datos['nombre_articulo'] . " (" . $datos['precio'] . "€)</a></td><td>x" . $valor . "</td>";
-                        echo "<td><a href='javascript:eliminar($clave)'><button class='btn' onclick='eliminar($clave);   '>Eliminar</button> </a></td></tr>";
+                        echo "<td><a href='javascript:eliminar($clave)'><span class='fa fa-trash'></span></a></td></tr>";
                         $total = $total + ($datos['precio'] * $valor);
                     }
                     echo "</table>";

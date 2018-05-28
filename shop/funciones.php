@@ -6,7 +6,7 @@
  * Time: 11:26
  */
 
-include_once '../funciones.php';
+
 
 
 function totalarticulos(){
