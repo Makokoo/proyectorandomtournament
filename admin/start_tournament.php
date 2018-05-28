@@ -103,7 +103,7 @@ include_once 'cabecera.php';
                                 $conexion->query($sql1);
                                 if ($conexion->affected_rows > 0) {
 
-                                    //echo "<script>alert('Segunda ronda creada correctamente'); window.location.href = 'tournaments_admin.php';</script>";
+                                    echo "<script>alert('Segunda ronda creada correctamente'); window.location.href = 'tournaments_admin.php';</script>";
                                     $conexion->commit();
 
                                 } else {
@@ -136,7 +136,7 @@ include_once 'cabecera.php';
                                 $conexion->query($sql1);
                                 if ($conexion->affected_rows > 0) {
 
-                                    //echo "<script>alert('Ronda final creada correctamente'); window.location.href = 'tournaments_admin.php';</script>";
+                                    echo "<script>alert('Ronda final creada correctamente'); window.location.href = 'tournaments_admin.php';</script>";
                                     $conexion->commit();
 
                                 } else {

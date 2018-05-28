@@ -22,7 +22,8 @@ include_once '../shop/funciones.php';
                 $codigo = $_POST['cod'];
                 $conexion = conectar();
                 cambiarestadoproducto($codigo,$conexion);
-                header('location:gestion_articulos.php');
+                //header('location:gestion_articulos.php');
+                echo "<script>window.location.href = 'gestion_articulos.php';</script>";
             }else {
                 echo "No hay codigo";
             }
