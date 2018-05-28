@@ -120,23 +120,23 @@ if(!isset($_POST['message'])) {
                             $avatar = "../avatar/" . $datos_usuario['id_usuario'] . ".png";
                         }
 
-                        echo "<div class=\"row\">
-                                        <div class=\"col-md-12\"><img style='max-height: 20px; margin-right: 15px;' src='$avatar'><b>$nombre_usuario</b>&nbsp;-&nbsp;";
+                        echo "<div class='row'>
+                                        <div class='col-md-12'><img style='max-height: 20px; margin-right: 15px;' src='$avatar'><b style='color:black;'>$nombre_usuario</b>&nbsp;-&nbsp;";
 
                         for ($j = 0; $j < $dato['valoracion']; $j++) {
-                            echo "<span class=\"fa fa-star\"></span>";
+                            echo "<span style='color:black;' class='fa fa-star'></span>";
                             $contador++;
                         }
 
                         if ($contador < 5) {
                             for ($j = $contador; $j < 5; $j++) {
 
-                                echo "<span class=\"fa fa-star-o\"></span>";
+                                echo "<span class='fa fa-star-o'></span>";
                             }
                         }
                         ?>
 
-                        <p><?= $dato['comentario'] ?></p>
+                        <p style="color:black;"><?= $dato['comentario'] ?></p>
                     </div>
                 </div>
 
@@ -146,21 +146,21 @@ if(!isset($_POST['message'])) {
                 <?php
                 }
                 if (isset($_SESSION['usuario'])) {
-                    echo "<div class=\"row clearfix\">
-    <div class=\"col-md-12 column\">
+                    echo "<div class='row clearfix'>
+    <div class='col-md-12 column'>
       
-        <div class=\"panel-heading\">
+        <div class='panel-heading'>
           NUEVA REVIEW
         </div>
         
                  
-<form action=\"verproducto.php\" method=\"post\" role=\"form\" class=\"contactForm\">
-							<div class=\"form-group\">
-								<textarea class=\"form-control input-text text-area\" name=\"message\" id=\"message\" required ></textarea>
+<form action='verproducto.php' method='post' role='form' class='contactForm'>
+							<div class='form-group'>
+								<textarea class='form-control input-text text-area' name='message' id='message' required ></textarea>
 							    Valoración: <input type='number' min='0' max='5' id='valoracion' name='valoracion' required>
 							</div>
                             <input type='hidden' name='idarticulo' id='idarticulo' value='$id_articulo' >
-							<div class=\"text-center\"><button type=\"submit\" class=\"input-btn\">Enviar Review</button></div>
+							<div class='text-center'><button type='submit' class='input-btn'>Enviar Review</button></div>
 						</form>
 
         
