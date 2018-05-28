@@ -44,7 +44,8 @@ if(!isset($_POST['message'])) {
                         <div class="row">
                         <div class="col-md-6 wow fadeInUp delay-05s">
 
-                            <img class="img-responsive" style="max-height: 300px" src="<?=$imagen?>" alt="">
+                            <img class="img-responsive" style="max-height: 100%; max-width: 100%; display:block;margin:auto;" src="<?=$imagen?>" alt="">
+                            <br>
 
 
                         </div>
@@ -80,23 +81,26 @@ if(!isset($_POST['message'])) {
                             $iva = (21*$datos_articulo['precio'])/100;
                             $siniva = $datos_articulo['precio']-$iva;
                             $siniva = round($siniva,2);
+                            if($datos_articulo['estado'] == "alta"){
+                                if($datos_articulo['stock'] > 0){
+                                    echo "<form action='alcarrito.php' method='post'>
+                                    Cantidad: <input type='number' min='1' name='cantidad' value='cantidad'>
+                                    <input type='hidden' name='id_articulo' id='id_articulo' value='$id_articulo'>
+                                    <input type='submit' value='Añadir al carrito' id='alcarro' name='alcarro'>
+                                    </form>";
+                                    echo "<br>";
+                                    echo "<p><h2 class='text-left'>".$datos_articulo['precio']."€<h3>".$siniva."€ sin IVA</h3></h2><br><h3 style='color:green'>En stock</h3><h3> Entrega en 2/3 días laborales</h3></p>";
 
-                            if($datos_articulo['stock'] > 0){
-                                echo "<form action='alcarrito.php' method='post'>
-                                      Cantidad: <input type='number' min='1' name='cantidad' value='cantidad'>
-                                      <input type='hidden' name='id_articulo' id='id_articulo' value='$id_articulo'>
-                                      <input type='submit' value='Añadir al carrito' id='alcarro' name='alcarro'>
-                                </form>";
-                                echo "<br>";
-                                echo "<p><h2 class='text-left'>".$datos_articulo['precio']."€<h3>".$siniva."€ sin IVA</h3></h2><br><h3 style='color:green'>En stock</h3><h3> Entrega en 2/3 días laborales</h3></p>";
-
+                                }else{
+                                    echo "<h2 class='text-left'>".$datos_articulo['precio']."€<h3>".$siniva."€ sin IVA</h3></h2><br><h3 style='color:darkred'>Sin Stock</h3></h2>";
+                                }
                             }else{
-                                echo "<h2 class='text-left'>".$datos_articulo['precio']."€<h3>".$siniva."€ sin IVA</h3></h2><br><h3 style='color:darkred'>Sin Stock</h3></h2>";
+                                echo "<br><h3 style='color:darkred'>ARTICULO NO DISPONIBLE</h3></h2>";
                             }
                             ?>
                             <br>
                         </div>
-                        </div>
+                    </div>
 
                 </div>
 
