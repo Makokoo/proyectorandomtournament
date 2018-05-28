@@ -121,7 +121,7 @@ if(!isset($_POST['name'])){
 								<div class="validation"></div>
 							</div>
 							<div class="form-group">
-								<textarea class="form-control input-text text-area" name="message" id="message" rows="5" data-rule="required" placeholder="Por favor escribenos aquí tu mensaje"></textarea>
+								<textarea class="form-control input-text text-area" name="message" id="message" rows="5" required placeholder="Por favor escribenos aquí tu mensaje"></textarea>
 								<div class="validation"></div>
 							</div>
 
