@@ -37,7 +37,7 @@ if(isset($_POST['id_articulo'])) {
 
     $articulo = new Producto($linea[0], $linea[1], $linea[4]);
 
-    $carrito->addProducto($cod, $linea[1], $cantidad);
+    $carrito->addProducto($cod,$cantidad);
     echo "<div class=\"container\" style='margin: 250px'>";
     echo "<h2 class='text-center'>El Artículo se ha añadido correctamente</h2>";
     echo "</div>";

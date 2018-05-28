@@ -2,228 +2,82 @@
 include_once 'funciones.php';
 include_once 'Carrito.php';
 include_once  'Producto.php';
-session_start();
+include_once 'header_tienda.php';
 ?>
+    <script>
+        function eliminar(codigo) {
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tienda</title>
-    <link href="bootstrap.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+            window.location.href = 'quitardelcarrito.php?id='+codigo;
 
-
-<div class="container-fluid">
-    <header class="modal-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="#">PROYECTO TIENDA</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.php">INICIO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">OFERTAS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="quienessomos.php">QUIENES SOMOS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contacto.php">CONTACTO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?categoria=all">PRODUCTOS</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0" method="get" action="busqueda.php">
-                    <input class="form-control mr-sm-2" type="text" name="campobusqueda" id="campobusqueda" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </form>
-            </div>
-        </nav>
-    </header>
-
-    </br>
-
-
-    <div class="row">
-        <div class="col col-lg-2  border">
-
-            <h1 class="h3">PRODUCTOS</h1>
-            <a class="dropdown-item" href="index.php?categoria=all">Ver Todos</a>
-
-            <?php
-            $conexion = conectar();
-            $sql = "SELECT distinct categoria from articulos";
-
-            $r = $conexion->query($sql);
-
-            while($d = $r->fetch_assoc()) {
-
-                for ($i = 0; $i < count($d); $i++) {
-                    echo "<a class='dropdown-item' href='index.php?categoria=".$d['categoria']."'>".strtoupper($d['categoria'])."</a>";
-                }
             }
-            ?>
 
+    </script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
 
+        <?php
 
-        </div>
+            if (isset($_SESSION['usuario'])) {
 
-        <div class="col col-lg-8 style='float: none;margin-left: auto;margin-right: auto;'">
-            <?php
-
-            if (isset($_SESSION['nick'])) {
-                $usuario = $_SESSION['nick'];
+                $usuario = $_SESSION['usuario'];
                 $invitado = false;
 
 
-                    if (!isset($_SESSION["carrito"])) {
-                        $_SESSION["carrito"] = new Carrito($usuario);
-                    }
+                if (!isset($_SESSION["carrito"])) {
+                    $_SESSION["carrito"] = new Carrito($usuario);
+                }
 
-                    $carrito = $_SESSION['carrito'];
-
-                    $productos = $carrito->getProductos();
-
-
-                    echo "<div class=\"col-lg-8 col-md-offset-8\">
-        <a href=\"javascript:history.back(-1);\"><button class=\"btn btn-info\">Seguir Comprando</button></a>";
-                    if($usuario == "invitado") $invitado = true;
-
-                    if($invitado == false) {
-                        if (count($productos) != 0) {
-                            echo "<a href=\"carrito_a_pedido.php\"><button class=\"btn btn-success\">Finalizar Pedido</button></a>";
-
-                        }
-                    }else{
-                        echo "<a href=\"vaciar_carrito.php\"><button class=\"btn btn-danger\">Vaciar Carrito</button></a>";
-                        echo "</br><b>RECUERDE: </b>Para poder realizar un pedido debe Iniciar Sesión";
-                        echo "</br>Si no tienes cuenta puedes regitrarte <a href='registro.php'>aquí</a>";
-                    }
-
-                    echo "</div>";
-
-                    echo $carrito;
-
-
-            } else {
-                $usuario = 'invitado';
-                $_SESSION["carrito"] = new Carrito($usuario);
                 $carrito = $_SESSION['carrito'];
-                $_SESSION['nick'] = $usuario;
 
-            }
-
-            ?>
-        </div>
-
-        <div class="col col-lg-2  border">
-            <div class="col col-lg-12 bg"><h2>LOGIN</h2></div>
-
-            <?php
-            if(!isset($_SESSION['nick']) || $_SESSION['nick']=="invitado") {
-                if (isset($_POST['nick']) && isset($_POST['pass'])) {
-                    if (logincorrecto($_POST['nick'], $_POST['pass']) == true || isset($_SESSION['nick'])) {
-                        if(!isset($_SESSION['nick'])) {
-                            $_SESSION['nick'] = $_POST['nick'];
-                        }
-                        echo "<a href='cerrarsesion.php'>Cerrar Sesión</a></br>";
-                        echo "<a href='verpedidos.php'>Ver Pedidos</a></br>";
-
-                        if(!isset($_SESSION['carrito'])) {
-                            echo "<a href='ver_carrito.php'>Ver Carrito(0)</a></br>";
-                        }else{
-                            $_SESSION["carrito"] = new Carrito($_SESSION['nick']);
-                            echo "<a href='ver_carrito.php'>Ver Carrito";
-                            $prod = $_SESSION['carrito']->getproductos();
-                            echo "(".count($prod).")";
-                            echo "</a></br>";
-                        }
-                        echo "<a href='ver_perfil.php'>Ver Perfil</a></br>";
-                        $conexion = conectar();
-                        if(verpermiso($_SESSION['nick'],$conexion) == 3){
-                            echo "<a href='gestion_clientes.php'>Gestionar Clientes</a></br>";
-                        }
-                        if(verpermiso($_SESSION['nick'],$conexion) == 1 || verpermiso($_SESSION['nick'],$conexion) == 3 ){
-                            echo "<a href='gestion_articulos.php'>Gestionar Articulos</a></br>";
-                            echo "<a href='gestion_pedidos.php'>Gestionar Pedidos</a></br>";
-                            echo "<a href='ver_informes.php'>Ver Informes</a></br>";
-                        }
-                    }else{
-
-                        echo "<b class='bg-danger'>Error, credenciales incorrectas</b>";
-                        echo "<form action=\"index.php\" method=\"post\">
-                    Usuario: <input type=\"text\" name=\"nick\" id=\"nick\">
-                    Contraseña: <input type=\"password\" name=\"pass\" id=\"pass\">
-
-                    <input type=\"submit\" name=\"login\" id=\"login\" value=\"Ingresar\" style=\"margin-top:10px\">
-                </form>";
+                    $lista = $carrito->getlista();
+                if (count($lista) > 0) {
+                    echo "<br>";
+                    echo "<h2>CARRITO</h2>";
+                    $conexion = conectar();
+                    $total = 0;
+                    echo "";
+                    echo "<table class='table text-center'>";
+                    foreach ($lista as $clave => $valor) {
+                        $datos = sacardatoarticulo($clave, $conexion);
+                        $imagen = $datos['imagen'];
+                        echo "<tr><td><img src='$imagen' style='max-height: 30px'></td><td><a style='color:black;' href='verproducto.php?codarticulo=$clave'>" . $datos['nombre_articulo'] . " (" . $datos['precio'] . "€)</a></td><td>x" . $valor . "</td>";
+                        echo "<td><a href='javascript:eliminar($clave)'><button class='btn' onclick='eliminar($clave);   '>Eliminar</button> </a></td></tr>";
+                        $total = $total + ($datos['precio'] * $valor);
                     }
-                } else {
+                    echo "</table>";
+                    echo "<hr>";
+                    echo "<table class='table-bordered text-right' style='float:right'><tr><td><b>TOTAL: </b>" . $total . "€</td></tr>";
+                    echo "</table>";
 
-                    ?>
+                    echo "<br>";
+                    echo "<br>";
 
-                    <form action="index.php" method="post">
-                        Usuario: <input type="text" name="nick" id="nick">
-                        Contraseña: <input type="password" name="pass" id="pass">
 
-                        <input type="submit" name="login" id="login" value="Ingresar" style="margin-top:10px">
-                        <a href="registro.php">Registrarse</a>
-                    </form>
-                    <?php
-                    if(isset($_SESSION['carrito'])){
-                        echo "<a href='ver_carrito.php'>Ver Carrito</a></br>";
-                    }
-                }
-            }else{
-                echo "<a href='cerrarsesion.php'>Cerrar Sesión</a></br>";
-                if($_SESSION['nick']!=="invitado") {
-                    echo "<a href='verpedidos.php'>Ver Pedidos</a></br>";
-                }
-                if(!isset($_SESSION['carrito'])) {
-                    echo "<a href='ver_carrito.php'>Ver Carrito</a></br>";
+                echo "<div class='row text-center'>
+                        <div class='col-md-6 wow fadeInUp delay-05s'>
+
+                          <a href='vaciar_carrito.php'><button class='btn btn-danger'>Vaciar carrito</button></a>
+
+
+                        </div>
+
+                        <div class='col-md-6 wow fadeInUp delay-05s'>
+                        <a href='carrito_a_pedido.php'><button style='margin-bottom: 150px;' class='btn btn-success'>Finalizar Compra</button></a>
+                        </div></div>";
                 }else{
-                    echo "<a href='ver_carrito.php'>Ver Carrito";
-                    $prod = $_SESSION['carrito']->getproductos();
-                    echo "(".count($prod).")";
-                    echo "</a></br>";
-                }
-                echo "<a href='ver_perfil.php'>Ver Perfil</a></br>";
-                $conexion = conectar();
-                if(verpermiso($_SESSION['nick'],$conexion) == 3){
-                    echo "<a href='gestion_clientes.php'>Gestionar Clientes</a></br>";
-                }
-                if(verpermiso($_SESSION['nick'],$conexion) == 1 || verpermiso($_SESSION['nick'],$conexion) == 3 ){
-                    echo "<a href='gestion_articulos.php'>Gestionar Articulos</a></br>";
-                    echo "<a href='gestion_pedidos.php'>Gestionar Pedidos</a></br>";
-                    echo "<a href='ver_informes.php'>Ver Informes</a></br>";
+
+                    echo "<h2 style='margin: 250px;;' class='text-center'>Ops, tu carrito está vacio.</h2>";
+
                 }
             }
-            ?>
-            </br>
-        </div>
 
-    </div>
+?>
 
-    <footer class="modal-footer">ProyectoTienda S.L. Copyright 2018</footer>
 </div>
+    </div>
+</div>
+    <?php
 
-
-
-
-
-
-
-
-
-</body>
-</html>
-
-
+            include_once 'footer_tienda.php';
+            ?>

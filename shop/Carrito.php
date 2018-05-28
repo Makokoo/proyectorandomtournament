@@ -8,68 +8,58 @@
  */
 
 include_once 'funciones.php';
+include_once '../funciones.php';
+
 class Carrito{
 
-    private $productos=array();
-    private $cantidades=array();
-    private $nombres = array();
-    private $usuario;
+    private $lista = array();
 
     public function __construct($usuario){
         $this->usuario = $usuario;
     }
 
-    public function addProducto($cod_articulo,$nom_articulo,$cantidad){
-        $arrayproductos = $this->getproductos();
-        if(in_array($cod_articulo,$arrayproductos) == false){
-            $this->productos[]= $cod_articulo;
-            $this->nombres[] = $nom_articulo;
-            $this->cantidades[$cod_articulo] = $cantidad;
+    public function addProducto($cod_articulo,$cantidad){
+        if(empty($this->lista[$cod_articulo])){
+            $this->lista[$cod_articulo] = $cantidad;
         }else{
-            $vieja = $this->cantidades[$cod_articulo];
-            $this->cantidades[$cod_articulo] = $vieja + $cantidad;
+            $this->lista[$cod_articulo] = $this->lista[$cod_articulo]+$cantidad;
         }
+    }
 
+    public function delProducto($cod_articulo){
+        if (array_key_exists($cod_articulo, $this->lista)) {
+            unset($this->lista[$cod_articulo]);
+        }
     }
 
     public function vaciarCarrito(){
-        $this->productos = array();
-        $this->cantidades = array();
+        $this->lista = array();
     }
 
-    public function getproductos(){
-        return $this->productos;
+    public function getlista(){
+        return $this->lista;
     }
 
-    public function getCantidades(){
-        return $this->cantidades;
-    }
+
 
     public function __toString(){
-
-        $precio = 0;
-        $preciolinea = 0;
-        $datos ="<div class='col-lg-6 col-md-offset-3'><table class='table text-center table-bordered'>";
-        $datos.="<tr><td><b>Producto</b></td><td><b>Cantidad</b></td><td><b>Precio</b></td></tr>";
-        for($i=0;$i<count($this->productos);$i++){
-            $producto = $this->productos[$i];
-            $sql = "SELECT * FROM articulos WHERE cod_articulo = $producto";
-            $conexion = conectar();
-            $r = $conexion->query($sql);
-            $resultado = $r->fetch_assoc();
-            $precio = $precio + $resultado['precio'] * $this->cantidades[$i];
-            $preciolinea = $resultado['precio'] * $this->cantidades[$i];
-            $datos.= "<tr><td class='table text-center'>".$this->nombres[$i]."</td><td>".$this->cantidades[$i]."</td><td>".$preciolinea."€</td></tr>";
+        $conexion = conectar();
+        $total = 0;
+        $mostrar = "";
+        $mostrar.= "<table class='table text-center'>";
+        foreach ($this->lista as $clave => $valor) {
+            $datos = sacardatoarticulo($clave,$conexion);
+            $imagen = $datos['imagen'];
+            $mostrar.= "<tr><td><img src='$imagen' style='max-height: 30px'></td><td>".$datos['nombre_articulo']." (".$datos['precio']."€)</td><td>x".$valor."</td></tr>";
+            $total = $total + ($datos['precio']*$valor);
         }
+        $mostrar.= "</table>";
+        $mostrar.= "<table class='table-bordered text-right' style='float:right'><tr><td><b>TOTAL: </b>".$total."€</td></tr>";
+        $mostrar.= "</table>";
+        $mostrar.= "<br>";
 
+        return $mostrar;
 
-
-        $datos .= "</table>
-<table class='table text-center table-bordered'>
-<tr><th>Precio Total</th><td>".$precio."€</td></tr>
-</table>
-</div>";
-        return $datos;
     }
 
 }
