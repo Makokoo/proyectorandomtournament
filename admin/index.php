@@ -1,53 +1,72 @@
-<!doctype html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, maximum-scale=1">
-
-    <title>Homepage</title>
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
-
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
-
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href="css/responsive.css" rel="stylesheet" type="text/css">
-    <link href="css/magnific-popup.css" rel="stylesheet" type="text/css">
-    <link href="css/animate.css" rel="stylesheet" type="text/css">
-
-
-    <!-- =======================================================
-    Theme Name: Knight
-    Theme URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-    ======================================================= -->
-
-</head>
-
-<body>
-<header class="header" id="header">
-    <!--header-start-->
-    <div class="container">
-        <figure class="logo animated fadeInDown delay-07s">
-            <a href="#"><img src="img/logo.png" alt=""></a>
-        </figure>
-        <h1 class="animated fadeInDown delay-07s">Bienvenido a RandomTournaments</h1>
-        <ul class="we-create animated fadeInUp delay-1s">
-            <li>Hacemos de la competición diversión</li>
-        </ul>
-        <a class="link animated fadeInUp delay-1s servicelink" href="login.php">EMPEZAR</a>
-    </div>
-</header>
-<!--header-end-->
+<?php
+include_once 'cabecera.php';
+if(isset($_SESSION['usuario'])){
+if(getPermiso($_SESSION['usuario']) > 0){
+?>
 
 
 
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
 
-</body>
 
-</html>
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <a href='gestion_clientes.php'>
+              <div class="info-box blue-bg">
+                <i class="icon_profile"></i>
+                <div class="count"><?=getCantidadUsuarios();?></div>
+                <div class="title">Usuarios</div>
+              </div>
+            </a>
+            <!--/.info-box-->
+          </div>
+          <!--/.col-->
+
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <a href='gestion_articulos.php'>
+              <div class="info-box brown-bg">
+                <i class="fa fa-shopping-cart"></i>
+                <div class="count"><?=obtenerarticulosvendidos();?></div>
+                <div class="title">Nº items vendidos</div>
+              </div>
+            </a>
+            <!--/.info-box-->
+          </div>
+          <!--/.col-->
+
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <a href='gestion_pedidos.php'>
+              <div class="info-box dark-bg">
+                <i class="fa fa-thumbs-o-up"></i>
+                <div class="count"><?=obtenernumeropedidos();?></div>
+                <div class="title">Nº Pedidos</div>
+              </div>
+            </a>
+            <!--/.info-box-->
+          </div>
+          <!--/.col-->
+
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <a href='gestion_articulos.php'>
+              <div class="info-box green-bg">
+                <i class="fa fa-cubes"></i>
+                <div class="count"><?=getStockTotal();?></div>
+                <div class="title">Stock total</div>
+              </div>
+            </a>
+            <!--/.info-box-->
+          </div>
+          <!--/.col-->
+
+        </div>
+        
+        <?php
+        include_once 'pie.php';
+      }else{
+        echo "Permiso de administrador necesario.";
+      }
+  }else{
+  	echo " Debes iniciar sesión <a href='../login.php'>aquí</a>";
+  }
