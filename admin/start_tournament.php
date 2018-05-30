@@ -35,6 +35,9 @@ include_once 'cabecera.php';
                                     }
                                     $random_personaje = rand(1, count($id_personajes));
                                     $random_personaje2 = rand(1, count($id_personajes));
+                                    $random_personaje3 = $id_personajes[$random_personaje-1]['id_personaje'];
+                                    $random_personaje4 = $id_personajes[$random_personaje2-1]['id_personaje'];
+
                                     if ($id_participantes[$random_participante - 1] != null && $id_participantes[$random_participante2 - 1] != null) {
                                         //echo "<p>".var_dump($id_participantes)."</p>";
                                         $local = $id_participantes[$random_participante - 1];
@@ -45,8 +48,7 @@ include_once 'cabecera.php';
                                         unset($id_participantes[$random_participante2 - 1]);
                                         $id_participantes = array_values($id_participantes);
 
-                                        $sql1 = "INSERT INTO partidas (id_torneo,local,visitante,estado,ronda,p_local,p_visitante) VALUES ($id_torneo,$local,$visitante,'espera',1,$random_personaje,$random_personaje2)";
-
+                                        $sql1 = "INSERT INTO partidas (id_torneo,local,visitante,estado,ronda,p_local,p_visitante) VALUES ($id_torneo,$local,$visitante,'espera',1,$random_personaje3,$random_personaje4)";
                                         $conexion->query($sql1);
                                         if ($conexion->affected_rows > 0) {
                                             if ($datos_torneo['estado'] != 'iniciado') {
@@ -88,6 +90,8 @@ include_once 'cabecera.php';
 
                                 $random_personaje = rand(1, count($id_personajes));
                                 $random_personaje2 = rand(1, count($id_personajes));
+                                $random_personaje3 = $id_personajes[$random_personaje-1]['id_personaje'];
+                                $random_personaje4 = $id_personajes[$random_personaje2-1]['id_personaje'];
 
                                 if ($first == false) {
                                     $local = $ganadores[0];
@@ -99,7 +103,7 @@ include_once 'cabecera.php';
                                 }
 
 
-                                $sql1 = "INSERT INTO partidas (id_torneo,local,visitante,estado,ronda,p_local,p_visitante) VALUES ($id_torneo,$local,$visitante,'espera',2,$random_personaje,$random_personaje2)";
+                                $sql1 = "INSERT INTO partidas (id_torneo,local,visitante,estado,ronda,p_local,p_visitante) VALUES ($id_torneo,$local,$visitante,'espera',2,$random_personaje3,$random_personaje4)";
 
                                 $conexion->query($sql1);
                                 if ($conexion->affected_rows > 0) {
@@ -127,12 +131,14 @@ include_once 'cabecera.php';
 
                             $random_personaje = rand(1, count($id_personajes));
                             $random_personaje2 = rand(1, count($id_personajes));
+                            $random_personaje3 = $id_personajes[$random_personaje-1]['id_personaje'];
+                            $random_personaje4 = $id_personajes[$random_personaje2-1]['id_personaje'];
                             $local = $ganadores[0];
                             $visitante = $ganadores[1];
 
 
 
-                                $sql1 = "INSERT INTO partidas (id_torneo,local,visitante,estado,ronda,p_local,p_visitante) VALUES ($id_torneo,$local,$visitante,'espera',3,$random_personaje,$random_personaje2)";
+                                $sql1 = "INSERT INTO partidas (id_torneo,local,visitante,estado,ronda,p_local,p_visitante) VALUES ($id_torneo,$local,$visitante,'espera',3,$random_personaje3,$random_personaje4)";
 
                                 $conexion->query($sql1);
                                 if ($conexion->affected_rows > 0) {

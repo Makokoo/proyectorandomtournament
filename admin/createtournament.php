@@ -30,9 +30,10 @@ if(getPermiso($_SESSION['usuario']) > 0){
                     $sql = "SELECT id_juego,nombre FROM juegos";
                     $r = $conexion->query($sql);
                     $te = array();
+                    $ids = array();
                     while($dat = $r->fetch_row()){
                         $te[] = $dat[0]."-".$dat[1];
-                        $ids = $dat[0];
+                        $ids[] = $dat[0];
                     }
 
                     ?>
@@ -58,7 +59,7 @@ if(getPermiso($_SESSION['usuario']) > 0){
             $nombre = $_POST['nombre'];
             $juego = $_POST['juego'];
 
-            $sql = "INSERT INTO torneos (id_juego,estado,max_participantes,nombre_torneo) VALUES($juego,'iniciado',8,'$nombre')";
+            $sql = "INSERT INTO torneos (id_juego,estado,max_participantes,nombre_torneo) VALUES($juego,'abierto',8,'$nombre')";
             $conexion = conectar();
 
             $conexion->query($sql);
