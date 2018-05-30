@@ -2,6 +2,8 @@
 include_once '../funciones.php';
 include_once '../shop/funciones.php';
 session_start();
+if(isset($_SESSION['usuario'])){
+  if(getPermiso($_SESSION['usuario']) > 0){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,7 +122,19 @@ session_start();
             <a href="tournaments_admin.php">
               <i class="icon_desktop"></i>
               <span>TORNEOS</span>
+            </a>
+          </li>
+          <li>
+            <a href="arbitros.php">
+              <i class="icon_info_alt"></i>
+              <span>PARTIDAS</span>
 
+            </a>
+          </li>
+          <li>
+            <a href="games_admin.php">
+              <i class="icon_laptop"></i>
+              <span>JUEGOS</span>
             </a>
           </li>
           <li>
@@ -142,6 +156,7 @@ session_start();
 
             </a>
           </li>
+          
           <li>
             <a href="../home.php">
               <i class="icon_arrow"></i>
@@ -158,3 +173,9 @@ session_start();
       </div>
     </aside>
     <!--sidebar end-->
+
+    <?php
+  }
+}else{
+  echo "Error, no tienes permiso para entrar aquí.";
+}

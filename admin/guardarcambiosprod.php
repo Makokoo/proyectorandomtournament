@@ -32,7 +32,7 @@ include_once 'cabecera.php';
         
         if(getPermiso($_SESSION['usuario']) == 2 || getPermiso($_SESSION['usuario']) == 3 && $good == true){
             if(isset($_FILES['imagen']) && $_FILES['imagen']['size']>0){
-                $ruta = "./imagenes";
+                $ruta = "../imagenes";
 
                 $nombretemporal=$_FILES['imagen']['tmp_name'];
                 $tipodearchivo = GetImageSize($nombretemporal);

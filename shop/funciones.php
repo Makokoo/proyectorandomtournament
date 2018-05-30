@@ -552,12 +552,17 @@ function verlistaproductos()
 
     while ($linea = $resultado->fetch_assoc()) {
 
-        $nombre_fichero = "imagenes/".$linea['cod_articulo'].".png";
-        if (file_exists($nombre_fichero)) {
-            $mostrar.="<td><img src='" . $nombre_fichero ."' style='width: 30px'></td>";
-        } else {
-            $mostrar.="<td><img src='" . $linea['imagen'] ."' style='width: 30px'></td>";
-        }
+    
+                $nombre_fichero = "../imagenes/".$linea['cod_articulo'].".png";
+                $nombre_fichero_jpg = "../imagenes/".$linea['cod_articulo'].".jpg";
+                if (file_exists($nombre_fichero)) {
+                    $mostrar.="<td><img src=" . $nombre_fichero . " width='30px'></td>";
+                }else if(file_exists($nombre_fichero_jpg = "../admin/imagenes/".$linea['cod_articulo'].".jpg")){
+                    $mostrar.="<td><img src=" . $nombre_fichero_jpg . " width='30px'></td>";
+                } else  {
+                    $mostrar.="<td><img src=" . $linea['imagen'] . " width='30px'></td>";
+                }
+
 
 
         $mostrar .= "<td>" . $linea['nombre_articulo'] . "</td>

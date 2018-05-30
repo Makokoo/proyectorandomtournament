@@ -83,11 +83,15 @@ if(!isset($_POST['message'])) {
                             $siniva = round($siniva,2);
                             if($datos_articulo['estado'] == "alta"){
                                 if($datos_articulo['stock'] > 0){
+                                    if(isset($_SESSION['usuario'])){
                                     echo "<form action='alcarrito.php' method='post'>
                                     Cantidad: <input type='number' min='1' name='cantidad' value='cantidad'>
                                     <input type='hidden' name='id_articulo' id='id_articulo' value='$id_articulo'>
                                     <input type='submit' value='Añadir al carrito' id='alcarro' name='alcarro'>
                                     </form>";
+                                    }else{
+                                        echo "<h3 style='color: darkred;'>Debes iniciar sesión para comprar.</h3>";
+                                    }
                                     echo "<br>";
                                     echo "<p><h2 class='text-left'>".$datos_articulo['precio']."€<h3>".$siniva."€ sin IVA</h3></h2><br><h3 style='color:green'>En stock</h3><h3> Entrega en 2/3 días laborales</h3></p>";
 
@@ -109,9 +113,7 @@ if(!isset($_POST['message'])) {
 
                         <?php
 
-                        for ($i = 0;
-                        $i < count($valoraciones);
-                        $i++){
+                        for ($i = 0;$i < count($valoraciones);$i++){
 
                         $dato = $valoraciones[$i];
                         $nombre_usuario = getNombreId($dato['id_usuario']);
@@ -120,10 +122,15 @@ if(!isset($_POST['message'])) {
                         $datos_usuario = getDatosUsuario($nombre_usuario);
                         $avatar = "../img/default-avatar.png";
 
-                        if (!$datos_usuario['avatar'] == null || !$datos_usuario['avatar'] == "") {
-                            $avatar = "../avatar/" . $datos_usuario['id_usuario'] . ".png";
+                        $nombre_fichero = "../avatar/".$dato['id_usuario'].".png";
+                        $nombre_fichero_jpg = "../avatar/".$dato['id_usuario'].".jpg";
+                        if (file_exists($nombre_fichero)) {
+                            $avatar = $nombre_fichero;
+                        }else if(file_exists($nombre_fichero_jpg = "../admin/imagenes/".$dato['id_usuario'].".jpg")){
+                            $avatar = $nombre_fichero_jpg;
                         }
 
+                        
                         echo "<div class='row'>
                                         <div class='col-md-12'><img style='max-height: 20px; margin-right: 15px;' src='$avatar'><b style='color:black;'>$nombre_usuario</b>&nbsp;-&nbsp;";
 

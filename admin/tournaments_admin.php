@@ -28,6 +28,13 @@ function askrondafinal(id){
     
 }
 
+function askabrirtorneo(id){
+     var r = confirm('¿Abrir inscripciones?');
+    if(r){
+        location.href ='start_tournament.php?idopen='+id;
+    }
+}
+
 
 </script>";
 ?>
@@ -43,7 +50,7 @@ function askrondafinal(id){
         <?php
 
         	$conexion = conectar();
-        	$sql = "SELECT * FROM torneos";
+        	$sql = "SELECT * FROM torneos WHERE estado != 'espera'";
         	$r = $conexion->query($sql);
         	$datos_torneo = [];
         	while($d = $r->fetch_assoc()){
@@ -82,9 +89,53 @@ function askrondafinal(id){
                         }
 
                         echo "</tr>";
+
+                    }
+                    echo "<tr><a href='createtournament.php'><button class='btn btn-info'>Nuevo Torneo</button></a></tr>";
+                
+                echo "</table>";
+            }
+
+
+
+
+
+                $sql = "SELECT * FROM torneos WHERE estado = 'espera'";
+            $r = $conexion->query($sql);
+            $datos_torneo = [];
+            while($d = $r->fetch_assoc()){
+                $datos_torneo[] = $d;
+            }
+            //var_dump($datos_torneo);
+            /*
+                id_torneo,id_juego,estado,max_participantes,fec_inicio,fec_final,ganador,nombre_torneo,
+            */
+               if(count($datos_torneo) > 0){
+                echo "Torneos por comenzar";
+                  echo "<table class='table table-bordered text-center'>";
+                  echo "<th class='text-center'>ID</th><th class='text-center'>Juego</th><th class='text-center'>Nombre Torneo</th><th class='text-center'>Usuarios Inscritos</th><th class='text-center'>Estado</th><th class='text-center'>Acción</th>";
+                    for ($i=0; $i < count($datos_torneo); $i++) {
+                        $id = $datos_torneo[$i]['id_torneo'];
+                        $nombre = $datos_torneo[$i]['nombre_torneo'];
+                        $participantes = getparticipantes($id);
+                        $estado = $datos_torneo[$i]['estado'];
+                        $juego = $datos_torneo[$i]['id_juego'];
+                        $datos_juego = getDatosJuego($juego);
+                        $nombre_juego = $datos_juego['nombre'];
+
+                        echo "<tr><td>$id</td><td>$nombre_juego</td><td>$nombre</td><td>$participantes</td><td>$estado</td>";
+                            
+                        echo "<td><button class='btn btn-success' onclick='askabrirtorneo($id)'>Abrir inscripciones</button></td>";
+
+                        echo "</tr>";
+
                     }
                 
                 echo "</table>";
+
+
+
+
                 
                 }
 

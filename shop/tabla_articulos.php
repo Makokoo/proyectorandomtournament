@@ -4,13 +4,8 @@
 include '../funciones.php';
 $con = conectar();
 
-if(!$con){
-die("imposible conectarse: ".mysqli_error($con));
-}
-if (@mysqli_connect_errno()) {
-die("Connect failed: ".mysqli_connect_errno()." : ". mysqli_connect_error());
-}
 $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
+
 if($action == 'ajax') {
     include 'pagination.php'; //incluir el archivo de paginación
 //las variables de paginación
@@ -38,8 +33,8 @@ if($action == 'ajax') {
             $mostrar = "";
             while ($row = mysqli_fetch_array($query)) {
                 $mostrar .= "<div class='border center-block hoover' style='float:left;padding:45px;'>";
-                $nombre_fichero = "../admin/imagenes/".$row['cod_articulo'].".png";
-                $nombre_fichero_jpg = "../admin/imagenes/".$row['cod_articulo'].".jpg";
+                $nombre_fichero = "../imagenes/".$row['cod_articulo'].".png";
+                $nombre_fichero_jpg = "../imagenes/".$row['cod_articulo'].".jpg";
                 if (file_exists($nombre_fichero)) {
                     $mostrar.="<img src=" . $nombre_fichero . " width='265px' height='150px'>";
                 }else if(file_exists($nombre_fichero_jpg = "../admin/imagenes/".$row['cod_articulo'].".jpg")){

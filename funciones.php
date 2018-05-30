@@ -256,10 +256,10 @@ function getTorneosFinalizados(){
         $id = $data['id_torneo'];
         $juego = getDatosJuego($data['id_juego']);
         echo"<a href='tdetails.php?id=$id'>
-    <li class='list-group-item d-flex justify-content-between align-items-center'><b>".$juego['nombre']."</b> - ".$data['nombre_torneo']."
-        <span class='badge badge-pill badge-success'>".$data['total_participantes']."/".$data['max_participantes']."</span>
-    </li>
-    </a>";
+            <li class='list-group-item d-flex justify-content-between align-items-center'><b>".$juego['nombre']."</b> - ".$data['nombre_torneo']."
+                <span class='badge badge-pill badge-success'>".getparticipantes($id)."/".$data['max_participantes']."</span>
+            </li>
+        </a>";
     }
     echo "</ul>";
 }
@@ -536,4 +536,41 @@ function getGanadores($id_torneo,$ronda){
         }
     }
     return $ganadores;
+}
+
+
+function yahayresultado($id_usuario,$id_partida){
+    $sql = "SELECT * FROM resultados WHERE id_partida = $id_partida AND id_usuario = $id_usuario";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $dato = $r->num_rows;
+
+    if($dato > 0){
+        return true;
+    }else {
+        return false;
+    }
+}
+
+function getDatosPartida($id_partida){
+
+    $sql = "SELECT * from partidas WHERE id_partida = $id_partida";
+    $conexion = conectar();
+    $res = $conexion->query($sql);
+    $datos = $res->fetch_assoc();
+
+
+    return $datos;
+
+}
+
+function getResultados($id_partida){
+    $sql = "SELECT * FROM resultados WHERE id_partida = $id_partida";
+    $conexion = conectar();
+    $r = $conexion->query($sql);
+    $datos = [];
+    while( $d = $r->fetch_assoc() ){
+        $datos[] = $d;
+    }
+    return $datos;
 }

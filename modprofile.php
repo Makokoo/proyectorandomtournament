@@ -91,20 +91,20 @@ if(isset($_POST['modified'])){
                     $cod = getid($_SESSION['usuario']);
                     $uploadOk = 1;
                     if($imageFileType != "png") {
-                        echo "Solo se admiten imagenes en formato .png";
+                        $msgfinal = "Solo se admiten imagenes en formato .png";
                         $uploadOk = 0;
                     }
 
 
                     // Check if $uploadOk is set to 0 by an error
                     if ($uploadOk == 0) {
-                        echo "Sorry, your file was not uploaded.";
+                        $msgfinal ="Sorry, your file was not uploaded.";
                     // if everything is ok, try to upload file
                     } else {
                         if (move_uploaded_file($_FILES["imagen"]["tmp_name"], "$target_dir/$cod.png")) {
                             $msgfinal = "Datos modificados correctamente";
                         } else {
-                            echo "Ha habido un error al subir el nuevo avatar.";
+                            $msgfinal ="Ha habido un error al subir el nuevo avatar.";
                         }
                     }
 
@@ -126,20 +126,20 @@ if(isset($_POST['modified'])){
                     $cod = getid($_SESSION['usuario']);
                     $uploadOk = 1;
                     if($imageFileType != "png") {
-                        echo "Solo se admiten imagenes en formato .png";
+                        $msgfinal = "Solo se admiten imagenes en formato .png";
                         $uploadOk = 0;
                     }
 
 
                     // Check if $uploadOk is set to 0 by an error
                     if ($uploadOk == 0) {
-                        echo "Sorry, your file was not uploaded.";
+                       $msgfinal = "Sorry, your file was not uploaded.";
                     // if everything is ok, try to upload file
                     } else {
                         if (move_uploaded_file($_FILES["imagen"]["tmp_name"], "$target_dir/$cod.png")) {
                             $msgfinal = "Datos modificados correctamente";
                         } else {
-                            echo "Ha habido un error al subir el nuevo avatar.";
+                            $msgfinal = "Ha habido un error al subir el nuevo avatar.";
                         }
                     }
 
@@ -157,7 +157,7 @@ if(isset($_POST['modified'])){
                     $cod = getid($_SESSION['usuario']);
                     $uploadOk = 1;
                     if($imageFileType != "png") {
-                        echo "Solo se admiten imagenes en formato .png";
+                        $msgfinal = "Solo se admiten imagenes en formato .png";
                         $uploadOk = 0;
                     }
 
@@ -171,7 +171,7 @@ if(isset($_POST['modified'])){
                             $msgfinal = "Avatar modificado correctamente";
                             header( "Refresh:2; url='profile.php'");
                         } else {
-                            echo "Ha habido un error al subir el nuevo avatar.";
+                            $msgfinal = "Ha habido un error al subir el nuevo avatar.";
                         }
                     }
 
@@ -236,6 +236,11 @@ if(isset($_POST['modified'])){
 
             var mail = document.getElementById('mail');
             mail.oninput = function(){
+                test.style.visibility='visible';
+            }
+
+            var avatar = document.getElementById('imagen');
+            avatar.oninput = function(){
                 test.style.visibility='visible';
             }
 

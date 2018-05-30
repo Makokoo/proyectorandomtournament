@@ -60,11 +60,12 @@ session_start();
                 }
 
                 $items = 0;
+                $total = 0;
                 if(isset($_SESSION['carrito'])) {
                     $lista = $_SESSION['carrito']->getlista();
                     $items = count($lista);
 
-                    $total = 0;
+                    
                     if (count($lista) > 0) {
 
                         $conexion = conectar();
@@ -84,9 +85,15 @@ session_start();
 			<a class='res-nav_click' href='#'><i class='fa fa-bars'></i></a>
 		</div>
         <div style="background-color: #7cc576;height: 25px;" class="text-right">
-            <a href="ver_carrito.php" style="margin: 5px;">
+            <?php
+            if(isset($_SESSION['usuario'])){
+                ?>
+            <a href="./ver_carrito.php" style="margin: 5px;">
                 <span style="color:black; margin: 5px;" class="fa fa-shopping-cart"></span>
                 <span style="color: black; margin: 5px;">CARRITO(<?=$items?>) - TOTAL: <?=$total?>€</span>
             </a>
+            <?php
+        }
+        ?>
         </div>
 	</nav>

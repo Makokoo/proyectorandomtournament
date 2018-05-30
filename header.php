@@ -76,6 +76,8 @@ session_start();
                         }
 
                     }
+                }else{
+                	$total = 0;
                 }
 
                 ?>
@@ -84,9 +86,15 @@ session_start();
             <a class='res-nav_click' href='#'><i class='fa fa-bars'></i></a>
         </div>
         <div style="background-color: #7cc576;height: 25px;" class="text-right">
+        	<?php
+        	if(isset($_SESSION['usuario'])){
+        		?>
             <a href="./shop/ver_carrito.php" style="margin: 5px;">
                 <span style="color:black; margin: 5px;" class="fa fa-shopping-cart"></span>
                 <span style="color: black; margin: 5px;">CARRITO(<?=$items?>) - TOTAL: <?=$total?>€</span>
             </a>
+            <?php
+        }
+        ?>
         </div>
     </nav>

@@ -81,6 +81,7 @@ include_once 'cabecera.php';
                             $datos_torneo = getDatosTorneo($id_torneo);
                             $id_personajes = getPersonajesJuego($datos_torneo['id_juego']);
                             $first = false;
+                            $conexion->begin_transaction();
 
                             $mitad = count($ganadores) / 2;
                             for ($i = 0; $i < $mitad; $i++) {
@@ -107,7 +108,7 @@ include_once 'cabecera.php';
                                     $conexion->commit();
 
                                 } else {
-
+                                    echo "<script>alert('Ha ocurrido un error.'); window.location.href = 'tournaments_admin.php';</script>";
                                     $conexion->rollback();
                                 }
 
@@ -122,7 +123,7 @@ include_once 'cabecera.php';
                             $ganadores = getGanadores($id_torneo, 2);
                             $datos_torneo = getDatosTorneo($id_torneo);
                             $id_personajes = getPersonajesJuego($datos_torneo['id_juego']);
-
+                             $conexion->begin_transaction();
 
                             $random_personaje = rand(1, count($id_personajes));
                             $random_personaje2 = rand(1, count($id_personajes));
@@ -140,11 +141,29 @@ include_once 'cabecera.php';
                                     $conexion->commit();
 
                                 } else {
-
+                                    echo "<script>alert('Ha ocurrido un error.'); window.location.href = 'tournaments_admin.php';</script>";
                                     $conexion->rollback();
                                 }
 
 
+                        }
+
+                        if(isset($_GET['idopen'])){
+                            $id = $_GET['idopen'];
+                            $sql = "UPDATE torneos SET estado = 'iniciado' WHERE id_torneo = $id";
+                            $conexion = conectar();
+                            $conexion->begin_transaction();
+                            $conexion->query($sql);
+
+                            if ($conexion->affected_rows > 0) {
+
+                                    echo "<script>alert('Abiertas las inscripciones!'); window.location.href = 'tournaments_admin.php';</script>";
+                                    $conexion->commit();
+
+                                } else {
+                                    echo "<script>alert('Ha ocurrido un error.'); window.location.href = 'tournaments_admin.php';</script>";
+                                    $conexion->rollback();
+                                }
                         }
                     }
                 }
