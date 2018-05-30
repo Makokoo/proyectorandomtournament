@@ -84,8 +84,11 @@ if(!isset($_POST['message'])) {
                             if($datos_articulo['estado'] == "alta"){
                                 if($datos_articulo['stock'] > 0){
                                     if(isset($_SESSION['usuario'])){
+                                        $stock = $datos_articulo['stock'];
+                                        if($stock >= 10){$color = 'darkgreen';}else{$color = 'darkred';}
+                                        echo "<p style='color: $color'>Quedan (".$stock.") unidades. </p>";
                                     echo "<form action='alcarrito.php' method='post'>
-                                    Cantidad: <input type='number' min='1' name='cantidad' value='cantidad'>
+                                    Cantidad: <input type='number' min='1' name='cantidad' max='$stock' value='cantidad'>
                                     <input type='hidden' name='id_articulo' id='id_articulo' value='$id_articulo'>
                                     <input type='submit' value='Añadir al carrito' id='alcarro' name='alcarro'>
                                     </form>";

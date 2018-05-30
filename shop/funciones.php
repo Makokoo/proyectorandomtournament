@@ -801,4 +801,15 @@ function getValoracionMedia($id_articulo){
     return $valoracion;
 }
 
+function restarStock($cod_articulo, $cantidad){
+    $conexion = conectar();
+    $sql = "UPDATE articulos SET stock = stock - $cantidad WHERE cod_articulo = $cod_articulo";
+    $conexion->query($sql);
+    if($conexion->affected_rows > 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 
