@@ -65,13 +65,25 @@ if($partidas_jugadas > 0) {
                 <h3 class="text-center">Estadísticas</h3>
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" style="width:<?=$porcganadas?>%">
-                        Victorias(<?=round($porcganadas,2)?>%)
+                        <?php
+                        if($partidas_jugadas>0){
+                        echo "Victorias(".round($porcganadas,2)."%)";
+                        }
+                        ?>
                     </div>
                     <div class="progress-bar progress-bar-warning" role="progressbar" style="width:<?=$porcempatadas?>%">
-                        Empates(<?=round($porcempatadas,2)?>%)
+                        <?php
+                        if($partidas_jugadas>0){
+                        echo "Empates(".round($porcempatadas,2)."%)";
+                        }
+                        ?>
                     </div>
                     <div class="progress-bar progress-bar-danger" role="progressbar" style="width:<?=$porcperdidas?>%">
-                        Derrotas(<?=round($porcperdidas,2)?>%)
+                        <?php
+                        if($partidas_jugadas>0){
+                        echo "Derrotas(".round($porcperdidas,2)."%)";
+                        }
+                        ?>
                     </div>
                 </div>
                 <table class="table text-center">
